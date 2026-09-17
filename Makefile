@@ -62,6 +62,12 @@ registry-write:
 test:
 	pytest tests/ -v
 
+# --- Dashboard ---------------------------------------------------------------
+
+.PHONY: dashboard
+dashboard:
+	cd dashboard && streamlit run app.py
+
 # --- Help --------------------------------------------------------------------
 
 .PHONY: help

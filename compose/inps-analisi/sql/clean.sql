@@ -174,5 +174,28 @@ regionale AS (
 SELECT anno, metrica, sesso, CAST(valore AS BIGINT) AS valore, CAST(NULL AS VARCHAR) AS regione
 FROM nazionale
 UNION ALL
-SELECT anno, metrica, sesso, CAST(valore AS BIGINT) AS valore, regione
+SELECT anno, metrica, sesso, CAST(valore AS BIGINT) AS valore,
+    CASE
+        WHEN UPPER(regione) = 'ABRUZZO' THEN 'Abruzzo'
+        WHEN UPPER(regione) = 'BASILICATA' THEN 'Basilicata'
+        WHEN UPPER(regione) = 'CALABRIA' THEN 'Calabria'
+        WHEN UPPER(regione) = 'CAMPANIA' THEN 'Campania'
+        WHEN UPPER(regione) LIKE '%EMILIA%' THEN 'Emilia-Romagna'
+        WHEN UPPER(regione) LIKE '%FRIULI%' THEN 'Friuli Venezia Giulia'
+        WHEN UPPER(regione) = 'LAZIO' THEN 'Lazio'
+        WHEN UPPER(regione) = 'LIGURIA' THEN 'Liguria'
+        WHEN UPPER(regione) = 'LOMBARDIA' THEN 'Lombardia'
+        WHEN UPPER(regione) = 'MARCHE' THEN 'Marche'
+        WHEN UPPER(regione) = 'MOLISE' THEN 'Molise'
+        WHEN UPPER(regione) = 'PIEMONTE' THEN 'Piemonte'
+        WHEN UPPER(regione) = 'PUGLIA' THEN 'Puglia'
+        WHEN UPPER(regione) = 'SARDEGNA' THEN 'Sardegna'
+        WHEN UPPER(regione) = 'SICILIA' THEN 'Sicilia'
+        WHEN UPPER(regione) = 'TOSCANA' THEN 'Toscana'
+        WHEN UPPER(regione) LIKE '%TRENTINO%' THEN 'Trentino-Alto Adige'
+        WHEN UPPER(regione) = 'UMBRIA' THEN 'Umbria'
+        WHEN UPPER(regione) LIKE '%VALLE D%' THEN 'Valle d''Aosta'
+        WHEN UPPER(regione) = 'VENETO' THEN 'Veneto'
+        ELSE regione
+    END AS regione
 FROM regionale
