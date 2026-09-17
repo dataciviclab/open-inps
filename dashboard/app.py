@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Open INPS · Dashboard Streamlit
-Intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
-"""
+"""Open INPS · Dashboard Streamlit"""
 
 import streamlit as st
 
@@ -20,19 +17,19 @@ pages = {
     "Analisi": [
         st.Page("pages/02_Genere.py", title="Genere", icon="⚖️"),
         st.Page("pages/03_Territorio.py", title="Territorio", icon="🗺️"),
-        st.Page("pages/04_Lifecycle.py", title="Lifecycle", icon="🔄"),
     ],
-    "Strumenti": [
-        st.Page("pages/05_SQL.py", title="Query SQL", icon="🧪"),
+    "Deep Dive": [
+        st.Page("pages/04_Pensioni.py", title="Pensioni", icon="🏦"),
+        st.Page("pages/05_Lavoro.py", title="Lavoro", icon="💼"),
+    ],
+    "Esplora": [
+        st.Page("pages/06_Dati.py", title="Tabelle", icon="📋"),
     ],
 }
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Dati: INPS Osservatori Statistici")
-st.sidebar.caption(
-    "Codice: [dataciviclab/open-inps](https://github.com/dataciviclab/open-inps)"
-)
-st.sidebar.caption("[DataCivicLab](https://dataciviclab.org/) · CC BY 4.0")
+st.sidebar.caption("[dataciviclab/open-inps](https://github.com/dataciviclab/open-inps)")
 
 pg = st.navigation(pages, position="sidebar")
 pg.run()

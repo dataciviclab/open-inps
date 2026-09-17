@@ -1,19 +1,19 @@
-"""Genere — Il paradosso di genere nel sistema welfare italiano."""
+"""Genere — Il paradosso: donne piu pensioni, meno lavoro."""
 
 import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import METRICHE, fmt_it, fmt_pct, load_mart
+from sources import METRICHE, fmt_it, load_compose
 
 st.title("⚖️ Genere")
-st.markdown("**Il paradosso**: le donne hanno più pensioni ma meno lavoro.")
+st.markdown("**Il paradosso**: le donne hanno piu pensioni ma meno lavoro. Il ciclo e': meno assunzioni → piu NASpI → piu pensioni.")
 
-# ── Carica dati ─────────────────────────────────────────────────────────────
+# ── Dati ────────────────────────────────────────────────────────────────────
 
 @st.cache_data(ttl=300, show_spinner=False)
-def load() -> pd.DataFrame:
-    return load_mart("inps_analisi", "mart_nazionale", 2026)
+def load():
+    return load_compose("mart_nazionale")
 
 df = load()
 if df.empty:
@@ -22,71 +22,50 @@ if df.empty:
 
 # ── Filtri ──────────────────────────────────────────────────────────────────
 
-anno = st.selectbox("Anno", sorted(df["anno"].unique(), reverse=True), key="gen_anno")
+anno = st.selectbox("Anno", sorted(df["anno"].unique(), reverse=True))
 
 # ── Prepara dati ────────────────────────────────────────────────────────────
 
-df_anno = df[(df["anno"] == anno) & (df["sesso"].isin(["Maschi", "Femmine"]))]
-
-if df_anno.empty:
-    st.warning("Nessun dato per l'anno selezionato.")
-    st.stop()
-
-# Pivot per confronto diretto
-pivot = df_anno.pivot_table(index="metrica", columns="sesso", values="valore", aggfunc="sum").reset_index()
-pivot["metrica_label"] = pivot["metrica"].map(METRICHE)
+df_yr = df[(df["anno"] == anno) & (df["sesso"].isin(["Maschi", "Femmine"]))]
+pivot = df_yr.pivot_table(index="metrica", columns="sesso", values="valore", aggfunc="sum").reset_index()
+pivot["label"] = pivot["metrica"].map(METRICHE)
 pivot["gap_pct"] = ((pivot["Femmine"] - pivot["Maschi"]) / pivot["Maschi"] * 100).round(1)
 
-# ── Grafico a barre impilatte ──────────────────────────────────────────────
+# ── Grafico a barre ─────────────────────────────────────────────────────────
 
 st.subheader(f"Confronto donne/uomini — {anno}")
 
-df_bar = df_anno[["metrica", "sesso", "valore"]].copy()
-df_bar["metrica_label"] = df_bar["metrica"].map(METRICHE)
+df_bar = df_yr[["metrica", "sesso", "valore"]].copy()
+df_bar["label"] = df_bar["metrica"].map(METRICHE)
 
 chart = alt.Chart(df_bar).mark_bar().encode(
     x=alt.X("valore:Q", title="Valore", scale=alt.Scale(type="symlog")),
-    y=alt.Y("metrica_label:N", title="", sort="-x"),
-    color=alt.Color("sesso:N", title="Sesso", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
-    tooltip=["metrica_label", "sesso", alt.Tooltip("valore", format=",.0f")],
-).properties(height=350)
-
+    y=alt.Y("label:N", title="", sort="-x"),
+    color=alt.Color("sesso:N", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
+    tooltip=["label", "sesso", alt.Tooltip("valore", format=",.0f")],
+).properties(height=300)
 st.altair_chart(chart, use_container_width=True)
 
-# ── Indice di genere ────────────────────────────────────────────────────────
+# ── Tabella gap ─────────────────────────────────────────────────────────────
 
-st.subheader("Indice di genere (rapporto F/M)")
+st.subheader("Gap di genere")
+df_gap = pivot[["label", "Maschi", "Femmine", "gap_pct"]].copy()
+df_gap.columns = ["Metrica", "Maschi", "Femmine", "Gap %"]
+st.dataframe(df_gap, use_container_width=True, hide_index=True)
 
-df_indice = pivot[["metrica_label", "Maschi", "Femmine", "gap_pct"]].copy()
-df_indice.columns = ["Metrica", "Maschi", "Femmine", "Gap %"]
-st.dataframe(df_indice, use_container_width=True, hide_index=True)
+# ── Trend gap ───────────────────────────────────────────────────────────────
 
-st.info(
-    "Gap positivo = più donne. Gap negativo = più uomini. "
-    "Le donne dominano pensioni e NASpI, gli uomini lavoro e assunzioni."
-)
+st.subheader("📉 Evoluzione del gap")
 
-# ── Trend gap di genere ────────────────────────────────────────────────────
+met = st.selectbox("Metrica", list(METRICHE.keys()), format_func=lambda x: METRICHE[x], key="gap_met")
+df_t = df[(df["metrica"] == met) & (df["sesso"].isin(["Maschi", "Femmine"]))]
+pivot_t = df_t.pivot_table(index="anno", columns="sesso", values="valore", aggfunc="sum").reset_index()
+pivot_t = pivot_t.dropna(subset=["Maschi", "Femmine"])
+pivot_t["gap_pct"] = ((pivot_t["Femmine"] - pivot_t["Maschi"]) / pivot_t["Maschi"] * 100).round(1)
 
-st.subheader("📉 Evoluzione del gap di genere")
-
-df_trend = df[df["sesso"].isin(["Maschi", "Femmine"])]
-pivot_trend = df_trend.pivot_table(index=["anno", "metrica"], columns="sesso", values="valore", aggfunc="sum").reset_index()
-pivot_trend = pivot_trend.dropna(subset=["Maschi", "Femmine"])
-pivot_trend["gap_pct"] = ((pivot_trend["Femmine"] - pivot_trend["Maschi"]) / pivot_trend["Maschi"] * 100).round(1)
-
-metrica_trend = st.selectbox(
-    "Metrica per trend",
-    options=list(METRICHE.keys()),
-    format_func=lambda x: METRICHE[x],
-    key="gen_trend_metrica",
-)
-
-df_trend_f = pivot_trend[pivot_trend["metrica"] == metrica_trend]
-if not df_trend_f.empty:
-    chart_trend = alt.Chart(df_trend_f).mark_line(point=True).encode(
-        x=alt.X("anno:O", title="Anno"),
-        y=alt.Y("gap_pct:Q", title="Gap F/M (%)"),
-        tooltip=["anno", alt.Tooltip("gap_pct", format="+.1f")],
-    ).properties(height=250)
-    st.altair_chart(chart_trend, use_container_width=True)
+chart2 = alt.Chart(pivot_t).mark_line(point=True, color="#d97706").encode(
+    x=alt.X("anno:O", title="Anno"),
+    y=alt.Y("gap_pct:Q", title="Gap F/M (%)"),
+    tooltip=["anno", alt.Tooltip("gap_pct", format="+.1f")],
+).properties(height=250)
+st.altair_chart(chart2, use_container_width=True)

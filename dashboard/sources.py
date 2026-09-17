@@ -1,6 +1,8 @@
 """Fonti dati per la dashboard Open INPS.
 
-Usa lab-connectors per leggere i mart parquet da out/data/mart/.
+Due livelli:
+- Compose: per analisi incrociate (genere, territorio, panoramica)
+- Singoli dataset: per deep dive (pensioni, lavoro)
 """
 
 from __future__ import annotations
@@ -19,17 +21,20 @@ LOCAL_ROOT = str(REPO_ROOT / "out" / "data")
 # ── Formattazione italiana ─────────────────────────────────────────────────
 
 def fmt_it(n: float | int | None) -> str:
-    """1234567 → '1.234.567'"""
-    if n is None:
-        return "–"
+    if n is None: return "–"
     return f"{n:,.0f}".replace(",", ".")
 
-# ── Loader ──────────────────────────────────────────────────────────────────
+# ── Loader compose ──────────────────────────────────────────────────────────
 
 @st.cache_data(ttl=300, show_spinner=False)
-def load_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
-    """Carica un singolo mart parquet da out/data/mart/."""
-    return load_mart_table(slug, table, year, local_root=LOCAL_ROOT)
+def load_compose(table: str) -> pd.DataFrame:
+    return load_mart_table("inps_analisi", table, 2026, local_root=LOCAL_ROOT)
+
+# ── Loader singoli dataset ──────────────────────────────────────────────────
+
+@st.cache_data(ttl=300, show_spinner=False)
+def load_mart(slug: str, table: str) -> pd.DataFrame:
+    return load_mart_table(slug, table, 2026, local_root=LOCAL_ROOT)
 
 # ── Costanti ────────────────────────────────────────────────────────────────
 
@@ -39,8 +44,6 @@ REGIONI = [
     "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia",
     "Toscana", "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto",
 ]
-
-ANNI = list(range(2014, 2027))
 
 METRICHE = {
     "pensioni_vigenti": "Pensioni in pagamento",
