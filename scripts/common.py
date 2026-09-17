@@ -46,6 +46,14 @@ def flatten_nested(data: dict) -> list[dict]:
     rows = []
 
     def walk_node(node: dict, prefix: dict):
+        # Se il nodo ha misure dirette (senza columns), e' un leaf
+        direct_measures = node.get("measures", [])
+        if direct_measures and not node.get("columns"):
+            leaf = dict(prefix)
+            for m in direct_measures:
+                leaf[m["label"]] = m.get("value", "")
+            rows.append(leaf)
+        # Scendi nelle columns
         for col_group in node.get("columns", []):
             col_dim = col_group.get("col_id", "")
             for col_item in col_group.get("values", []):
@@ -54,6 +62,7 @@ def flatten_nested(data: dict) -> list[dict]:
                     leaf[m["label"]] = m.get("value", "")
                 if any(m.get("label") for m in col_item.get("measures", [])):
                     rows.append(leaf)
+        # Scendi nei rows
         for row_group in node.get("rows", []):
             row_dim = row_group.get("row_id", "")
             for row_item in row_group.get("values", []):

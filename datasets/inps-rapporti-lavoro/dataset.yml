@@ -1,0 +1,58 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_rapporti_lavoro"
+  source_id: "inps"
+  tags: [lavoro, inps, assunzioni, mercato-lavoro]
+  category: lavoro
+  description: "Nuovi rapporti di lavoro per provincia: assunzioni, cessazioni, per sesso, eta, settore, tipo contratto."
+  years: [2026]
+  time_coverage:
+    start_year: 2014
+    end_year: 2026
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "inps_rapporti"
+      type: "script"
+      args:
+        command: "python3 extract.py raw.csv"
+        output: "raw.csv"
+      client:
+        timeout: 180
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "utf-8"
+  required_columns: [anno, sesso, n_rapporti]
+  validate:
+    min_rows: 1000
+
+mart:
+  tables:
+    - name: "mart_rapporti_regione"
+      sql: "sql/mart_regione.sql"
+    - name: "mart_rapporti_provincia"
+      sql: "sql/mart_provincia.sql"
+    - name: "mart_rapporti_eta"
+      sql: "sql/mart_eta.sql"
+  required_tables: [mart_rapporti_regione, mart_rapporti_provincia]
+  validate:
+    table_rules:
+      mart_rapporti_regione:
+        min_rows: 100
+      mart_rapporti_provincia:
+        min_rows: 100
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"
