@@ -1,0 +1,7 @@
+out/
+output/
+__pycache__/
+*.pyc
+.tmp/
+*.parquet
+*.csv

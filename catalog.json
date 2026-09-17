@@ -1,0 +1,1348 @@
+{
+  "source": "INPS Osservatori Statistici",
+  "url": "https://servizi2.inps.it/servizi/osservatoristatistici/",
+  "extracted_at": "2026-09-17T16:27:47+01:00",
+  "total_observatories": 194,
+  "pensioni_observatories": [
+    {
+      "path": "Monitoraggio dei flussi di pensionamento",
+      "id": 475,
+      "nome": "Dati trimestrali per regione e gestione",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul reddito e pensione di cittadinanza",
+      "id": 452,
+      "nome": "Nuclei beneficiari che hanno percepito almeno una mensilità di RdC/PdC nell'anno di riferimento",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 378,
+      "nome": "Complesso delle pensioni vigenti",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 389,
+      "nome": "Pensioni per regime di liquidazione",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 380,
+      "nome": "Pensioni integrate al trattamento minimo",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 504,
+      "nome": "Pensioni con maggiorazioni sociali",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 379,
+      "nome": "Pensioni in convenzione internazionale",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 377,
+      "nome": "Complesso delle pensioni vigenti per residenza del titolare",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 390,
+      "nome": "Serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 388,
+      "nome": "Pensioni per anno di decorrenza",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 381,
+      "nome": "Prestazioni agli invalidi civili",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 383,
+      "nome": "Prestazioni agli invalidi civili per residenza del titolare",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 384,
+      "nome": "Prestazioni agli invalidi civili - serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 382,
+      "nome": "Invalidi civili per composizione importo",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 370,
+      "nome": "Complesso delle pensioni liquidate",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 372,
+      "nome": "Pensioni per regime di liquidazione",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 371,
+      "nome": "Pensioni integrate al trattamento minimo",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 376,
+      "nome": "Serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate > Prestazioni agli invalidi civili",
+      "id": 374,
+      "nome": "Prestazioni agli invalidi civili",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate > Prestazioni agli invalidi civili",
+      "id": 375,
+      "nome": "Prestazioni agli invalidi civili - serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Prestazioni pensionistiche",
+      "id": 416,
+      "nome": "Prestazioni pensionistiche totali",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 413,
+      "nome": "Beneficiari totali",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 415,
+      "nome": "Pensionati di vecchiaia",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 414,
+      "nome": "Pensionati di invalidità",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 410,
+      "nome": "Beneficiari di pensioni ai superstiti",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 412,
+      "nome": "Beneficiari di prestazioni indennitarie",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 411,
+      "nome": "Beneficiari di prestazioni assistenziali",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni Gestione Spettacolo e Sport > Pensioni della Gestione Spettacolo e Sport (Anni 2015-2019)",
+      "id": 316,
+      "nome": "Vigenti",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni Gestione Spettacolo e Sport > Pensioni della Gestione Spettacolo e Sport (Anni 2015-2019)",
+      "id": 315,
+      "nome": "Liquidate",
+      "interactive": true
+    }
+  ],
+  "all_observatories": [
+    {
+      "path": "Monitoraggio dei flussi di pensionamento",
+      "id": 475,
+      "nome": "Dati trimestrali per regione e gestione",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro",
+      "id": 408,
+      "nome": "Nuovi rapporti di lavoro occasionale",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro",
+      "id": 488,
+      "nome": "Rapporti in somministrazione",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Nuovi rapporti di lavoro",
+      "id": 407,
+      "nome": "Nuovi rapporti di lavoro per settore di attività economica Nace rev. 2 (anni 2014-2024)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Nuovi rapporti di lavoro",
+      "id": 528,
+      "nome": "Nuovi rapporti di lavoro per settore di attività economica Nace rev. 2.1 (dal 2025)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Nuovi rapporti di lavoro",
+      "id": 489,
+      "nome": "Nuovi rapporti di lavoro per provincia",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Variazioni contrattuali",
+      "id": 409,
+      "nome": "Variazioni contrattuali per settore di attività economica Nace rev. 2 (anni 2014-2024)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Variazioni contrattuali",
+      "id": 529,
+      "nome": "Variazioni contrattuali per settore di attività economica Nace rev. 2.1 (dal 2025)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Variazioni contrattuali",
+      "id": 491,
+      "nome": "Variazioni contrattuali per provincia",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Cessazioni di rapporti di lavoro",
+      "id": 406,
+      "nome": "Cessazioni di rapporti di lavoro per settore di attività economica Nace rev. 2 (anni 2014-2024)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Cessazioni di rapporti di lavoro",
+      "id": 530,
+      "nome": "Cessazioni di rapporti di lavoro per settore di attività economica Nace rev. 2.1 (dal 2025)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Osservatorio sul mercato del lavoro - Assunzioni, trasformazioni e cessazioni di rapporti di lavoro > Cessazioni di rapporti di lavoro",
+      "id": 490,
+      "nome": "Cessazioni di rapporti di lavoro per provincia",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sul reddito e pensione di cittadinanza",
+      "id": 452,
+      "nome": "Nuclei beneficiari che hanno percepito almeno una mensilità di RdC/PdC nell'anno di riferimento",
+      "interactive": true
+    },
+    {
+      "path": "Imprese",
+      "id": 321,
+      "nome": "Imprese del settore privato non agricolo e posizioni lavorative",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 337,
+      "nome": "Anno 2008",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 338,
+      "nome": "Anno 2009",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 339,
+      "nome": "Anno 2010",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 340,
+      "nome": "Anno 2011",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 341,
+      "nome": "Anno 2012",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 342,
+      "nome": "Anno 2013",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 343,
+      "nome": "Anno 2014",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 344,
+      "nome": "Anno 2015",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 345,
+      "nome": "Anno 2016",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 346,
+      "nome": "Anno 2017",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 447,
+      "nome": "Anno 2018",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 453,
+      "nome": "Anno 2019",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 478,
+      "nome": "Anno 2020",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 485,
+      "nome": "Anno 2021",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 501,
+      "nome": "Anno 2022",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 507,
+      "nome": "Anno 2023",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti nel mese",
+      "id": 522,
+      "nome": "Anno 2024",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per attività economica e provincia di lavoro",
+      "id": 348,
+      "nome": "Anni 2008-2013 (classificazione dell'attività economica ISTAT ATECO 2002)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per attività economica e provincia di lavoro",
+      "id": 347,
+      "nome": "Anni 2014-2018 (classificazione dell'attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per attività economica e provincia di lavoro",
+      "id": 492,
+      "nome": "Anni 2019-2023 (classificazione dell'attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per attività economica e provincia di lavoro",
+      "id": 525,
+      "nome": "Anno 2024(classificazione dell' attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per classi di importo della retribuzione annua e cittadinanza",
+      "id": 349,
+      "nome": "Anni 2014-2018 (classificazione dell'attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per classi di importo della retribuzione annua e cittadinanza",
+      "id": 493,
+      "nome": "Anni 2019-2023 (classificazione dell'attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Lavoratori dipendenti > Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno per classi di importo della retribuzione annua e cittadinanza",
+      "id": 526,
+      "nome": "Anno 2024 (classificazione dell'attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione",
+      "id": 328,
+      "nome": "Lavoratori in somministrazione retribuzioni e periodi retribuiti nell'anno",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 322,
+      "nome": "Anno 2012",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 323,
+      "nome": "Anno 2013",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 324,
+      "nome": "Anno 2014",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 325,
+      "nome": "Anno 2015",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 326,
+      "nome": "Anno 2016",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 327,
+      "nome": "Anno 2017",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 449,
+      "nome": "Anno 2018",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 460,
+      "nome": "Anno 2019",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 479,
+      "nome": "Anno 2020",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 486,
+      "nome": "Anno 2021",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 502,
+      "nome": "Anno 2022",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 518,
+      "nome": "Anno 2023",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori in somministrazione > Lavoratori in somministrazione nel mese",
+      "id": 523,
+      "nome": "Anno 2024",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 329,
+      "nome": "Anno 2012",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 330,
+      "nome": "Anno 2013",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 331,
+      "nome": "Anno 2014",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 332,
+      "nome": "Anno 2015",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 333,
+      "nome": "Anno 2016",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 334,
+      "nome": "Anno 2017",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 448,
+      "nome": "Anno 2018",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 459,
+      "nome": "Anno 2019",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 480,
+      "nome": "Anno 2020",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 487,
+      "nome": "Anno 2021",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 503,
+      "nome": "Anno 2022",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 519,
+      "nome": "Anno 2023",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti nel mese",
+      "id": 524,
+      "nome": "Anno 2024",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti retribuzioni e periodi retribuiti nell'anno",
+      "id": 335,
+      "nome": "Anni 2012-2013 (classificazione dell'attività economica ISTAT ATECO 2002)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti del settore privato non agricolo > Focus sui lavoratori intermittenti > Lavoratori intermittenti retribuzioni e periodi retribuiti nell'anno",
+      "id": 336,
+      "nome": "Anni 2014-2024 (classificazione dell'attività economica ISTAT ATECO 2007)",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dello spettacolo e sportivi > Anni 2015-2025 > Lavoratori dello spettacolo",
+      "id": 317,
+      "nome": "Lavoratori nel mese",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dello spettacolo e sportivi > Anni 2015-2025 > Lavoratori dello spettacolo",
+      "id": 318,
+      "nome": "Lavoratori nell'anno",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dello spettacolo e sportivi > Anni 2015-2025 > Sportivi",
+      "id": 319,
+      "nome": "Lavoratori nel mese",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dello spettacolo e sportivi > Anni 2015-2025 > Sportivi",
+      "id": 320,
+      "nome": "Lavoratori nell'anno",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori domestici",
+      "id": 350,
+      "nome": "Dati annuali",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori domestici",
+      "id": 351,
+      "nome": "Dati trimestrali",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici",
+      "id": 435,
+      "nome": "Lavoratori dipendenti retribuzioni e periodi retribuiti nell'anno",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 436,
+      "nome": "Anno 2014",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 437,
+      "nome": "Anno 2015",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 438,
+      "nome": "Anno 2016",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 439,
+      "nome": "Anno 2017",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 450,
+      "nome": "Anno 2018",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 458,
+      "nome": "Anno 2019",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 481,
+      "nome": "Anno 2020",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 494,
+      "nome": "Anno 2021",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 505,
+      "nome": "Anno 2022",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 508,
+      "nome": "Anno 2023",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori pubblici > Lavoratori pubblici > Lavoratori dipendenti nel mese",
+      "id": 521,
+      "nome": "Anno 2024",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici",
+      "id": 440,
+      "nome": "Enti pubblici dati annuali",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 443,
+      "nome": "Anno 2016",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 444,
+      "nome": "Anno 2017",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 451,
+      "nome": "Anno 2018",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 461,
+      "nome": "Anno 2019",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 484,
+      "nome": "Anno 2020",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 495,
+      "nome": "Anno 2021",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 506,
+      "nome": "Anno 2022",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 520,
+      "nome": "Anno 2023",
+      "interactive": true
+    },
+    {
+      "path": "Enti dipendenti pubblici > Enti dipendenti pubblici > Enti pubblici dati mensili",
+      "id": 527,
+      "nome": "Anno 2024",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e operai agricoli dipendenti",
+      "id": 360,
+      "nome": "Numero di aziende attive secondo la tipologia",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e operai agricoli dipendenti",
+      "id": 359,
+      "nome": "Numero aziende attive per classe dimensionale e categoria di contratto adottato",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e operai agricoli dipendenti",
+      "id": 358,
+      "nome": "Numero aziende attive e rapporti di lavoro nell'anno per settore di attività economica- Ateco 2002/2007",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e operai agricoli dipendenti",
+      "id": 361,
+      "nome": "Numero operai agricoli dipendenti nel mese",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e operai agricoli dipendenti",
+      "id": 362,
+      "nome": "Numero operai agricoli per classe di età sesso categoria di contratto e classi di giornate lavorate",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e operai agricoli dipendenti",
+      "id": 357,
+      "nome": "Cassa Integrazione Speciale Operai dell'Agricoltura - CISOA",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e lavoratori agricoli autonomi",
+      "id": 356,
+      "nome": "Numero aziende agricole",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e lavoratori agricoli autonomi",
+      "id": 354,
+      "nome": "Coltivatori diretti per stato del titolare",
+      "interactive": true
+    },
+    {
+      "path": "Mondo Agricolo > Aziende e lavoratori agricoli > Aziende e lavoratori agricoli autonomi",
+      "id": 355,
+      "nome": "Numero lavoratori agricoli autonomi",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori autonomi > Artigiani",
+      "id": 197,
+      "nome": "Dati annuali",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori autonomi > Artigiani",
+      "id": 198,
+      "nome": "Dati mensili",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori autonomi > Commercianti",
+      "id": 199,
+      "nome": "Dati annuali",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori autonomi > Commercianti",
+      "id": 200,
+      "nome": "Dati mensili",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori parasubordinati",
+      "id": 353,
+      "nome": "Contribuenti Professionisti per regione",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori parasubordinati",
+      "id": 352,
+      "nome": "Contribuenti Collaboratori per regione",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori parasubordinati",
+      "id": 483,
+      "nome": "Contribuenti professionisti e collaboratori per provincia",
+      "interactive": true
+    },
+    {
+      "path": "Lavoro accessorio",
+      "id": 230,
+      "nome": "Sezione sui voucher venduti",
+      "interactive": true
+    },
+    {
+      "path": "Lavoro accessorio",
+      "id": 229,
+      "nome": "Sezione sui prestatori di lavoro accessorio",
+      "interactive": true
+    },
+    {
+      "path": "Lavoratori dipendenti e indipendenti",
+      "id": 465,
+      "nome": "Totale Lavoratori, redditi da lavoro e settimane lavorate nell'anno",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2009 – 2022 (versione old) > Dettaglio mensile",
+      "id": 302,
+      "nome": "Classificazione secondo il codice statistico contributivo Inps",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2009 – 2022 (versione old) > Dettaglio mensile",
+      "id": 301,
+      "nome": "Classificazione Ateco 2002 Istat",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2009 – 2022 (versione old) > Serie storiche mensili",
+      "id": 304,
+      "nome": "Classificazione secondo il codice statistico contributivo Inps",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2009 – 2022 (versione old) > Serie storiche mensili",
+      "id": 303,
+      "nome": "Classificazione Ateco 2002 Istat",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2009 – 2022 (versione old) > Serie storiche annuali",
+      "id": 306,
+      "nome": "Classificazione secondo il codice statistico contributivo Inps",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2009 – 2022 (versione old) > Serie storiche annuali",
+      "id": 305,
+      "nome": "Classificazione Ateco 2002 Istat",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2023-2026 (versione new) > Serie storiche mensili",
+      "id": 512,
+      "nome": "Classificazione secondo il codice statistico contributivo Inps",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2023-2026 (versione new) > Serie storiche mensili",
+      "id": 511,
+      "nome": "Classificazione Ateco 2025 Istat",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2023-2026 (versione new) > Serie storiche annuali",
+      "id": 516,
+      "nome": "Classificazione secondo il codice statistico contributivo Inps",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Cassa Integrazione Guadagni > Anni 2023-2026 (versione new) > Serie storiche annuali",
+      "id": 515,
+      "nome": "Classificazione Ateco 2025 Istat",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Fondi di solidarietà > Anni 2017 – 2022 (versione old)",
+      "id": 454,
+      "nome": "Dettaglio mensile",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Fondi di solidarietà > Anni 2017 – 2022 (versione old)",
+      "id": 455,
+      "nome": "Serie storiche mensili",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Fondi di solidarietà > Anni 2017 – 2022 (versione old)",
+      "id": 457,
+      "nome": "Serie storiche annuali",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Fondi di solidarietà > Anni 2023-2026 (versione new)",
+      "id": 513,
+      "nome": "Dettaglio mensile",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Fondi di solidarietà > Anni 2023-2026 (versione new)",
+      "id": 514,
+      "nome": "Serie storiche mensili",
+      "interactive": true
+    },
+    {
+      "path": "Cassa integrazione guadagni e fondi di solidarietà - Ore autorizzate > Fondi di solidarietà > Anni 2023-2026 (versione new)",
+      "id": 517,
+      "nome": "Serie storiche annuali",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Politiche attive",
+      "id": 399,
+      "nome": "Statistiche per Provincia di Lavoro",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Politiche passive",
+      "id": 400,
+      "nome": "Disoccupazione Agricola",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Politiche passive > Disoccupazione non agricola: NASPI e DIS-COLL > NASPI",
+      "id": 395,
+      "nome": "Beneficiari",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Politiche passive > Disoccupazione non agricola: NASPI e DIS-COLL > NASPI",
+      "id": 396,
+      "nome": "Trattamenti",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Politiche passive > Disoccupazione non agricola: NASPI e DIS-COLL > DIS-COLL",
+      "id": 397,
+      "nome": "Beneficiari",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Politiche passive > Disoccupazione non agricola: NASPI e DIS-COLL > DIS-COLL",
+      "id": 398,
+      "nome": "Trattamenti",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Altre Misure",
+      "id": 391,
+      "nome": "Indennità di Mobilità",
+      "interactive": true
+    },
+    {
+      "path": "Politiche occupazionali e del lavoro > Altre Misure",
+      "id": 392,
+      "nome": "Lavoratori Socialmente Utili",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Assegni al nucleo familiare",
+      "id": 422,
+      "nome": "Lavoratori dipendenti del settore privato",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Assegni al nucleo familiare",
+      "id": 424,
+      "nome": "Lavoratori parasubordinati",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Assegni al nucleo familiare",
+      "id": 425,
+      "nome": "Pensionati delle Gestioni dei lavoratori dipendenti del settore privato",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Assegni al nucleo familiare",
+      "id": 421,
+      "nome": "Lavoratori agricoli",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Assegni al nucleo familiare",
+      "id": 423,
+      "nome": "Lavoratori domestici",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Assegni familiari",
+      "id": 420,
+      "nome": "Pensionati delle Gestioni dei lavoratori autonomi",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo di maternità e paternità",
+      "id": 432,
+      "nome": "Lavoratrici dipendenti del settore privato comprese le lavoratrici in agricoltura",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo di maternità e paternità",
+      "id": 300,
+      "nome": "Lavoratori dipendenti del settore privato: congedo di paternità",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo di maternità e paternità",
+      "id": 431,
+      "nome": "Lavoratrici autonome",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo di maternità e paternità",
+      "id": 434,
+      "nome": "Lavoratrici parasubordinate",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo di maternità e paternità",
+      "id": 433,
+      "nome": "Lavoratrici domestiche",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo parentale",
+      "id": 427,
+      "nome": "Lavoratori dipendenti del settore privato e agricoli",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo parentale",
+      "id": 428,
+      "nome": "Lavoratori parasubordinati",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Congedo parentale",
+      "id": 426,
+      "nome": "Lavoratori autonomi",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Prestazioni sociali dei Comuni e dello Stato (maternità e ANF)",
+      "id": 418,
+      "nome": "Assegni di maternità concessi dai Comuni",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Prestazioni sociali dei Comuni e dello Stato (maternità e ANF)",
+      "id": 419,
+      "nome": "Assegni di maternità dello Stato",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Prestazioni sociali dei Comuni e dello Stato (maternità e ANF)",
+      "id": 417,
+      "nome": "Assegni al nucleo familiare con tre figli minori concessi dai Comuni",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Prestazioni ai lavoratori per il sostegno della disabilità grave: permessi Legge 104 e congedo straordinario",
+      "id": 429,
+      "nome": "Prestazioni ai lavoratori per il sostegno della disabilità grave: permessi Legge 104 e congedo straordinario",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Bonus asilo nido",
+      "id": 496,
+      "nome": " Bonus asilo nido (art.3)",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni a sostegno della famiglia (ANF, Maternità, L. 104/92) > Bonus asilo nido",
+      "id": 497,
+      "nome": "Forme di supporto domiciliare (art.4)",
+      "interactive": true
+    },
+    {
+      "path": "Polo unico di tutela della malattia",
+      "id": 403,
+      "nome": "Certificati di malattia",
+      "interactive": true
+    },
+    {
+      "path": "Polo unico di tutela della malattia",
+      "id": 405,
+      "nome": "Visite mediche di controllo",
+      "interactive": true
+    },
+    {
+      "path": "Polo unico di tutela della malattia",
+      "id": 404,
+      "nome": "Indici",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 378,
+      "nome": "Complesso delle pensioni vigenti",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 389,
+      "nome": "Pensioni per regime di liquidazione",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 380,
+      "nome": "Pensioni integrate al trattamento minimo",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 504,
+      "nome": "Pensioni con maggiorazioni sociali",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 379,
+      "nome": "Pensioni in convenzione internazionale",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 377,
+      "nome": "Complesso delle pensioni vigenti per residenza del titolare",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 390,
+      "nome": "Serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti",
+      "id": 388,
+      "nome": "Pensioni per anno di decorrenza",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 381,
+      "nome": "Prestazioni agli invalidi civili",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 383,
+      "nome": "Prestazioni agli invalidi civili per residenza del titolare",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 384,
+      "nome": "Prestazioni agli invalidi civili - serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni vigenti > Prestazioni agli invalidi civili",
+      "id": 382,
+      "nome": "Invalidi civili per composizione importo",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 370,
+      "nome": "Complesso delle pensioni liquidate",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 372,
+      "nome": "Pensioni per regime di liquidazione",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 371,
+      "nome": "Pensioni integrate al trattamento minimo",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate",
+      "id": 376,
+      "nome": "Serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate > Prestazioni agli invalidi civili",
+      "id": 374,
+      "nome": "Prestazioni agli invalidi civili",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni erogate dall'INPS (inclusa la Gestione Dipendenti Pubblici) > Pensioni liquidate > Prestazioni agli invalidi civili",
+      "id": 375,
+      "nome": "Prestazioni agli invalidi civili - serie storica",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Prestazioni pensionistiche",
+      "id": 416,
+      "nome": "Prestazioni pensionistiche totali",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 413,
+      "nome": "Beneficiari totali",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 415,
+      "nome": "Pensionati di vecchiaia",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 414,
+      "nome": "Pensionati di invalidità",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 410,
+      "nome": "Beneficiari di pensioni ai superstiti",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 412,
+      "nome": "Beneficiari di prestazioni indennitarie",
+      "interactive": true
+    },
+    {
+      "path": "Prestazioni pensionistiche e beneficiari del sistema pensionistico italiano > Beneficiari",
+      "id": 411,
+      "nome": "Beneficiari di prestazioni assistenziali",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni Gestione Spettacolo e Sport > Pensioni della Gestione Spettacolo e Sport (Anni 2015-2019)",
+      "id": 316,
+      "nome": "Vigenti",
+      "interactive": true
+    },
+    {
+      "path": "Pensioni Gestione Spettacolo e Sport > Pensioni della Gestione Spettacolo e Sport (Anni 2015-2019)",
+      "id": 315,
+      "nome": "Liquidate",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sugli stranieri",
+      "id": 464,
+      "nome": "Cittadini stranieri per condizione prevalente",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sugli stranieri",
+      "id": 462,
+      "nome": "Retribuzioni dei lavoratori dipendenti stranieri",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sugli stranieri",
+      "id": 463,
+      "nome": "Prestazioni ai pensionati stranieri",
+      "interactive": true
+    },
+    {
+      "path": "ISEE",
+      "id": 482,
+      "nome": "Dichiarazioni Sostitutive Uniche e ISEE",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sull'Assegno Unico Universale",
+      "id": 498,
+      "nome": "Figli beneficiari di almeno una mensilità di AUU nell'anno di riferimento (AUU a domanda - esclusi beneficiari RdC)",
+      "interactive": true
+    },
+    {
+      "path": "Osservatorio sull'Assegno Unico Universale",
+      "id": 499,
+      "nome": "Nuclei beneficiari di almeno una mensilità di AUU nell'anno di riferimento (AUU a domanda - esclusi beneficiari RdC)",
+      "interactive": true
+    }
+  ]
+}
