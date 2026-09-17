@@ -405,6 +405,93 @@
         "inps_rapporti_lavoro__mart_rapporti_provincia",
         "inps_rapporti_lavoro__mart_rapporti_eta"
       ]
+    },
+    {
+      "slug": "inps_retribuzioni",
+      "name": "Inps Retribuzioni",
+      "description": "Retribuzioni e lavoratori del settore privato per provincia, sesso, qualifica, contratto (obs 347+492).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2014,
+        "end": 2023
+      },
+      "tags": [
+        "lavoro",
+        "inps",
+        "retribuzioni",
+        "redditi",
+        "privato"
+      ],
+      "category": "lavoro",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "fonte",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "classe_eta",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_lavoratori",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "somma_retribuzioni",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "unita_lavorative",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_retribuzioni/2026/inps_retribuzioni_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_retribuzioni__mart_retribuzioni_regione",
+        "inps_retribuzioni__mart_retribuzioni_eta"
+      ]
     }
   ],
   "marts": [
@@ -547,6 +634,26 @@
         "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_regione.parquet",
         "multi_file": false
       }
+    },
+    {
+      "slug": "inps_retribuzioni__mart_retribuzioni_eta",
+      "dataset": "inps_retribuzioni",
+      "table": "mart_retribuzioni_eta",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_retribuzioni/2026/mart_retribuzioni_eta.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_retribuzioni__mart_retribuzioni_regione",
+      "dataset": "inps_retribuzioni",
+      "table": "mart_retribuzioni_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_retribuzioni/2026/mart_retribuzioni_regione.parquet",
+        "multi_file": false
+      }
     }
   ],
   "signals": [
@@ -687,6 +794,31 @@
         "finished_at": "2026-09-17T17:23:54.039019+00:00",
         "duration_seconds": 34.735
       }
+    },
+    {
+      "id": "inps_retribuzioni",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_retribuzioni",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T181803Z_ef6a688e",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "mart": 100
+        },
+        "output_rows": {
+          "mart": 530
+        },
+        "output_bytes": {
+          "mart": 8600
+        },
+        "started_at": "2026-09-17T18:18:03.873505+00:00",
+        "finished_at": "2026-09-17T18:18:04.035612+00:00",
+        "duration_seconds": 0.162
+      }
     }
   ],
   "codelists": [],
@@ -740,10 +872,16 @@
             "name": "Inps Rapporti Lavoro",
             "column": "regione",
             "semantic_type": "region_code"
+          },
+          {
+            "slug": "inps_retribuzioni",
+            "name": "Inps Retribuzioni",
+            "column": "regione",
+            "semantic_type": "region_code"
           }
         ],
         "types": {
-          "region_code": 5
+          "region_code": 6
         }
       },
       "Tempo": {
@@ -785,10 +923,16 @@
             "name": "Inps Rapporti Lavoro",
             "column": "anno",
             "semantic_type": "year"
+          },
+          {
+            "slug": "inps_retribuzioni",
+            "name": "Inps Retribuzioni",
+            "column": "anno",
+            "semantic_type": "year"
           }
         ],
         "types": {
-          "year": 5,
+          "year": 6,
           "month": 1
         }
       }
