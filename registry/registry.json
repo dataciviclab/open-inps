@@ -1,9 +1,75 @@
 {
   "schema_version": 1,
   "repo": "open-inps",
-  "source_repo": "open-inps",
+  "source_repo": "dataciviclab/open-inps",
   "updated_at": "2026-09-17",
   "datasets": [
+    {
+      "slug": "inps_analisi",
+      "name": "Inps Analisi",
+      "description": "Compose INPS: incrocio multi-dataset per analisi di genere, territorio e lifecycle.",
+      "source": "",
+      "source_id": "dataciviclab_composite",
+      "period": {
+        "start": 2026,
+        "end": 2026
+      },
+      "tags": [
+        "inps",
+        "compose",
+        "welfare",
+        "lavoro",
+        "pensioni",
+        "analisi"
+      ],
+      "category": "welfare",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "metrica",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "valore",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_analisi/2026/inps_analisi_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_analisi__mart_nazionale",
+        "inps_analisi__mart_territoriale",
+        "inps_analisi__mart_lifecycle",
+        "inps_analisi__mart_benchmark"
+      ]
+    },
     {
       "slug": "inps_assegno_unico",
       "name": "Inps Assegno Unico",
@@ -650,6 +716,46 @@
   ],
   "marts": [
     {
+      "slug": "inps_analisi__mart_benchmark",
+      "dataset": "inps_analisi",
+      "table": "mart_benchmark",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_benchmark.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_analisi__mart_lifecycle",
+      "dataset": "inps_analisi",
+      "table": "mart_lifecycle",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_lifecycle.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_analisi__mart_nazionale",
+      "dataset": "inps_analisi",
+      "table": "mart_nazionale",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_nazionale.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_analisi__mart_territoriale",
+      "dataset": "inps_analisi",
+      "table": "mart_territoriale",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_territoriale.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_assegno_unico__mart_au_isee",
       "dataset": "inps_assegno_unico",
       "table": "mart_au_isee",
@@ -851,6 +957,36 @@
     }
   ],
   "signals": [
+    {
+      "id": "compose:inps_analisi",
+      "source_id": "dataciviclab_composite",
+      "status": "ok",
+      "label": "inps_analisi",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T221537Z_843f6fd6",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "clean": 1716,
+          "mart": 1789
+        },
+        "output_bytes": {
+          "raw": 7364,
+          "clean": 8972,
+          "mart": 24508
+        },
+        "started_at": "2026-09-17T22:15:37.402520+00:00",
+        "finished_at": "2026-09-17T22:15:38.034594+00:00",
+        "duration_seconds": 0.632
+      }
+    },
     {
       "id": "inps_assegno_unico",
       "source_id": "inps",
@@ -1100,6 +1236,12 @@
         "label": "Regione",
         "datasets": [
           {
+            "slug": "inps_analisi",
+            "name": "Inps Analisi",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "inps_assegno_unico",
             "name": "Inps Assegno Unico",
             "column": "regione",
@@ -1149,13 +1291,19 @@
           }
         ],
         "types": {
-          "region_code": 8
+          "region_code": 9
         }
       },
       "Tempo": {
         "entity": "Tempo",
         "label": "Tempo / data",
         "datasets": [
+          {
+            "slug": "inps_analisi",
+            "name": "Inps Analisi",
+            "column": "anno",
+            "semantic_type": "year"
+          },
           {
             "slug": "inps_assegno_unico",
             "name": "Inps Assegno Unico",
@@ -1212,7 +1360,7 @@
           }
         ],
         "types": {
-          "year": 8,
+          "year": 9,
           "month": 1
         }
       }
