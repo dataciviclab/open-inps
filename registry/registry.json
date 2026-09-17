@@ -5,6 +5,80 @@
   "updated_at": "2026-09-17",
   "datasets": [
     {
+      "slug": "inps_assegno_unico",
+      "name": "Inps Assegno Unico",
+      "description": "Assegno Unico Universale: figli e nuclei beneficiari per regione, ISEE, disabilità (2022-2024).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2022,
+        "end": 2024
+      },
+      "tags": [
+        "welfare",
+        "inps",
+        "assegno-unico",
+        "famiglia"
+      ],
+      "category": "welfare",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "fascia_isee",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_figli",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_figlio",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_nucleo",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_assegno_unico/2026/inps_assegno_unico_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_assegno_unico__mart_au_regione",
+        "inps_assegno_unico__mart_au_isee"
+      ]
+    },
+    {
       "slug": "inps_cig",
       "name": "Inps Cig",
       "description": "CIG ore autorizzate per gestione, ramo, settore, regione (2023-2026).",
@@ -79,6 +153,86 @@
         "inps_cig__mart_cig_regione",
         "inps_cig__mart_cig_ramo",
         "inps_cig__mart_cig_mensile"
+      ]
+    },
+    {
+      "slug": "inps_dipendenti_pubblici",
+      "name": "Inps Dipendenti Pubblici",
+      "description": "Dipendenti pubblici: enti, retribuzioni e giornate lavorate per regione e forma giuridica (2022-2026).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2022,
+        "end": 2026
+      },
+      "tags": [
+        "lavoro",
+        "inps",
+        "pubblico",
+        "dipendenti-pubblici"
+      ],
+      "category": "lavoro",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "tipo_ente",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "forma_giuridica",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_enti",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "giorni_totali",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "retribuzione_totale",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_dipendenti_pubblici/2026/inps_dipendenti_pubblici_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_dipendenti_pubblici__mart_dp_regione",
+        "inps_dipendenti_pubblici__mart_dp_forma_giuridica"
       ]
     },
     {
@@ -496,6 +650,26 @@
   ],
   "marts": [
     {
+      "slug": "inps_assegno_unico__mart_au_isee",
+      "dataset": "inps_assegno_unico",
+      "table": "mart_au_isee",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_assegno_unico/2026/mart_au_isee.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_assegno_unico__mart_au_regione",
+      "dataset": "inps_assegno_unico",
+      "table": "mart_au_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_assegno_unico/2026/mart_au_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_cig__mart_cig_mensile",
       "dataset": "inps_cig",
       "table": "mart_cig_mensile",
@@ -522,6 +696,26 @@
       "location": {
         "type": "gcs",
         "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_dipendenti_pubblici__mart_dp_forma_giuridica",
+      "dataset": "inps_dipendenti_pubblici",
+      "table": "mart_dp_forma_giuridica",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_dipendenti_pubblici/2026/mart_dp_forma_giuridica.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_dipendenti_pubblici__mart_dp_regione",
+      "dataset": "inps_dipendenti_pubblici",
+      "table": "mart_dp_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_dipendenti_pubblici/2026/mart_dp_regione.parquet",
         "multi_file": false
       }
     },
@@ -658,6 +852,37 @@
   ],
   "signals": [
     {
+      "id": "inps_assegno_unico",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_assegno_unico",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T184301Z_96871a57",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 220,
+          "clean": 220,
+          "mart": 235
+        },
+        "output_bytes": {
+          "raw": 11599,
+          "clean": 3152,
+          "mart": 3662
+        },
+        "started_at": "2026-09-17T18:43:01.503791+00:00",
+        "finished_at": "2026-09-17T18:43:42.415102+00:00",
+        "duration_seconds": 40.911
+      }
+    },
+    {
       "id": "inps_cig",
       "source_id": "inps",
       "status": "ok",
@@ -686,6 +911,37 @@
         "started_at": "2026-09-17T17:33:34.309674+00:00",
         "finished_at": "2026-09-17T17:33:46.804718+00:00",
         "duration_seconds": 12.495
+      }
+    },
+    {
+      "id": "inps_dipendenti_pubblici",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_dipendenti_pubblici",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T184611Z_2e1bfac1",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 450,
+          "clean": 450,
+          "mart": 450
+        },
+        "output_bytes": {
+          "raw": 32069,
+          "clean": 6586,
+          "mart": 6929
+        },
+        "started_at": "2026-09-17T18:46:11.577537+00:00",
+        "finished_at": "2026-09-17T18:46:48.627127+00:00",
+        "duration_seconds": 37.05
       }
     },
     {
@@ -844,8 +1100,20 @@
         "label": "Regione",
         "datasets": [
           {
+            "slug": "inps_assegno_unico",
+            "name": "Inps Assegno Unico",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "inps_cig",
             "name": "Inps Cig",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "inps_dipendenti_pubblici",
+            "name": "Inps Dipendenti Pubblici",
             "column": "regione",
             "semantic_type": "region_code"
           },
@@ -881,13 +1149,19 @@
           }
         ],
         "types": {
-          "region_code": 6
+          "region_code": 8
         }
       },
       "Tempo": {
         "entity": "Tempo",
         "label": "Tempo / data",
         "datasets": [
+          {
+            "slug": "inps_assegno_unico",
+            "name": "Inps Assegno Unico",
+            "column": "anno",
+            "semantic_type": "year"
+          },
           {
             "slug": "inps_cig",
             "name": "Inps Cig",
@@ -901,6 +1175,12 @@
             "semantic_type": "month"
           },
           {
+            "slug": "inps_dipendenti_pubblici",
+            "name": "Inps Dipendenti Pubblici",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
             "slug": "inps_naspi",
             "name": "Inps Naspi",
             "column": "anno",
@@ -932,7 +1212,7 @@
           }
         ],
         "types": {
-          "year": 6,
+          "year": 8,
           "month": 1
         }
       }
