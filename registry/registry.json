@@ -1,0 +1,798 @@
+{
+  "schema_version": 1,
+  "repo": "open-inps",
+  "source_repo": "open-inps",
+  "updated_at": "2026-09-17",
+  "datasets": [
+    {
+      "slug": "inps_cig",
+      "name": "Inps Cig",
+      "description": "CIG ore autorizzate per gestione, ramo, settore, regione (2023-2026).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2023,
+        "end": 2026
+      },
+      "tags": [
+        "lavoro",
+        "inps",
+        "cig",
+        "cassa-integrazione",
+        "ammortizzatori"
+      ],
+      "category": "lavoro",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "gestione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "ramo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "mese",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "month"
+        },
+        {
+          "name": "oretot",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_cig/2026/inps_cig_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_cig__mart_cig_regione",
+        "inps_cig__mart_cig_ramo",
+        "inps_cig__mart_cig_mensile"
+      ]
+    },
+    {
+      "slug": "inps_naspi",
+      "name": "Inps Naspi",
+      "description": "NASpI: beneficiari e trattamenti per sesso, eta, durata, regione (obs 395+396).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2020,
+        "end": 2024
+      },
+      "tags": [
+        "lavoro",
+        "inps",
+        "naspi",
+        "disoccupazione",
+        "politiche-passive"
+      ],
+      "category": "lavoro",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "fonte",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "classe_eta",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "durata_mesi",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_beneficiari",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_naspi/2026/inps_naspi_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_naspi__mart_naspi_regione",
+        "inps_naspi__mart_naspi_eta",
+        "inps_naspi__mart_naspi_durata"
+      ]
+    },
+    {
+      "slug": "inps_pensioni_liquidate",
+      "name": "Inps Pensioni Liquidate",
+      "description": "Nuove pensioni INPS liquidate, per sesso, classe importo e regione.",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2021,
+        "end": 2025
+      },
+      "tags": [
+        "pensioni",
+        "inps",
+        "previdenza",
+        "welfare"
+      ],
+      "category": "pensioni",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "classe_importo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "n_pensioni",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_mensile_eur",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_pensioni_liquidate/2026/inps_pensioni_liquidate_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_pensioni_liquidate__mart_liquidate_importo",
+        "inps_pensioni_liquidate__mart_liquidate_regione"
+      ]
+    },
+    {
+      "slug": "inps_pensioni_vigenti",
+      "name": "Inps Pensioni Vigenti",
+      "description": "Stock di pensioni INPS in pagamento, per sesso, classe importo, eta e regione.",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2022,
+        "end": 2026
+      },
+      "tags": [
+        "pensioni",
+        "inps",
+        "previdenza",
+        "welfare"
+      ],
+      "category": "pensioni",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "classe_importo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "classe_eta",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "n_pensioni",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_totale_migliaia_eur",
+          "type": "BIGINT",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_mensile_eur",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_pensioni_vigenti/2026/inps_pensioni_vigenti_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_pensioni_vigenti__mart_vigenti_importo",
+        "inps_pensioni_vigenti__mart_vigenti_eta",
+        "inps_pensioni_vigenti__mart_vigenti_regione"
+      ]
+    },
+    {
+      "slug": "inps_rapporti_lavoro",
+      "name": "Inps Rapporti Lavoro",
+      "description": "Nuovi rapporti di lavoro per provincia: assunzioni, cessazioni, per sesso, eta, settore, tipo contratto.",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2014,
+        "end": 2026
+      },
+      "tags": [
+        "lavoro",
+        "inps",
+        "assunzioni",
+        "mercato-lavoro"
+      ],
+      "category": "lavoro",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_rapporto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "classe_eta",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_rapporti",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_rapporti_lavoro/2026/inps_rapporti_lavoro_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_rapporti_lavoro__mart_rapporti_regione",
+        "inps_rapporti_lavoro__mart_rapporti_provincia",
+        "inps_rapporti_lavoro__mart_rapporti_eta"
+      ]
+    }
+  ],
+  "marts": [
+    {
+      "slug": "inps_cig__mart_cig_mensile",
+      "dataset": "inps_cig",
+      "table": "mart_cig_mensile",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_mensile.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_cig__mart_cig_ramo",
+      "dataset": "inps_cig",
+      "table": "mart_cig_ramo",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_ramo.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_cig__mart_cig_regione",
+      "dataset": "inps_cig",
+      "table": "mart_cig_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_naspi__mart_naspi_durata",
+      "dataset": "inps_naspi",
+      "table": "mart_naspi_durata",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_naspi/2026/mart_naspi_durata.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_naspi__mart_naspi_eta",
+      "dataset": "inps_naspi",
+      "table": "mart_naspi_eta",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_naspi/2026/mart_naspi_eta.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_naspi__mart_naspi_regione",
+      "dataset": "inps_naspi",
+      "table": "mart_naspi_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_naspi/2026/mart_naspi_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensioni_liquidate__mart_liquidate_importo",
+      "dataset": "inps_pensioni_liquidate",
+      "table": "mart_liquidate_importo",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_liquidate/2026/mart_liquidate_importo.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensioni_liquidate__mart_liquidate_regione",
+      "dataset": "inps_pensioni_liquidate",
+      "table": "mart_liquidate_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_liquidate/2026/mart_liquidate_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensioni_vigenti__mart_vigenti_eta",
+      "dataset": "inps_pensioni_vigenti",
+      "table": "mart_vigenti_eta",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_vigenti/2026/mart_vigenti_eta.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensioni_vigenti__mart_vigenti_importo",
+      "dataset": "inps_pensioni_vigenti",
+      "table": "mart_vigenti_importo",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_vigenti/2026/mart_vigenti_importo.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensioni_vigenti__mart_vigenti_regione",
+      "dataset": "inps_pensioni_vigenti",
+      "table": "mart_vigenti_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_vigenti/2026/mart_vigenti_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_rapporti_lavoro__mart_rapporti_eta",
+      "dataset": "inps_rapporti_lavoro",
+      "table": "mart_rapporti_eta",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_eta.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_rapporti_lavoro__mart_rapporti_provincia",
+      "dataset": "inps_rapporti_lavoro",
+      "table": "mart_rapporti_provincia",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_provincia.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_rapporti_lavoro__mart_rapporti_regione",
+      "dataset": "inps_rapporti_lavoro",
+      "table": "mart_rapporti_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_regione.parquet",
+        "multi_file": false
+      }
+    }
+  ],
+  "signals": [
+    {
+      "id": "inps_cig",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_cig",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T173334Z_aa3ea8c4",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 386,
+          "clean": 386,
+          "mart": 382
+        },
+        "output_bytes": {
+          "raw": 21469,
+          "clean": 3596,
+          "mart": 4032
+        },
+        "started_at": "2026-09-17T17:33:34.309674+00:00",
+        "finished_at": "2026-09-17T17:33:46.804718+00:00",
+        "duration_seconds": 12.495
+      }
+    },
+    {
+      "id": "inps_naspi",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_naspi",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T172847Z_64fea3f0",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 550,
+          "clean": 550,
+          "mart": 530
+        },
+        "output_bytes": {
+          "raw": 38545,
+          "clean": 4389,
+          "mart": 5086
+        },
+        "started_at": "2026-09-17T17:28:47.878741+00:00",
+        "finished_at": "2026-09-17T17:29:02.592025+00:00",
+        "duration_seconds": 14.713
+      }
+    },
+    {
+      "id": "inps_pensioni_liquidate",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_pensioni_liquidate",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T170023Z_08e05434",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 470,
+          "clean": 470,
+          "mart": 360
+        },
+        "output_bytes": {
+          "raw": 26905,
+          "clean": 5154,
+          "mart": 5004
+        },
+        "started_at": "2026-09-17T17:00:23.019703+00:00",
+        "finished_at": "2026-09-17T17:00:43.245035+00:00",
+        "duration_seconds": 20.225
+      }
+    },
+    {
+      "id": "inps_pensioni_vigenti",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_pensioni_vigenti",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T170110Z_2b5fce93",
+        "year": 2026,
+        "status": "RUNNING",
+        "started_at": "2026-09-17T17:01:10.750376+00:00"
+      }
+    },
+    {
+      "id": "inps_rapporti_lavoro",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_rapporti_lavoro",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20260917T172319Z_01b1e301",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 6734,
+          "clean": 6734,
+          "mart": 6708
+        },
+        "output_bytes": {
+          "raw": 467525,
+          "clean": 23222,
+          "mart": 23434
+        },
+        "started_at": "2026-09-17T17:23:19.304445+00:00",
+        "finished_at": "2026-09-17T17:23:54.039019+00:00",
+        "duration_seconds": 34.735
+      }
+    }
+  ],
+  "codelists": [],
+  "entities": {
+    "entities": {
+      "Provincia": {
+        "entity": "Provincia",
+        "label": "Provincia",
+        "datasets": [
+          {
+            "slug": "inps_rapporti_lavoro",
+            "name": "Inps Rapporti Lavoro",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          }
+        ],
+        "types": {
+          "province_code": 1
+        }
+      },
+      "Regione": {
+        "entity": "Regione",
+        "label": "Regione",
+        "datasets": [
+          {
+            "slug": "inps_cig",
+            "name": "Inps Cig",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "inps_naspi",
+            "name": "Inps Naspi",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "inps_pensioni_liquidate",
+            "name": "Inps Pensioni Liquidate",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "inps_pensioni_vigenti",
+            "name": "Inps Pensioni Vigenti",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "inps_rapporti_lavoro",
+            "name": "Inps Rapporti Lavoro",
+            "column": "regione",
+            "semantic_type": "region_code"
+          }
+        ],
+        "types": {
+          "region_code": 5
+        }
+      },
+      "Tempo": {
+        "entity": "Tempo",
+        "label": "Tempo / data",
+        "datasets": [
+          {
+            "slug": "inps_cig",
+            "name": "Inps Cig",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "inps_cig",
+            "name": "Inps Cig",
+            "column": "mese",
+            "semantic_type": "month"
+          },
+          {
+            "slug": "inps_naspi",
+            "name": "Inps Naspi",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "inps_pensioni_liquidate",
+            "name": "Inps Pensioni Liquidate",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "inps_pensioni_vigenti",
+            "name": "Inps Pensioni Vigenti",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
+            "slug": "inps_rapporti_lavoro",
+            "name": "Inps Rapporti Lavoro",
+            "column": "anno",
+            "semantic_type": "year"
+          }
+        ],
+        "types": {
+          "year": 5,
+          "month": 1
+        }
+      }
+    },
+    "bridges": []
+  }
+}
