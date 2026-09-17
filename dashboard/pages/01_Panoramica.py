@@ -4,7 +4,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import ANNI, METRICHE, fmt_it, fmt_eur, load_mart
+from sources import METRICHE, fmt_it, load_mart
 
 st.title("🇮🇹 Open INPS")
 st.markdown("**Panoramica** — Il sistema pensionistico e del lavoro italiano.")
@@ -20,7 +20,7 @@ if df.empty:
     st.error("Dati non disponibili. Esegui `make run-compose` prima.")
     st.stop()
 
-# ── Anno disponibile per KPI ( ultimo anno con almeno 4 metriche) ──────────
+# ── Anno disponibile (ultimo con >=4 metriche con dati) ─────────────────────
 
 anni_completi = (
     df.groupby("anno")["metrica"]
@@ -49,28 +49,37 @@ df_anno = df[df["anno"] == anno]
 if sesso_filter != "Tutti":
     df_anno = df_anno[df_anno["sesso"] == sesso_filter]
 else:
-    # Se esiste "Totale", usa quello. Altrimenti somma Maschi+Femmine.
-    if (df_anno["sesso"] == "Totale").any():
-        df_anno = df_anno[df_anno["sesso"] == "Totale"]
-    else:
-        df_anno = df_anno[df_anno["sesso"].isin(["Maschi", "Femmine"])]
+    # Aggrega per ogni metrica: usa Totale se disponibile, altrimenti somma F+M
+    rows = []
+    for metrica in df_anno["metrica"].unique():
+        df_m = df_anno[df_anno["metrica"] == metrica]
+        if (df_m["sesso"] == "Totale").any():
+            rows.append(df_m[df_m["sesso"] == "Totale"])
+        else:
+            df_fm = df_m[df_m["sesso"].isin(["Maschi", "Femmine"])]
+            if not df_fm.empty:
+                rows.append(pd.DataFrame([{
+                    "anno": anno, "metrica": metrica, "sesso": "Totale",
+                    "valore": df_fm["valore"].sum()
+                }]))
+    df_anno = pd.concat(rows) if rows else df_anno[df_anno["sesso"] == "Totale"]
 
-# ── KPI ────────────────────────────────────────────────────────────────────
+# ── KPI (solo metriche con dati) ───────────────────────────────────────────
 
 st.markdown("---")
 st.subheader(f"Indicatori {anno}")
 
-k1, k2, k3, k4 = st.columns(4)
+kpi_metriche = ["pensioni_vigenti", "lavoratori_privati", "naspi", "cig_ore"]
+kpi_cols = st.columns(len(kpi_metriche))
 
-pensioni = df_anno[df_anno["metrica"] == "pensioni_vigenti"]["valore"].sum()
-lavoratori = df_anno[df_anno["metrica"] == "lavoratori_privati"]["valore"].sum()
-naspi = df_anno[df_anno["metrica"] == "naspi"]["valore"].sum()
-cig = df_anno[df_anno["metrica"] == "cig_ore"]["valore"].sum()
-
-k1.metric("Pensioni in pagamento", fmt_it(pensioni) if pensioni else "–")
-k2.metric("Lavoratori privati", fmt_it(lavoratori) if lavoratori else "–")
-k3.metric("Beneficiari NASpI", fmt_it(naspi) if naspi else "–")
-k4.metric("Ore CIG", fmt_it(cig) if cig else "–")
+for col, metrica in zip(kpi_cols, kpi_metriche):
+    val = df_anno[df_anno["metrica"] == metrica]["valore"].sum()
+    label = METRICHE.get(metrica, metrica)
+    with col:
+        if val > 0:
+            st.metric(label, fmt_it(int(val)))
+        else:
+            st.metric(label, "–", help=f"Dati non disponibili per {anno}")
 
 # ── Trend ───────────────────────────────────────────────────────────────────
 
@@ -90,7 +99,7 @@ if df_trend.empty:
 
 chart = alt.Chart(df_trend).mark_line(point=True, strokeWidth=2).encode(
     x=alt.X("anno:O", title="Anno"),
-    y=alt.Y("valore:Q", title=METRICHE.get(metrica_sel, metrica_sel), scale=alt.Scale(type="linear")),
+    y=alt.Y("valore:Q", title=METRICHE.get(metrica_sel, metrica_sel)),
     color=alt.Color("sesso:N", title="Sesso",
                      scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
     tooltip=["anno", "sesso", alt.Tooltip("valore", format=",.0f")],
