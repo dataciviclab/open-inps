@@ -2,6 +2,8 @@ out/
 output/
 __pycache__/
 *.pyc
+*.pyo
 .tmp/
 *.parquet
 *.csv
+.pytest_cache/
