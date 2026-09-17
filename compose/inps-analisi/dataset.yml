@@ -1,0 +1,86 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_analisi"
+  source_id: "dataciviclab_composite"
+  tags: [inps, compose, welfare, lavoro, pensioni, analisi]
+  category: welfare
+  description: "Compose INPS: incrocio multi-dataset per analisi di genere, territorio e lifecycle."
+  years: [2026]
+  time_coverage:
+    mode: snapshot
+
+# Compose: legge i clean parquet dei 7 dataset INPS e produce3 mart unificati.
+# Eseguire prima: toolkit run per tutti i dataset singoli in datasets/.
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "pensioni_vigenti"
+      type: local_file
+      args:
+        path: "../../out/data/clean/inps_pensioni_vigenti/2026/inps_pensioni_vigenti_2026_clean.parquet"
+        filename: "pensioni_vigenti.parquet"
+      primary: true
+
+support:
+  - type: dataset
+    name: pensioni_liquidate
+    config: ../../datasets/inps-pensioni-liquidate/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: retribuzioni
+    config: ../../datasets/inps-retribuzioni/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: rapporti
+    config: ../../datasets/inps-rapporti-lavoro/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: naspi
+    config: ../../datasets/inps-naspi/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: cig
+    config: ../../datasets/inps-cig/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: assegno
+    config: ../../datasets/inps-assegno-unico/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: dp
+    config: ../../datasets/inps-dipendenti-pubblici/dataset.yml
+    years: [2026]
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: config_only
+    mode: latest
+  required_columns: [anno, metrica, sesso, valore]
+  validate:
+    min_rows: 100
+
+mart:
+  tables:
+    - name: "mart_nazionale"
+      sql: "sql/mart_nazionale.sql"
+    - name: "mart_territoriale"
+      sql: "sql/mart_territoriale.sql"
+    - name: "mart_lifecycle"
+      sql: "sql/mart_lifecycle.sql"
+  required_tables: [mart_nazionale, mart_territoriale]
+  validate:
+    table_rules:
+      mart_nazionale:
+        min_rows: 50
+      mart_territoriale:
+        min_rows: 100
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"
