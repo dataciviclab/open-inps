@@ -1,0 +1,54 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_retribuzioni"
+  source_id: "inps"
+  tags: [lavoro, inps, retribuzioni, redditi, privato]
+  category: lavoro
+  description: "Retribuzioni e lavoratori del settore privato per provincia, sesso, qualifica, contratto (obs 347+492)."
+  years: [2026]
+  time_coverage:
+    start_year: 2014
+    end_year: 2023
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "inps_retribuzioni"
+      type: "script"
+      args:
+        command: "python3 extract.py raw.csv"
+        output: "raw.csv"
+      client:
+        timeout: 300
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "utf-8"
+  required_columns: [anno, sesso, n_lavoratori]
+  validate:
+    min_rows: 100
+
+mart:
+  tables:
+    - name: "mart_retribuzioni_regione"
+      sql: "sql/mart_regione.sql"
+    - name: "mart_retribuzioni_eta"
+      sql: "sql/mart_eta.sql"
+  required_tables: [mart_retribuzioni_regione]
+  validate:
+    table_rules:
+      mart_retribuzioni_regione:
+        min_rows: 100
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"
