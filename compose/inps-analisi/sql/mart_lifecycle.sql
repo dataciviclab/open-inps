@@ -1,6 +1,6 @@
 -- INPS Analisi — MART Lifecycle
--- Indice normalizzato del ciclo: lavoro → disoccupazione → pensione.
--- Ogni valore e' espresso come indice (100 = valore del primo anno).
+-- Indici normalizzati del ciclo: lavoro → disoccupazione → pensione.
+-- Base = primo anno disponibile per ogni metrica.
 
 WITH base AS (
     SELECT anno, metrica, sesso, valore,
@@ -14,5 +14,9 @@ SELECT
     metrica,
     sesso,
     valore,
-    CASE WHEN base_val > 0 THEN ROUND(valore * 100.0 / base_val, 1) ELSE NULL END AS indice
+    CASE WHEN base_val > 0 THEN ROUND(valore * 100.0 / base_val, 1) ELSE NULL END AS indice,
+    -- Share % sul totale della metrica
+    NULL AS share_pct,
+    -- YoY
+    LAG(valore) OVER (PARTITION BY metrica, sesso ORDER BY anno) AS valore_prec
 FROM base

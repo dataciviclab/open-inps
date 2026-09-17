@@ -1,4 +1,4 @@
-"""Panoramica — Il sistema welfare italiano in numei."""
+"""Panoramica — Il sistema welfare italiano in numeri."""
 
 import altair as alt
 import pandas as pd
@@ -13,9 +13,9 @@ st.markdown("**Panoramica** — Come si muove il sistema pensionistico e del lav
 
 @st.cache_data(ttl=300, show_spinner=False)
 def load():
-    return load_compose("mart_nazionale")
+    return load_compose("mart_nazionale"), load_compose("mart_benchmark")
 
-df = load()
+df, df_bench = load()
 if df.empty:
     st.error("Dati non disponibili.")
     st.stop()
@@ -57,11 +57,54 @@ for col, (metrica, label) in zip(cols, kpi_items):
             val = df_m[df_m["sesso"].isin(["Maschi", "Femmine"])]["valore"].sum()
     else:
         val = df_m[df_m["sesso"] == sesso]["valore"].sum()
+
+    # Delta YoY
+    df_m_prev = df[(df["anno"] == anno - 1) & (df["metrica"] == metrica)]
+    if sesso == "Tutti":
+        if (df_m_prev["sesso"] == "Totale").any():
+            val_prev = df_m_prev[df_m_prev["sesso"] == "Totale"]["valore"].sum()
+        else:
+            val_prev = df_m_prev[df_m_prev["sesso"].isin(["Maschi", "Femmine"])]["valore"].sum()
+    else:
+        val_prev = df_m_prev[df_m_prev["sesso"] == sesso]["valore"].sum()
+
+    delta = None
+    if val > 0 and val_prev > 0:
+        delta = f"{(val - val_prev) / val_prev * 100:+.1f}%"
+
     with col:
-        st.metric(label, fmt_it(int(val)) if val > 0 else "–")
+        st.metric(label, fmt_it(int(val)) if val else "–", delta=delta)
+
+# ── Benchmark strutturali ───────────────────────────────────────────────────
+
+st.markdown("---")
+st.subheader("📊 Benchmark strutturali")
+
+bench_yr = df_bench[df_bench["anno"] == anno]
+if not bench_yr.empty:
+    b = bench_yr.iloc[0]
+    b1, b2, b3, b4 = st.columns(4)
+
+    with b1:
+        val = b.get("rapporto_pensioni_lavoratori")
+        st.metric("Pensioni / Lavoratori", f"{val:.2f}" if pd.notna(val) else "–",
+                  help="Quante pensioni per ogni lavoratore privato")
+    with b2:
+        val = b.get("rapporto_naspi_assunzioni_pct")
+        st.metric("NASpI / Assunzioni", f"{val:.1f}%" if pd.notna(val) else "–",
+                  help="Quanti beneficiari NASpI per 100 nuove assunzioni")
+    with b3:
+        val = b.get("gap_genere_pensioni_pct")
+        st.metric("Gap F/M pensioni", f"+{val:.1f}%" if pd.notna(val) else "–",
+                  help="Quanto piu pensioni hanno le donne")
+    with b4:
+        val = b.get("gap_genere_assunzioni_pct")
+        st.metric("Gap M/F assunzioni", f"+{val:.1f}%" if pd.notna(val) else "–",
+                  help="Quante piu assunzioni hanno gli uomini")
 
 # ── Trend ───────────────────────────────────────────────────────────────────
 
+st.markdown("---")
 st.subheader("📈 Trend")
 
 met = st.selectbox("Metrica", list(METRICHE.keys()), format_func=lambda x: METRICHE[x])
@@ -71,7 +114,9 @@ chart = alt.Chart(df_t).mark_line(point=True, strokeWidth=2).encode(
     x=alt.X("anno:O", title="Anno"),
     y=alt.Y("valore:Q", title=METRICHE[met]),
     color=alt.Color("sesso:N", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
-    tooltip=["anno", "sesso", alt.Tooltip("valore", format=",.0f")],
+    tooltip=["anno", "sesso", alt.Tooltip("valore", format=",.0f"),
+             alt.Tooltip("share_pct", format=".1f", title="Share %"),
+             alt.Tooltip("yoy_pct", format="+.1f", title="YoY %")],
 ).properties(height=350)
 st.altair_chart(chart, use_container_width=True)
 

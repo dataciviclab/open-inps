@@ -71,6 +71,8 @@ mart:
       sql: "sql/mart_territoriale.sql"
     - name: "mart_lifecycle"
       sql: "sql/mart_lifecycle.sql"
+    - name: "mart_benchmark"
+      sql: "sql/mart_benchmark.sql"
   required_tables: [mart_nazionale, mart_territoriale]
   validate:
     table_rules:
