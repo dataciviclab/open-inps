@@ -1,46 +1,69 @@
-# DataCivicLab — Open INPS
-# Dati INPS: pensioni, lavoro, CIG, NASpI
+# CLI toolkit del Lab. La memoria DuckDB è controllata da safe_connect
+# (lab-connectors) via env DUCKDB_MEMORY_LIMIT (default 2GB); nei runner CI
+# con RAM ridotta il pipeline imposta limiti conservativi.
 TOOLKIT = toolkit
 
 DATASETS := $(shell find datasets -name dataset.yml 2>/dev/null | sort)
+COMPOSE  := $(shell find compose -name dataset.yml 2>/dev/null | sort)
 
-.PHONY: check run run-all clean registry registry-write extract help
+# --- Compose (eseguire dopo i dataset singoli) ------------------------------
 
-check:
-	@for f in $(DATASETS); do \
-		echo "-> $$f"; \
-		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run preflight --config "$$f" > /dev/null 2>&1 || exit 1; \
+.PHONY: compose
+compose:
+	@for f in $(COMPOSE); do \
+		echo "=== $$f ==="; \
+		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run --config "$$f" || exit 1; \
 	done
-	@echo "✅ All configs valid"
 
+# --- Dataset principali ------------------------------------------------------
+
+.PHONY: run
 run:
 	@for f in $(DATASETS); do \
 		echo "=== $$f ==="; \
 		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run --config "$$f" || exit 1; \
 	done
 
-run-all: run
+.PHONY: run-all
+run-all: run compose
 
+# --- Validazione config -------------------------------------------------------
+
+.PHONY: check
+check:
+	@for f in $(DATASETS) $(COMPOSE); do \
+		echo "-> $$f"; \
+		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run preflight --config "$$f" > /dev/null 2>&1 || exit 1; \
+	done
+	@echo "✅ All configs valid"
+
+# --- Pulizia -----------------------------------------------------------------
+
+.PHONY: clean
+clean:
+	rm -rf out/data/_runs out/data/probe out/data/raw out/data/clean out/data/mart out/data/cross .tmp/
+
+.PHONY: clean-runs
+clean-runs:
+	rm -rf out/data/_runs/
+
+# --- Registry (artifact catalogo — dry-run di default) -----------------------
+
+.PHONY: registry registry-write
 registry:
 	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open_inps
 
 registry-write:
 	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open_inps --write
 
-clean:
-	rm -rf out/data/_runs out/data/probe out/data/raw out/data/clean out/data/mart .tmp/
+# --- Test --------------------------------------------------------------------
 
-clean-runs:
-	rm -rf out/data/_runs/
+.PHONY: test
+test:
+	pytest tests/ -v
 
-extract:
-	@for f in $(DATASETS); do \
-		dir=$$(dirname "$$f"); \
-		if [ -f "$$dir/extract.py" ]; then \
-			echo "=== $$dir ==="; \
-			python3 "$$dir/extract.py" "out/raw_$$(basename $$dir).csv" || exit 1; \
-		fi; \
-	done
+# --- Help --------------------------------------------------------------------
 
+.PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:' Makefile | sort
