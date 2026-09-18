@@ -73,4 +73,4 @@ METRICHE = {
     "enti_pubblici": "Enti pubblici",
 }
 
-GEOJSON_URL = "https://raw.githubusercontent.com/openpolis/geojson-italian/master/geojson/limits_IT_regions.geojson"
+GEOJSON_URL = "https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson"

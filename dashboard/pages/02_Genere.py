@@ -51,7 +51,8 @@ df_bar["label"] = df_bar["metrica"].map(METRICHE)
 
 chart = alt.Chart(df_bar).mark_bar().encode(
     x=alt.X("valore:Q", title="Valore", scale=alt.Scale(type="symlog")),
-    y=alt.Y("label:N", title="", sort="-x"),
+    y=alt.Y("label:N", title=""),
+    yOffset=alt.YOffset("sesso:N"),
     color=alt.Color("sesso:N", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
     tooltip=["label", "sesso", alt.Tooltip("valore", format=",.0f")],
 ).properties(height=300)
