@@ -1,7 +1,6 @@
-"""Data sources — tutto derivato dal registry.
+"""Fonti dati per la dashboard Open INPS.
 
-Anni, slug e anni-per-dataset vengono da registry.json.
-Niente hardcoding di anni o slug nelle funzioni.
+Usa lab-connectors per leggere i mart parquet da out/data/mart/.
 """
 
 from __future__ import annotations
@@ -10,48 +9,27 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-from lab_connectors.dashboard import require_data
-from lab_connectors.dashboard.sources import detect_local_root, years_for_slug
+
 from lab_connectors.duckdb.queries import load_mart_table
-from lab_connectors.formatters import fmt_num
-from lab_connectors.registry import load_registry
+from lab_connectors.formatters import fmt_eur, fmt_num, fmt_pct
 
-# ── Init ────────────────────────────────────────────────────────────────────
+REPO_ROOT = Path(__file__).parent.parent
+LOCAL_ROOT = str(REPO_ROOT / "out" / "data")
 
-ROOT = Path(__file__).parent.parent
-LOCAL_ROOT = detect_local_root(ROOT)
+# ── Formattazione italiana ─────────────────────────────────────────────────
 
-_registry = load_registry(ROOT / "registry" / "registry.json")
-
-# Anni disponibili per il compose
-ALL_YEARS = years_for_slug(_registry, "inps_analisi") or list(range(2014, 2027))
-LATEST_YEAR = max(ALL_YEARS)
+def fmt_it(n: float | int | None) -> str:
+    """1234567 → '1.234.567'"""
+    if n is None:
+        return "–"
+    return f"{n:,.0f}".replace(",", ".")
 
 # ── Loader ──────────────────────────────────────────────────────────────────
 
 @st.cache_data(ttl=300, show_spinner=False)
-def load_compose(table: str) -> pd.DataFrame:
-    """Carica un mart dal compose inps_analisi."""
-    return load_mart_table("inps_analisi", table, LATEST_YEAR, local_root=LOCAL_ROOT)
-
-@st.cache_data(ttl=300, show_spinner=False)
-def load_mart(slug: str, table: str) -> pd.DataFrame:
-    """Carica un singolo mart parquet."""
-    return load_mart_table(slug, table, LATEST_YEAR, local_root=LOCAL_ROOT)
-
-@st.cache_data(ttl=300, show_spinner=False)
-def require_compose(table: str) -> pd.DataFrame:
-    """Carica compose con guardia dati."""
-    df = load_compose(table)
-    require_data(df, f"Compose {table} non disponibile. Esegui make run-compose.")
-    return df
-
-@st.cache_data(ttl=300, show_spinner=False)
-def require_mart(slug: str, table: str) -> pd.DataFrame:
-    """Carica mart con guardia dati."""
-    df = load_mart(slug, table)
-    require_data(df, f"Mart {slug}/{table} non disponibile. Esegui make run.")
-    return df
+def load_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
+    """Carica un singolo mart parquet da out/data/mart/."""
+    return load_mart_table(slug, table, year, local_root=LOCAL_ROOT)
 
 # ── Costanti ────────────────────────────────────────────────────────────────
 
@@ -61,6 +39,8 @@ REGIONI = [
     "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia",
     "Toscana", "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto",
 ]
+
+ANNI = list(range(2014, 2027))
 
 METRICHE = {
     "pensioni_vigenti": "Pensioni in pagamento",
@@ -73,4 +53,4 @@ METRICHE = {
     "enti_pubblici": "Enti pubblici",
 }
 
-GEOJSON_URL = "https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson"
+GEOJSON_URL = "https://raw.githubusercontent.com/openpolis/geojson-italian/master/geojson/limits_IT_regions.geojson"
