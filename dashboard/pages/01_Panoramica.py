@@ -4,21 +4,15 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import METRICHE, fmt_it, load_compose
+from sources import METRICHE, ALL_YEARS, require_compose, fmt_num
 
 st.title("🇮🇹 Open INPS")
 st.markdown("**Panoramica** — Come si muove il sistema pensionistico e del lavoro italiano.")
 
 # ── Dati ────────────────────────────────────────────────────────────────────
 
-@st.cache_data(ttl=300, show_spinner=False)
-def load():
-    return load_compose("mart_nazionale"), load_compose("mart_benchmark")
-
-df, df_bench = load()
-if df.empty:
-    st.error("Dati non disponibili.")
-    st.stop()
+df = require_compose("mart_nazionale")
+df_bench = require_compose("mart_benchmark")
 
 # ── Anno con piu copertura ──────────────────────────────────────────────────
 
@@ -70,10 +64,13 @@ for col, (metrica, label) in zip(cols, kpi_items):
 
     delta = None
     if val > 0 and val_prev > 0:
-        delta = f"{(val - val_prev) / val_prev * 100:+.1f}%"
+        delta_pct = (val - val_prev) / val_prev * 100
+        # Non mostrare delta se troppo grande (>50%) — segno di dato parziale
+        if abs(delta_pct) <= 50:
+            delta = f"{delta_pct:+.1f}%"
 
     with col:
-        st.metric(label, fmt_it(int(val)) if val else "–", delta=delta)
+        st.metric(label, fmt_num(int(val)) if val else "–", delta=delta)
 
 # ── Benchmark strutturali ───────────────────────────────────────────────────
 

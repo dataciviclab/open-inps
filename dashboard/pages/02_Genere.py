@@ -4,18 +4,15 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import METRICHE, fmt_it, load_compose
+from sources import METRICHE, require_compose, fmt_num
 
 st.title("⚖️ Genere")
 st.markdown("**Il paradosso**: le donne hanno piu pensioni ma meno lavoro.")
 
 # ── Dati ────────────────────────────────────────────────────────────────────
 
-@st.cache_data(ttl=300, show_spinner=False)
-def load():
-    return load_compose("mart_nazionale"), load_compose("mart_benchmark")
-
-df, df_bench = load()
+df = require_compose("mart_nazionale")
+df_bench = require_compose("mart_benchmark")
 
 # ── Filtri ──────────────────────────────────────────────────────────────────
 
@@ -56,7 +53,7 @@ chart = alt.Chart(df_bar).mark_bar().encode(
     x=alt.X("valore:Q", title="Valore", scale=alt.Scale(type="symlog")),
     y=alt.Y("label:N", title="", sort="-x"),
     color=alt.Color("sesso:N", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
-    tooltip=["label", "sesso", alt.Tooltip("valore", format=",.0f"), alt.Tooltip("share_pct", format=".1f")],
+    tooltip=["label", "sesso", alt.Tooltip("valore", format=",.0f")],
 ).properties(height=300)
 st.altair_chart(chart, use_container_width=True)
 

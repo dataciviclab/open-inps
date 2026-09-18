@@ -2,12 +2,13 @@
 """Open INPS · Dashboard Streamlit"""
 
 import streamlit as st
+from lab_connectors.dashboard import DashboardConfig, run_dashboard
 
-st.set_page_config(
-    page_title="Open INPS · Dashboard",
-    page_icon="🇮🇹",
-    layout="wide",
-    initial_sidebar_state="expanded",
+config = DashboardConfig(
+    title="Open INPS · Dashboard",
+    icon="🇮🇹",
+    repo_name="open-inps",
+    repo_url="https://github.com/dataciviclab/open-inps",
 )
 
 pages = {
@@ -27,9 +28,4 @@ pages = {
     ],
 }
 
-st.sidebar.markdown("---")
-st.sidebar.caption("Dati: INPS Osservatori Statistici")
-st.sidebar.caption("[dataciviclab/open-inps](https://github.com/dataciviclab/open-inps)")
-
-pg = st.navigation(pages, position="sidebar")
-pg.run()
+run_dashboard(config, pages)

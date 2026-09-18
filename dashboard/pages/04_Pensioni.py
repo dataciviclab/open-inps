@@ -4,22 +4,16 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import fmt_it, load_mart
+from sources import fmt_num, require_mart
 
 st.title("🏦 Pensioni")
 st.markdown("Dettaglio sulle pensioni INPS: distribuzione per importo, eta e regione.")
 
 # ── Dati ────────────────────────────────────────────────────────────────────
 
-@st.cache_data(ttl=300, show_spinner=False)
-def load():
-    imp = load_mart("inps_pensioni_vigenti", "mart_vigenti_importo")
-    eta = load_mart("inps_pensioni_vigenti", "mart_vigenti_eta")
-    reg = load_mart("inps_pensioni_vigenti", "mart_vigenti_regione")
-    liq = load_mart("inps_pensioni_liquidate", "mart_liquidate_importo")
-    return imp, eta, reg, liq
-
-imp, eta, reg, liq = load()
+imp = require_mart("inps_pensioni_vigenti", "mart_vigenti_importo")
+eta = require_mart("inps_pensioni_vigenti", "mart_vigenti_eta")
+reg = require_mart("inps_pensioni_vigenti", "mart_vigenti_regione")
 
 # ── Tabs ────────────────────────────────────────────────────────────────────
 

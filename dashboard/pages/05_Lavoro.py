@@ -4,20 +4,15 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import fmt_it, load_mart
+from sources import fmt_num, require_mart
 
 st.title("💼 Lavoro")
 st.markdown("Dettaglio sul mercato del lavoro: assunzioni per tipo e retribuzioni.")
 
 # ── Dati ────────────────────────────────────────────────────────────────────
 
-@st.cache_data(ttl=300, show_spinner=False)
-def load():
-    rap = load_mart("inps_rapporti_lavoro", "mart_rapporti_regione")
-    ret = load_mart("inps_retribuzioni", "mart_retribuzioni_regione")
-    return rap, ret
-
-rap, ret = load()
+rap = require_mart("inps_rapporti_lavoro", "mart_rapporti_regione")
+ret = require_mart("inps_retribuzioni", "mart_retribuzioni_regione")
 
 # ── Tabs ────────────────────────────────────────────────────────────────────
 
@@ -44,7 +39,6 @@ with tab1:
     ).properties(height=300)
     st.altair_chart(chart, use_container_width=True)
 
-    # Trend per tipo
     st.subheader("Trend per tipo di rapporto")
     df_trend = rap[(rap["sesso"] == sesso_rap) & (~rap["tipo_rapporto"].str.contains("Totale", na=False))]
     df_trend = df_trend.groupby(["anno", "tipo_rapporto"], as_index=False)["n_rapporti"].sum()

@@ -3,7 +3,7 @@
 import pandas as pd
 import streamlit as st
 
-from sources import load_compose, load_mart
+from sources import require_mart
 
 st.title("📋 Tabelle")
 st.markdown("Esplora i dati grezzi dei singoli mart.")
@@ -13,6 +13,7 @@ st.markdown("Esplora i dati grezzi dei singoli mart.")
 DATASETS = {
     "compose/nazionale": ("inps_analisi", "mart_nazionale"),
     "compose/territoriale": ("inps_analisi", "mart_territoriale"),
+    "compose/benchmark": ("inps_analisi", "mart_benchmark"),
     "pensioni/importo": ("inps_pensioni_vigenti", "mart_vigenti_importo"),
     "pensioni/eta": ("inps_pensioni_vigenti", "mart_vigenti_eta"),
     "pensioni/regione": ("inps_pensioni_vigenti", "mart_vigenti_regione"),
@@ -29,9 +30,14 @@ DATASETS = {
 sel = st.selectbox("Dataset", list(DATASETS.keys()))
 slug, table = DATASETS[sel]
 
-df = load_mart(slug, table)
+# Compose usa load_compose, gli altri load_mart
+if slug == "inps_analisi":
+    from sources import load_compose
+    df = load_compose(table)
+else:
+    df = require_mart(slug, table)
+
 if df.empty:
-    st.error("Dati non disponibili.")
     st.stop()
 
 # ── Filtri ──────────────────────────────────────────────────────────────────

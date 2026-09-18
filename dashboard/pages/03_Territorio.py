@@ -5,20 +5,13 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from sources import GEOJSON_URL, METRICHE, REGIONI, fmt_it, load_compose
+from sources import GEOJSON_URL, METRICHE, REGIONI, fmt_num, require_compose
 
 st.title("🗺️ Territorio")
 
 # ── Dati ────────────────────────────────────────────────────────────────────
 
-@st.cache_data(ttl=300, show_spinner=False)
-def load():
-    return load_compose("mart_territoriale")
-
-df = load()
-if df.empty:
-    st.error("Dati non disponibili.")
-    st.stop()
+df = require_compose("mart_territoriale")
 
 # ── Filtri ──────────────────────────────────────────────────────────────────
 
@@ -33,6 +26,17 @@ with c3:
 # ── Prepara dati ────────────────────────────────────────────────────────────
 
 df_f = df[(df["anno"] == anno) & (df["metrica"] == met) & (df["sesso"] == sesso)]
+
+# Se Sesso="Totale" ma non esiste, aggrega Maschi+Femmine
+if df_f.empty and sesso == "Totale":
+    df_f = df[(df["anno"] == anno) & (df["metrica"] == met) & df["sesso"].isin(["Maschi", "Femmine"])]
+    if not df_f.empty:
+        df_f = df_f.groupby("regione", as_index=False).agg({"valore": "sum", "share_pct": "sum", "indice_vs_media": "mean"})
+        df_f["sesso"] = "Totale"
+    else:
+        st.warning("Nessun dato disponibile per questa combinazione.")
+        st.stop()
+
 df_f = df_f[df_f["regione"].isin(REGIONI)]
 
 # ── Mappa ───────────────────────────────────────────────────────────────────
@@ -59,5 +63,5 @@ df_rank = df_f.sort_values("valore", ascending=False).reset_index(drop=True)
 df_rank.index = df_rank.index + 1
 df_rank = df_rank[["regione", "valore", "share_pct", "indice_vs_media"]].copy()
 df_rank.columns = ["Regione", "Valore", "Share %", "Indice vs media"]
-df_rank["Valore"] = df_rank["Valore"].apply(fmt_it)
+df_rank["Valore"] = df_rank["Valore"].apply(fmt_num)
 st.dataframe(df_rank, use_container_width=True)
