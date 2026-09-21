@@ -1,3 +1,0 @@
-dataciviclab-toolkit @ git+https://github.com/dataciviclab/toolkit.git
-duckdb>=1.0
-pyyaml>=6.0
