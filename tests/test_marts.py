@@ -28,6 +28,7 @@ EXPECTED = {
         "mart_cessazioni_provincia",
         "mart_cessazioni_motivo",
     ],
+    "inps_flussi_settore": ["mart_flussi_settore"],
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],

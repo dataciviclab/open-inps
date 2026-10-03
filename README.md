@@ -14,13 +14,14 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-pensioni-liquidate` | 370 | Nuove pensioni per sesso, importo, regione | 2021-2025 | 2 |
 | `inps-rapporti-lavoro` | 489 | Assunzioni per provincia, sesso, tipo | 2014-2026 | 3 |
 | `inps-rapporti-cessazioni` | 490 | Cessazioni per provincia, sesso, tipo e motivo | 2014-2026 | 3 |
+| `inps-flussi-settore` | 407+406+528+530 | Assunzioni e cessazioni per settore NACE (nazionale) | 2014-2026 | 1 |
 | `inps-retribuzioni` | 347+492 | Retribuzioni e lavoratori privato per regione, eta | 2014-2023 | 2 |
 | `inps-naspi` | 395+396 | Beneficiari e trattamenti NASpI per eta, durata | 2020-2024 | 3 |
 | `inps-cig` | 512 | Ore CIG autorizzate per gestione, ramo, mese | 2023-2026 | 3 |
 | `inps-assegno-unico` | 498+499 | Assegno Unico: figli e nuclei per ISEE, regione | 2022-2024 | 2 |
 | `inps-dipendenti-pubblici` | 440 | Dipendenti pubblici: enti, retribuzioni, forma giuridica | 2022-2026 | 2 |
 
-**Totale**: 9 dataset, 23 mart
+**Totale**: 10 dataset, 24 mart
 
 ## Setup
 
@@ -47,6 +48,7 @@ make clean         # pulisci output
 │   ├── inps-pensioni-liquidate/
 │   ├── inps-rapporti-lavoro/
 │   ├── inps-rapporti-cessazioni/
+│   ├── inps-flussi-settore/
 │   ├── inps-retribuzioni/
 │   ├── inps-naspi/
 │   ├── inps-cig/

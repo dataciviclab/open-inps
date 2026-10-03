@@ -8,6 +8,7 @@ import csv
 import gzip
 import json
 import sys
+from http.client import IncompleteRead
 from pathlib import Path
 from urllib.error import URLError
 from urllib.request import Request, urlopen
@@ -23,7 +24,13 @@ def api_post(endpoint: str, payload: dict, timeout: int = 60) -> dict:
     req.add_header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) DataCivicLab/1.0")
     try:
         with urlopen(req, timeout=timeout) as resp:
-            raw = resp.read()
+            try:
+                raw = resp.read()
+            except IncompleteRead as e:
+                return {
+                    "error": f"Response incompleta ({len(e.partial)} bytes): IncompleteRead. "
+                    "Ridurre le dimensioni della query o riprovare."
+                }
             try:
                 raw = gzip.decompress(raw)
             except Exception:
@@ -38,6 +45,8 @@ def api_post(endpoint: str, payload: dict, timeout: int = 60) -> dict:
                 }
     except URLError as e:
         return {"error": str(e)}
+    except TimeoutError as e:
+        return {"error": f"Timeout: {e}"}
 
 
 def get_structure(observatory_id: int) -> dict:
