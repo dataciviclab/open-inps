@@ -500,6 +500,107 @@
       ]
     },
     {
+      "slug": "inps_lavoratori_redditi",
+      "name": "Inps Lavoratori Redditi",
+      "description": "Lavoratori, redditi da lavoro e settimane lavorate per posizione prevalente, regione, età e cittadinanza (obs 465, 2014-2024).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2014,
+        "end": 2024
+      },
+      "tags": [
+        "lavoro",
+        "redditi",
+        "inps",
+        "settimane",
+        "mercato-lavoro"
+      ],
+      "category": "lavoro",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "posizione_prevalente",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "classe_eta",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cittadinanza",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "stato_pensionato",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_lavoratori",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "reddito_cumulato",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "settimane_lavorate",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_lavoratori_redditi/2026/inps_lavoratori_redditi_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_lavoratori_redditi__mart_lavoratori_redditi_posizione",
+        "inps_lavoratori_redditi__mart_lavoratori_redditi_regione",
+        "inps_lavoratori_redditi__mart_lavoratori_redditi_eta",
+        "inps_lavoratori_redditi__mart_lavoratori_redditi_cittadinanza"
+      ]
+    },
+    {
       "slug": "inps_naspi",
       "name": "Inps Naspi",
       "description": "NASpI: beneficiari e trattamenti per sesso, eta, durata, regione (obs 395+396).",
@@ -1343,6 +1444,46 @@
       }
     },
     {
+      "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_cittadinanza",
+      "dataset": "inps_lavoratori_redditi",
+      "table": "mart_lavoratori_redditi_cittadinanza",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_cittadinanza.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_eta",
+      "dataset": "inps_lavoratori_redditi",
+      "table": "mart_lavoratori_redditi_eta",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_eta.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_posizione",
+      "dataset": "inps_lavoratori_redditi",
+      "table": "mart_lavoratori_redditi_posizione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_posizione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_regione",
+      "dataset": "inps_lavoratori_redditi",
+      "table": "mart_lavoratori_redditi_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_naspi__mart_naspi_durata",
       "dataset": "inps_naspi",
       "table": "mart_naspi_durata",
@@ -1750,6 +1891,37 @@
       }
     },
     {
+      "id": "inps_lavoratori_redditi",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_lavoratori_redditi",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261003T220153Z_75c399cf",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 1105,
+          "clean": 1105,
+          "mart": 1034
+        },
+        "output_bytes": {
+          "raw": 97269,
+          "clean": 17540,
+          "mart": 19198
+        },
+        "started_at": "2026-10-03T22:01:53.565835+00:00",
+        "finished_at": "2026-10-03T22:02:28.838735+00:00",
+        "duration_seconds": 35.273
+      }
+    },
+    {
       "id": "inps_naspi",
       "source_id": "inps",
       "status": "ok",
@@ -2034,6 +2206,12 @@
             "semantic_type": "region_code"
           },
           {
+            "slug": "inps_lavoratori_redditi",
+            "name": "Inps Lavoratori Redditi",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "inps_naspi",
             "name": "Inps Naspi",
             "column": "regione",
@@ -2083,7 +2261,7 @@
           }
         ],
         "types": {
-          "region_code": 13
+          "region_code": 14
         }
       },
       "Tempo": {
@@ -2133,6 +2311,12 @@
             "semantic_type": "year"
           },
           {
+            "slug": "inps_lavoratori_redditi",
+            "name": "Inps Lavoratori Redditi",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
             "slug": "inps_naspi",
             "name": "Inps Naspi",
             "column": "anno",
@@ -2182,7 +2366,7 @@
           }
         ],
         "types": {
-          "year": 14,
+          "year": 15,
           "month": 1
         }
       }

@@ -15,6 +15,7 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-pensioni-serie` | 390+376 | Serie storica: vigenti 1998-2026, liquidate 1997-2025 | 1997-2026 | 3 |
 | `inps-pensionamento-flussi` | 475 | Flussi trimestrali per decorrenza: regione, gestione, categoria | 2021-2026 | 3 |
 | `inps-lavoratori-pubblici` | 435 | Lavoratori PA: retribuzioni, giornate per comparto, eta, contratto, regione | 2014-2024 | 4 |
+| `inps-lavoratori-redditi` | 465 | Lavoratori, redditi e settimane per posizione, regione, eta, cittadinanza | 2014-2024 | 4 |
 | `inps-rapporti-lavoro` | 489 | Assunzioni per provincia, sesso, tipo | 2014-2026 | 3 |
 | `inps-rapporti-cessazioni` | 490 | Cessazioni per provincia, sesso, tipo e motivo | 2014-2026 | 3 |
 | `inps-flussi-settore` | 407+406+528+530 | Assunzioni e cessazioni per settore NACE (nazionale) | 2014-2026 | 1 |
@@ -24,7 +25,7 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-assegno-unico` | 498+499 | Assegno Unico: figli e nuclei per ISEE, regione | 2022-2024 | 2 |
 | `inps-dipendenti-pubblici` | 440 | Dipendenti pubblici: enti, retribuzioni, forma giuridica | 2022-2026 | 2 |
 
-**Totale**: 14 dataset, 38 mart
+**Totale**: 15 dataset, 42 mart
 
 > **Nota definizioni pensioni**: `inps-pensioni-serie` (376) conta le pensioni
 > liquidate nell'anno (~1,5M/anno). `inps-pensionamento-flussi` (475) conta i
@@ -35,6 +36,10 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 > giuridica. `inps-lavoratori-pubblici` (435) = lavoratori e retribuzioni per
 > gruppo contrattuale (complementare, non sovrapponibile). Campo SESSO rotto
 > sull'obs 435: nessuna dimensione genere.
+
+> **Nota redditi**: `inps-lavoratori-redditi` (465) è il ponte lavoro→reddito
+> (posizione prevalente, settimane, cittadinanza). Dipendente pubblico 465
+> (~3,7M) ≈ lavoratori PA 435 — definizioni diverse, non sommare.
 
 ## Setup
 
@@ -62,6 +67,7 @@ make clean         # pulisci output
 │   ├── inps-pensioni-serie/
 │   ├── inps-pensionamento-flussi/
 │   ├── inps-lavoratori-pubblici/
+│   ├── inps-lavoratori-redditi/
 │   ├── inps-rapporti-lavoro/
 │   ├── inps-rapporti-cessazioni/
 │   ├── inps-flussi-settore/

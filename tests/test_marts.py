@@ -45,6 +45,12 @@ EXPECTED = {
         "mart_lavoratori_pa_tipo_contratto",
         "mart_lavoratori_pa_regione",
     ],
+    "inps_lavoratori_redditi": [
+        "mart_lavoratori_redditi_posizione",
+        "mart_lavoratori_redditi_regione",
+        "mart_lavoratori_redditi_eta",
+        "mart_lavoratori_redditi_cittadinanza",
+    ],
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],
