@@ -12,14 +12,15 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 |---|---|---|---|---|
 | `inps-pensioni-vigenti` | 378 | Stock pensioni per sesso, importo, eta, regione | 2022-2026 | 3 |
 | `inps-pensioni-liquidate` | 370 | Nuove pensioni per sesso, importo, regione | 2021-2025 | 2 |
-| `inps-rapporti-lavoro` | 489 | Assunzioni/cessazioni per provincia, sesso, tipo | 2014-2026 | 3 |
+| `inps-rapporti-lavoro` | 489 | Assunzioni per provincia, sesso, tipo | 2014-2026 | 3 |
+| `inps-rapporti-cessazioni` | 490 | Cessazioni per provincia, sesso, tipo e motivo | 2014-2026 | 3 |
 | `inps-retribuzioni` | 347+492 | Retribuzioni e lavoratori privato per regione, eta | 2014-2023 | 2 |
 | `inps-naspi` | 395+396 | Beneficiari e trattamenti NASpI per eta, durata | 2020-2024 | 3 |
 | `inps-cig` | 512 | Ore CIG autorizzate per gestione, ramo, mese | 2023-2026 | 3 |
 | `inps-assegno-unico` | 498+499 | Assegno Unico: figli e nuclei per ISEE, regione | 2022-2024 | 2 |
 | `inps-dipendenti-pubblici` | 440 | Dipendenti pubblici: enti, retribuzioni, forma giuridica | 2022-2026 | 2 |
 
-**Totale**: 8 dataset, 20 mart
+**Totale**: 9 dataset, 23 mart
 
 ## Setup
 
@@ -45,6 +46,7 @@ make clean         # pulisci output
 │   ├── inps-pensioni-vigenti/
 │   ├── inps-pensioni-liquidate/
 │   ├── inps-rapporti-lavoro/
+│   ├── inps-rapporti-cessazioni/
 │   ├── inps-retribuzioni/
 │   ├── inps-naspi/
 │   ├── inps-cig/

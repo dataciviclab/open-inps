@@ -1,10 +1,13 @@
 """Test: i mart parquet esistono e hanno schema corretto."""
-import pytest
+
 import glob
 import os
 
+import pytest
+
 try:
     from lab_connectors.duckdb.core import safe_connect
+
     HAS_DUCKDB = True
 except ImportError:
     HAS_DUCKDB = False
@@ -15,7 +18,16 @@ MART_DIR = os.path.join(REPO_ROOT, "out", "data", "mart")
 EXPECTED = {
     "inps_pensioni_vigenti": ["mart_vigenti_importo", "mart_vigenti_eta", "mart_vigenti_regione"],
     "inps_pensioni_liquidate": ["mart_liquidate_importo", "mart_liquidate_regione"],
-    "inps_rapporti_lavoro": ["mart_rapporti_regione", "mart_rapporti_provincia", "mart_rapporti_eta"],
+    "inps_rapporti_lavoro": [
+        "mart_rapporti_regione",
+        "mart_rapporti_provincia",
+        "mart_rapporti_eta",
+    ],
+    "inps_rapporti_cessazioni": [
+        "mart_cessazioni_regione",
+        "mart_cessazioni_provincia",
+        "mart_cessazioni_motivo",
+    ],
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],

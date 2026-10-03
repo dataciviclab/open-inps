@@ -9,8 +9,8 @@ import gzip
 import json
 import sys
 from pathlib import Path
-from urllib.request import Request, urlopen
 from urllib.error import URLError
+from urllib.request import Request, urlopen
 
 API_BASE = "https://servizi2.inps.it/servizi/osservatoristatistici/api"
 
@@ -28,13 +28,22 @@ def api_post(endpoint: str, payload: dict, timeout: int = 60) -> dict:
                 raw = gzip.decompress(raw)
             except Exception:
                 pass
-            return json.loads(raw.decode("utf-8"))
+            try:
+                return json.loads(raw.decode("utf-8"))
+            except json.JSONDecodeError as e:
+                # Response troppo grande o troncata dal backend SAS
+                return {
+                    "error": f"JSON non valido ({len(raw)} bytes): {e}. "
+                    "Probabile response troncata — ridurre le dimensioni della query."
+                }
     except URLError as e:
         return {"error": str(e)}
 
 
 def get_structure(observatory_id: int) -> dict:
-    return api_post("getStrutturaOsservatorio", {"id_osservatorio": observatory_id, "language": "it"})
+    return api_post(
+        "getStrutturaOsservatorio", {"id_osservatorio": observatory_id, "language": "it"}
+    )
 
 
 def get_data(payload: dict) -> dict:
