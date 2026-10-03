@@ -1,0 +1,62 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_lavoratori_pubblici"
+  source_id: "inps"
+  tags: [lavoro, inps, pubblico, retribuzioni, pa]
+  category: lavoro
+  description: "Lavoratori pubblici: retribuzioni, giornate e unità per gruppo contrattuale, età, tipo contratto e regione (obs 435, 2014-2024). Nessuna dimensione genere (campo SESSO rotto sull'API)."
+  years: [2026]
+  time_coverage:
+    start_year: 2014
+    end_year: 2024
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "inps_lavoratori_pubblici"
+      type: "script"
+      args:
+        command: "python3 extract.py raw.csv"
+        output: "raw.csv"
+      client:
+        timeout: 300
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "utf-8"
+  required_columns: [anno, gruppo_contrattuale, n_lavoratori]
+  validate:
+    min_rows: 500
+
+mart:
+  tables:
+    - name: "mart_lavoratori_pa_gruppo"
+      sql: "sql/mart_gruppo.sql"
+    - name: "mart_lavoratori_pa_eta"
+      sql: "sql/mart_eta.sql"
+    - name: "mart_lavoratori_pa_tipo_contratto"
+      sql: "sql/mart_tipo_contratto.sql"
+    - name: "mart_lavoratori_pa_regione"
+      sql: "sql/mart_regione.sql"
+  required_tables:
+    - mart_lavoratori_pa_gruppo
+    - mart_lavoratori_pa_regione
+  validate:
+    table_rules:
+      mart_lavoratori_pa_gruppo:
+        min_rows: 50
+      mart_lavoratori_pa_regione:
+        min_rows: 500
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"

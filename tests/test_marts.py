@@ -39,6 +39,12 @@ EXPECTED = {
         "mart_pensionamento_gestione",
         "mart_pensionamento_categoria",
     ],
+    "inps_lavoratori_pubblici": [
+        "mart_lavoratori_pa_gruppo",
+        "mart_lavoratori_pa_eta",
+        "mart_lavoratori_pa_tipo_contratto",
+        "mart_lavoratori_pa_regione",
+    ],
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],
