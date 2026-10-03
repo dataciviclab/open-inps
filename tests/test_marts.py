@@ -34,6 +34,11 @@ EXPECTED = {
         "mart_pensioni_serie_tipogest",
         "mart_pensioni_serie_regione",
     ],
+    "inps_pensionamento_flussi": [
+        "mart_pensionamento_regione",
+        "mart_pensionamento_gestione",
+        "mart_pensionamento_categoria",
+    ],
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],

@@ -475,6 +475,100 @@
       ]
     },
     {
+      "slug": "inps_pensionamento_flussi",
+      "name": "Inps Pensionamento Flussi",
+      "description": "Flussi trimestrali di pensionamento per anno decorrenza 2021-2026: regione, gestione e categoria (obs 475).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2021,
+        "end": 2026
+      },
+      "tags": [
+        "pensioni",
+        "inps",
+        "pensionamento",
+        "flussi",
+        "trimestrale"
+      ],
+      "category": "pensioni",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "trimestre",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "gestione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "categoria",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_pensioni",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "eta_media_decorrenza",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_decorrenza_eur",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_pensionamento_flussi/2026/inps_pensionamento_flussi_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_pensionamento_flussi__mart_pensionamento_regione",
+        "inps_pensionamento_flussi__mart_pensionamento_gestione",
+        "inps_pensionamento_flussi__mart_pensionamento_categoria"
+      ]
+    },
+    {
       "slug": "inps_pensioni_liquidate",
       "name": "Inps Pensioni Liquidate",
       "description": "Nuove pensioni INPS liquidate, per sesso, classe importo e regione.",
@@ -1132,6 +1226,36 @@
       }
     },
     {
+      "slug": "inps_pensionamento_flussi__mart_pensionamento_categoria",
+      "dataset": "inps_pensionamento_flussi",
+      "table": "mart_pensionamento_categoria",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensionamento_flussi/2026/mart_pensionamento_categoria.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensionamento_flussi__mart_pensionamento_gestione",
+      "dataset": "inps_pensionamento_flussi",
+      "table": "mart_pensionamento_gestione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensionamento_flussi/2026/mart_pensionamento_gestione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_pensionamento_flussi__mart_pensionamento_regione",
+      "dataset": "inps_pensionamento_flussi",
+      "table": "mart_pensionamento_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_pensionamento_flussi/2026/mart_pensionamento_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_pensioni_liquidate__mart_liquidate_importo",
       "dataset": "inps_pensioni_liquidate",
       "table": "mart_liquidate_importo",
@@ -1479,6 +1603,37 @@
       }
     },
     {
+      "id": "inps_pensionamento_flussi",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_pensionamento_flussi",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261003T214518Z_d6f3020d",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 2019,
+          "clean": 2019,
+          "mart": 1452
+        },
+        "output_bytes": {
+          "raw": 197774,
+          "clean": 18562,
+          "mart": 17046
+        },
+        "started_at": "2026-10-03T21:45:18.899637+00:00",
+        "finished_at": "2026-10-03T21:45:38.273753+00:00",
+        "duration_seconds": 19.374
+      }
+    },
+    {
       "id": "inps_pensioni_liquidate",
       "source_id": "inps",
       "status": "ok",
@@ -1701,6 +1856,12 @@
             "semantic_type": "region_code"
           },
           {
+            "slug": "inps_pensionamento_flussi",
+            "name": "Inps Pensionamento Flussi",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "inps_pensioni_liquidate",
             "name": "Inps Pensioni Liquidate",
             "column": "regione",
@@ -1738,7 +1899,7 @@
           }
         ],
         "types": {
-          "region_code": 11
+          "region_code": 12
         }
       },
       "Tempo": {
@@ -1788,6 +1949,12 @@
             "semantic_type": "year"
           },
           {
+            "slug": "inps_pensionamento_flussi",
+            "name": "Inps Pensionamento Flussi",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
             "slug": "inps_pensioni_liquidate",
             "name": "Inps Pensioni Liquidate",
             "column": "anno",
@@ -1825,7 +1992,7 @@
           }
         ],
         "types": {
-          "year": 12,
+          "year": 13,
           "month": 1
         }
       }

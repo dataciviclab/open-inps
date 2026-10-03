@@ -13,6 +13,7 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-pensioni-vigenti` | 378 | Stock pensioni per sesso, importo, eta, regione | 2022-2026 | 3 |
 | `inps-pensioni-liquidate` | 370 | Nuove pensioni per sesso, importo, regione | 2021-2025 | 2 |
 | `inps-pensioni-serie` | 390+376 | Serie storica: vigenti 1998-2026, liquidate 1997-2025 | 1997-2026 | 3 |
+| `inps-pensionamento-flussi` | 475 | Flussi trimestrali per decorrenza: regione, gestione, categoria | 2021-2026 | 3 |
 | `inps-rapporti-lavoro` | 489 | Assunzioni per provincia, sesso, tipo | 2014-2026 | 3 |
 | `inps-rapporti-cessazioni` | 490 | Cessazioni per provincia, sesso, tipo e motivo | 2014-2026 | 3 |
 | `inps-flussi-settore` | 407+406+528+530 | Assunzioni e cessazioni per settore NACE (nazionale) | 2014-2026 | 1 |
@@ -22,7 +23,12 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-assegno-unico` | 498+499 | Assegno Unico: figli e nuclei per ISEE, regione | 2022-2024 | 2 |
 | `inps-dipendenti-pubblici` | 440 | Dipendenti pubblici: enti, retribuzioni, forma giuridica | 2022-2026 | 2 |
 
-**Totale**: 12 dataset, 31 mart
+**Totale**: 13 dataset, 34 mart
+
+> **Nota definizioni pensioni**: `inps-pensioni-serie` (376) conta le pensioni
+> liquidate nell'anno (~1,5M/anno). `inps-pensionamento-flussi` (475) conta i
+> flussi con decorrenza nel trimestre (~0,9M/anno, ~58% del totale) — universo
+> più ristretto, utile per stagionalità e mix gestione. Non sommare i due.
 
 ## Setup
 
@@ -48,6 +54,7 @@ make clean         # pulisci output
 │   ├── inps-pensioni-vigenti/
 │   ├── inps-pensioni-liquidate/
 │   ├── inps-pensioni-serie/
+│   ├── inps-pensionamento-flussi/
 │   ├── inps-rapporti-lavoro/
 │   ├── inps-rapporti-cessazioni/
 │   ├── inps-flussi-settore/
