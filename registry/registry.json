@@ -302,6 +302,85 @@
       ]
     },
     {
+      "slug": "inps_dis_coll",
+      "name": "Inps Dis Coll",
+      "description": "DIS-COLL nazionale per sesso: beneficiari (397) e trattamenti (398), 2020-2024. Complemento NASpI per co.co.co. Solo grana nazionale (tagli territoriali API non additivi).",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2020,
+        "end": 2024
+      },
+      "tags": [
+        "welfare",
+        "inps",
+        "dis-coll",
+        "disoccupazione",
+        "parasubordinati"
+      ],
+      "category": "welfare",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_dato",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_trattamenti",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "giorni_teorici",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "giorni_pagati",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_fonte",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_dis_coll/2026/inps_dis_coll_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_dis_coll__mart_dis_coll_nazionale"
+      ]
+    },
+    {
       "slug": "inps_flussi_settore",
       "name": "Inps Flussi Settore",
       "description": "Assunzioni e cessazioni per settore NACE Rev.2/2.1, nazionale (obs 407/406/528/530, 2014-2026).",
@@ -1489,6 +1568,16 @@
       }
     },
     {
+      "slug": "inps_dis_coll__mart_dis_coll_nazionale",
+      "dataset": "inps_dis_coll",
+      "table": "mart_dis_coll_nazionale",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_dis_coll/2026/mart_dis_coll_nazionale.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_flussi_settore__mart_flussi_settore",
       "dataset": "inps_flussi_settore",
       "table": "mart_flussi_settore",
@@ -1961,6 +2050,37 @@
         "started_at": "2026-09-17T18:46:11.577537+00:00",
         "finished_at": "2026-09-17T18:46:48.627127+00:00",
         "duration_seconds": 37.05
+      }
+    },
+    {
+      "id": "inps_dis_coll",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_dis_coll",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261003T222149Z_c677573b",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 22,
+          "clean": 22,
+          "mart": 20
+        },
+        "output_bytes": {
+          "raw": 1775,
+          "clean": 1873,
+          "mart": 1599
+        },
+        "started_at": "2026-10-03T22:21:49.001899+00:00",
+        "finished_at": "2026-10-03T22:21:55.607431+00:00",
+        "duration_seconds": 6.606
       }
     },
     {
@@ -2471,6 +2591,12 @@
             "semantic_type": "year"
           },
           {
+            "slug": "inps_dis_coll",
+            "name": "Inps Dis Coll",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
             "slug": "inps_flussi_settore",
             "name": "Inps Flussi Settore",
             "column": "anno",
@@ -2544,7 +2670,7 @@
           }
         ],
         "types": {
-          "year": 16,
+          "year": 17,
           "month": 1
         }
       }

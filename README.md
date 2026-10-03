@@ -17,6 +17,7 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-lavoratori-pubblici` | 435 | Lavoratori PA: retribuzioni, giornate per comparto, eta, contratto, regione | 2014-2024 | 4 |
 | `inps-lavoratori-redditi` | 465 | Lavoratori, redditi e settimane per posizione, regione, eta, cittadinanza | 2014-2024 | 4 |
 | `inps-rdc-pdc` | 452 | Nuclei RdC/PdC: misura, regione, componenti, disabili, minori | 2019-2023 | 4 |
+| `inps-dis-coll` | 397+398 | DIS-COLL nazionale per sesso: beneficiari e trattamenti | 2020-2024 | 1 |
 | `inps-rapporti-lavoro` | 489 | Assunzioni per provincia, sesso, tipo | 2014-2026 | 3 |
 | `inps-rapporti-cessazioni` | 490 | Cessazioni per provincia, sesso, tipo e motivo | 2014-2026 | 3 |
 | `inps-flussi-settore` | 407+406+528+530 | Assunzioni e cessazioni per settore NACE (nazionale) | 2014-2026 | 1 |
@@ -26,7 +27,14 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 | `inps-assegno-unico` | 498+499 | Assegno Unico: figli e nuclei per ISEE, regione | 2022-2024 | 2 |
 | `inps-dipendenti-pubblici` | 440 | Dipendenti pubblici: enti, retribuzioni, forma giuridica | 2022-2026 | 2 |
 
-**Totale**: 16 dataset, 46 mart
+**Totale**: 17 dataset, 47 mart
+
+> **Nota DIS-COLL**: osservatori 397/398 su API con tagli territoriali non
+> additivi al nazionale — il dataset espone solo grana anno×sesso.
+> Nel 2022 la serie 397 (beneficiari) è irregolare nella fonte (Femmine
+> anomalo); usare 398 (trattamenti) o escludere quell'anno.
+> `importo_fonte` non è validato come euro assoluti: solo confronti relativi.
+> DIS-COLL ~23k/anno vs NASpI ~2M — nicchia co.co.co.
 
 > **Nota definizioni pensioni**: `inps-pensioni-serie` (376) conta le pensioni
 > liquidate nell'anno (~1,5M/anno). `inps-pensionamento-flussi` (475) conta i
@@ -70,6 +78,7 @@ make clean         # pulisci output
 │   ├── inps-lavoratori-pubblici/
 │   ├── inps-lavoratori-redditi/
 │   ├── inps-rdc-pdc/
+│   ├── inps-dis-coll/
 │   ├── inps-rapporti-lavoro/
 │   ├── inps-rapporti-cessazioni/
 │   ├── inps-flussi-settore/
