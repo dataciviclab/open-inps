@@ -1,0 +1,60 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_pensioni_serie"
+  source_id: "inps"
+  tags: [pensioni, inps, previdenza, serie-storica]
+  category: pensioni
+  description: "Serie storica pensioni INPS: vigenti 1998-2026 e liquidate 1997-2025, per sesso, categoria, gestione e regione (obs 390+376)."
+  years: [2026]
+  time_coverage:
+    start_year: 1997
+    end_year: 2026
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "inps_pensioni_serie"
+      type: "script"
+      args:
+        command: "python3 extract.py raw.csv"
+        output: "raw.csv"
+      client:
+        timeout: 300
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "utf-8"
+  required_columns: [anno, tipo_pensione, n_pensioni]
+  validate:
+    min_rows: 1000
+
+mart:
+  tables:
+    - name: "mart_pensioni_serie_categoria"
+      sql: "sql/mart_categoria.sql"
+    - name: "mart_pensioni_serie_tipogest"
+      sql: "sql/mart_tipogest.sql"
+    - name: "mart_pensioni_serie_regione"
+      sql: "sql/mart_regione.sql"
+  required_tables:
+    - mart_pensioni_serie_categoria
+    - mart_pensioni_serie_regione
+  validate:
+    table_rules:
+      mart_pensioni_serie_categoria:
+        min_rows: 200
+      mart_pensioni_serie_regione:
+        min_rows: 500
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"
