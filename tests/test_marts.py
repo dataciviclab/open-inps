@@ -51,6 +51,12 @@ EXPECTED = {
         "mart_lavoratori_redditi_eta",
         "mart_lavoratori_redditi_cittadinanza",
     ],
+    "inps_rdc_pdc": [
+        "mart_rdc_pdc_nazionale",
+        "mart_rdc_pdc_regione",
+        "mart_rdc_pdc_componenti",
+        "mart_rdc_pdc_fragili",
+    ],
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],

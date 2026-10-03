@@ -1195,6 +1195,101 @@
       ]
     },
     {
+      "slug": "inps_rdc_pdc",
+      "name": "Inps Rdc Pdc",
+      "description": "Nuclei beneficiari RdC/PdC con almeno una mensilità (obs 452, 2019-2023): misura, regione, componenti, disabili e minori.",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2019,
+        "end": 2023
+      },
+      "tags": [
+        "welfare",
+        "inps",
+        "rdc",
+        "pdc",
+        "reddito-cittadinanza"
+      ],
+      "category": "welfare",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "misura",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "componenti_nucleo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "con_disabili",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "con_minori",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_nuclei",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "n_componenti",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_mensile_eur",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_inps/inps_rdc_pdc/2026/inps_rdc_pdc_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_rdc_pdc__mart_rdc_pdc_nazionale",
+        "inps_rdc_pdc__mart_rdc_pdc_regione",
+        "inps_rdc_pdc__mart_rdc_pdc_componenti",
+        "inps_rdc_pdc__mart_rdc_pdc_fragili"
+      ]
+    },
+    {
       "slug": "inps_retribuzioni",
       "name": "Inps Retribuzioni",
       "description": "Retribuzioni e lavoratori del settore privato per provincia, sesso, qualifica, contratto (obs 347+492).",
@@ -1684,6 +1779,46 @@
       }
     },
     {
+      "slug": "inps_rdc_pdc__mart_rdc_pdc_componenti",
+      "dataset": "inps_rdc_pdc",
+      "table": "mart_rdc_pdc_componenti",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_componenti.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_rdc_pdc__mart_rdc_pdc_fragili",
+      "dataset": "inps_rdc_pdc",
+      "table": "mart_rdc_pdc_fragili",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_fragili.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_rdc_pdc__mart_rdc_pdc_nazionale",
+      "dataset": "inps_rdc_pdc",
+      "table": "mart_rdc_pdc_nazionale",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_nazionale.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_rdc_pdc__mart_rdc_pdc_regione",
+      "dataset": "inps_rdc_pdc",
+      "table": "mart_rdc_pdc_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_retribuzioni__mart_retribuzioni_eta",
       "dataset": "inps_retribuzioni",
       "table": "mart_retribuzioni_eta",
@@ -2122,6 +2257,37 @@
       }
     },
     {
+      "id": "inps_rdc_pdc",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_rdc_pdc",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261003T220901Z_5fefbf31",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 311,
+          "clean": 311,
+          "mart": 306
+        },
+        "output_bytes": {
+          "raw": 28132,
+          "clean": 6081,
+          "mart": 9205
+        },
+        "started_at": "2026-10-03T22:09:01.677894+00:00",
+        "finished_at": "2026-10-03T22:09:22.182656+00:00",
+        "duration_seconds": 20.505
+      }
+    },
+    {
       "id": "inps_retribuzioni",
       "source_id": "inps",
       "status": "ok",
@@ -2254,6 +2420,12 @@
             "semantic_type": "region_code"
           },
           {
+            "slug": "inps_rdc_pdc",
+            "name": "Inps Rdc Pdc",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "inps_retribuzioni",
             "name": "Inps Retribuzioni",
             "column": "regione",
@@ -2261,7 +2433,7 @@
           }
         ],
         "types": {
-          "region_code": 14
+          "region_code": 15
         }
       },
       "Tempo": {
@@ -2359,6 +2531,12 @@
             "semantic_type": "year"
           },
           {
+            "slug": "inps_rdc_pdc",
+            "name": "Inps Rdc Pdc",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
             "slug": "inps_retribuzioni",
             "name": "Inps Retribuzioni",
             "column": "anno",
@@ -2366,7 +2544,7 @@
           }
         ],
         "types": {
-          "year": 15,
+          "year": 16,
           "month": 1
         }
       }
