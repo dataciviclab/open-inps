@@ -3,8 +3,11 @@
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+pip install -e ".[dev,pipeline,dashboard]"
 ```
+
+Le dipendenze vivono in `pyproject.toml` (standard Lab). `dashboard/requirements.txt`
+è solo export pin per Streamlit Cloud.
 
 ## Pipeline
 

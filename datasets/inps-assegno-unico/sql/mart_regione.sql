@@ -1,11 +1,14 @@
 -- INPS Assegno Unico — MART Regione
--- Figli e nuclei beneficiari per anno e regione.
+-- Figli beneficiari per anno e regione.
+-- Grain unico: solo dimensione 'figli_anno_regione'.
+-- I nuclei (nuclei_anno_regione) restano nel clean, non in questo mart:
+-- la colonna n_figli non è commisurabile tra figli e nuclei.
 
 SELECT
     anno,
     regione,
-    dimensione,
     n_figli,
-    COALESCE(importo_medio_figlio, importo_medio_nucleo) AS importo_medio
+    importo_medio_figlio
 FROM clean_input
-WHERE regione IS NULL OR regione NOT LIKE '%Totale%'
+WHERE dimensione = 'figli_anno_regione'
+  AND (regione IS NULL OR regione NOT LIKE '%Totale%')

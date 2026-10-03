@@ -4,7 +4,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from sources import METRICHE, ALL_YEARS, require_compose, fmt_num
+from sources import METRICHE, require_compose, fmt_num
 
 st.title("🇮🇹 Open INPS")
 st.markdown("**Panoramica** — Come si muove il sistema pensionistico e del lavoro italiano.")

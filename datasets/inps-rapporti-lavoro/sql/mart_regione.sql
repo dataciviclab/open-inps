@@ -10,4 +10,5 @@ SELECT
 FROM clean_input
 WHERE dimensione = 'anno_sesso_regione_tipo'
   AND sesso IN ('Maschi', 'Femmine')
+  AND (tipo_rapporto IS NULL OR tipo_rapporto NOT LIKE '%Totale%')
   AND (regione IS NULL OR regione NOT LIKE '%Totale%')

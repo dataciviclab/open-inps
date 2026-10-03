@@ -3,7 +3,7 @@
 import pandas as pd
 import streamlit as st
 
-from sources import require_mart
+from sources import require_compose, require_mart
 
 st.title("📋 Tabelle")
 st.markdown("Esplora i dati grezzi dei singoli mart.")
@@ -30,10 +30,8 @@ DATASETS = {
 sel = st.selectbox("Dataset", list(DATASETS.keys()))
 slug, table = DATASETS[sel]
 
-# Compose usa load_compose, gli altri load_mart
 if slug == "inps_analisi":
-    from sources import load_compose
-    df = load_compose(table)
+    df = require_compose(table)
 else:
     df = require_mart(slug, table)
 
