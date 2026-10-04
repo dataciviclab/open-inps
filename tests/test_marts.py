@@ -1,6 +1,13 @@
-"""Test: i mart parquet esistono e hanno schema corretto."""
+"""Test mart: contratto registry (CI) + parquet locali (se out/ presente).
+
+In CI out/ non è committato: i test parquet saltano.
+Il contratto mart vive in registry/registry.json (artifact pubblico).
+"""
+
+from __future__ import annotations
 
 import glob
+import json
 import os
 
 import pytest
@@ -14,6 +21,7 @@ except ImportError:
 
 REPO_ROOT = os.path.dirname(os.path.dirname(__file__))
 MART_DIR = os.path.join(REPO_ROOT, "out", "data", "mart")
+REGISTRY_PATH = os.path.join(REPO_ROOT, "registry", "registry.json")
 
 EXPECTED = {
     "inps_pensioni_vigenti": ["mart_vigenti_importo", "mart_vigenti_eta", "mart_vigenti_regione"],
@@ -67,9 +75,37 @@ EXPECTED = {
 }
 
 
+@pytest.fixture(scope="module")
+def registry_datasets() -> dict:
+    assert os.path.isfile(REGISTRY_PATH), "registry/registry.json mancante"
+    with open(REGISTRY_PATH, encoding="utf-8") as f:
+        data = json.load(f)
+    return {d["slug"]: d for d in data["datasets"]}
+
+
 @pytest.mark.contract
+def test_registry_contains_expected_datasets(registry_datasets: dict) -> None:
+    """Ogni dataset EXPECTED deve essere nel registry (artifact pubblico)."""
+    missing = sorted(set(EXPECTED) - set(registry_datasets))
+    assert not missing, f"Dataset mancanti nel registry: {missing}"
+
+
+@pytest.mark.contract
+def test_registry_mart_refs_match_expected(registry_datasets: dict) -> None:
+    """I mart_refs del registry devono coprire le tabelle EXPECTED."""
+    for slug, tables in EXPECTED.items():
+        assert slug in registry_datasets, f"Dataset non nel registry: {slug}"
+        refs = set(registry_datasets[slug].get("mart_refs") or [])
+        expected_refs = {f"{slug}__{t}" for t in tables}
+        missing = sorted(expected_refs - refs)
+        assert not missing, f"{slug}: mart_refs mancanti nel registry: {missing}"
+
+
+@pytest.mark.contract
+@pytest.mark.skipif(not os.path.isdir(MART_DIR), reason="out/data/mart assente (CI)")
 @pytest.mark.parametrize("dataset,tables", EXPECTED.items())
 def test_mart_files_exist(dataset, tables):
+    """Localmente, se out/ esiste, i parquet dichiarati devono esserci."""
     for table in tables:
         pattern = os.path.join(MART_DIR, dataset, "2026", f"{table}.parquet")
         assert len(glob.glob(pattern)) > 0, f"Mart mancante: {table} per {dataset}"
@@ -77,6 +113,7 @@ def test_mart_files_exist(dataset, tables):
 
 @pytest.mark.contract
 @pytest.mark.skipif(not HAS_DUCKDB, reason="duckdb non installato")
+@pytest.mark.skipif(not os.path.isdir(MART_DIR), reason="out/data/mart assente (CI)")
 @pytest.mark.parametrize("dataset,tables", EXPECTED.items())
 def test_mart_has_rows(dataset, tables):
     with safe_connect() as con:
