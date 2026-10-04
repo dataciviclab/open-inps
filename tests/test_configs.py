@@ -25,6 +25,7 @@ def test_dataset_preflight(config_path):
         text=True,
         timeout=60,
         env={**os.environ, "TOOLKIT_ALLOW_SCRIPT_SOURCE": "1"},
+        check=False,
     )
     assert result.returncode == 0, f"Preflight fallito per {config_path}:\n{result.stderr[-500:]}"
 
@@ -43,5 +44,6 @@ def test_compose_preflight(config_path):
         text=True,
         timeout=60,
         env={**os.environ, "TOOLKIT_ALLOW_SCRIPT_SOURCE": "1"},
+        check=False,
     )
     assert result.returncode == 0, f"Preflight fallito per {config_path}:\n{result.stderr[-500:]}"
