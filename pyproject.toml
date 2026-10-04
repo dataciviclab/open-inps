@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dataciviclab-open-inps"
 version = "0.1.0"
-description = "INPS dati aperti — pensioni, prestazioni, statistche"
+description = "INPS dati aperti — pensioni, mercato del lavoro, welfare"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"

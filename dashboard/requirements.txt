@@ -1,5 +1,8 @@
+# Export pin per Streamlit Cloud (non supporta pyproject).
+# Fonte di verità: extra `dashboard` in pyproject.toml.
 streamlit>=1.61
 duckdb>=1.0
 pandas>=2.0
 plotly>=5.18
+altair>=6.2
 lab-connectors[duckdb]

@@ -6,6 +6,7 @@ on:
     paths:
       - "datasets/**"
       - "compose/**"
+      - "scripts/**"
   schedule:
     - cron: "0 6 1 * *"
   workflow_dispatch:
@@ -15,6 +16,10 @@ on:
         required: false
         default: ""
 
+concurrency:
+  group: open-inps-pipeline-${{ github.event.pull_request.number || github.ref || 'schedule' }}
+  cancel-in-progress: false
+
 jobs:
   pipeline:
     if: github.event.pull_request.merged == true || github.event_name != 'pull_request'
@@ -22,6 +27,8 @@ jobs:
     with:
       repo-slug: "open-inps"
       run-command: "make run-all"
+      detect-paths: "datasets compose"
+      install-extras: "dev,pipeline"
     permissions:
       contents: write
       pull-requests: write

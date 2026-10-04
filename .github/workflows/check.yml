@@ -1,36 +1,47 @@
 name: check
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    paths:
-      - "datasets/**"
-      - "compose/**"
-      - "**/*.py"
-      - "**/*.yml"
-      - "**/*.yaml"
-      - "**/*.sql"
-      - "**/Makefile"
 
 jobs:
-  detect:
+  test:
     runs-on: ubuntu-latest
-    outputs:
-      dirs: ${{ steps.detect.outputs.dirs }}
-      count: ${{ steps.detect.outputs.count }}
-      found: ${{ steps.detect.outputs.found }}
     steps:
       - uses: actions/checkout@v7
-      - uses: dataciviclab/.github/actions/detect-changed-datasets@main
-        id: detect
+
+      - uses: dataciviclab/.github/actions/python-setup@main
         with:
-          paths: "datasets compose"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          python-version: "3.12"
+          install-extras: "dev,pipeline"
+
+      - uses: dataciviclab/.github/actions/python-ci@main
+        with:
+          lint_paths: "tests/ dashboard/ datasets/ compose/ scripts/"
+          mypy_paths: ""
+          test_dir: "tests"
+          pytest_args: "-v --tb=short"
 
   validate-config:
-    needs: detect
-    if: needs.detect.outputs.found == 'true'
-    uses: dataciviclab/.github/.github/workflows/dataset-config-check-reusable.yml@main
-    with:
-      configs: ${{ needs.detect.outputs.dirs }}
-      years: "from-config"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dataciviclab/.github/actions/python-setup@main
+        with:
+          python-version: "3.12"
+          install-extras: "dev,pipeline"
+
+      - name: Preflight dataset.yml + compose
+        env:
+          TOOLKIT_ALLOW_SCRIPT_SOURCE: "1"
+        run: |
+          set -euo pipefail
+          mapfile -t CONFIGS < <(find datasets compose -name dataset.yml | sort)
+          echo "→ ${#CONFIGS[@]} config da validare"
+          for f in "${CONFIGS[@]}"; do
+            echo "-> $f"
+            toolkit run preflight --config "$f"
+          done
+          echo "✅ All configs valid"

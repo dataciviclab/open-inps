@@ -24,8 +24,13 @@ run:
 		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run --config "$$f" || exit 1; \
 	done
 
+# CI post-merge e dispatch: dataset + compose (come pipeline.yml)
 .PHONY: run-all
 run-all: run compose
+
+# Alias documentato in README/CONTRIBUTING
+.PHONY: all
+all: run-all test
 
 # --- Validazione config -------------------------------------------------------
 
@@ -51,10 +56,10 @@ clean-runs:
 
 .PHONY: registry registry-write
 registry:
-	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open_inps
+	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open-inps
 
 registry-write:
-	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open_inps --write
+	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open-inps --write
 
 # --- Test --------------------------------------------------------------------
 
@@ -63,10 +68,11 @@ test:
 	pytest tests/ -v
 
 # --- Dashboard ---------------------------------------------------------------
+# Richiede: pip install -e ".[dashboard]"
 
 .PHONY: dashboard
 dashboard:
-	cd dashboard && streamlit run app.py
+	cd dashboard && streamlit run app.py --server.headless=true
 
 # --- Help --------------------------------------------------------------------
 
