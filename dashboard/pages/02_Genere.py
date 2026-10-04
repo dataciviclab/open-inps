@@ -1,4 +1,4 @@
-"""Genere — Il paradosso: donne piu pensioni, meno lavoro."""
+"""Genere — Gap di genere su lavoro, welfare e pensioni."""
 
 import altair as alt
 import pandas as pd
@@ -6,79 +6,165 @@ import streamlit as st
 from sources import METRICHE, require_compose
 
 st.title("⚖️ Genere")
-st.markdown("**Il paradosso**: le donne hanno piu pensioni ma meno lavoro.")
-
-# ── Dati ────────────────────────────────────────────────────────────────────
+st.markdown(
+    "**Il paradosso**: le donne hanno più pensioni ma meno lavoro. "
+    "Gap = (Femmine − Maschi) / Maschi."
+)
 
 df = require_compose("mart_nazionale")
 df_bench = require_compose("mart_benchmark")
 
-# ── Filtri ──────────────────────────────────────────────────────────────────
+# Solo metriche con split M/F reale (no Totale-only come CIG/AU)
+METRICHE_SESSO = [
+    "rapporti_lavoro",
+    "cessazioni_lavoro",
+    "pensioni_vigenti",
+    "pensioni_liquidate",
+    "pensionamento_flussi",
+    "lavoratori_privati",
+    "lavoratori_redditi",
+    "naspi",
+    "dis_coll",
+]
 
-anno = st.selectbox("Anno", sorted(df["anno"].unique(), reverse=True))
+c1, c2 = st.columns(2)
+with c1:
+    anni_ok = sorted(
+        df[(df["metrica"].isin(METRICHE_SESSO)) & (df["sesso"].isin(["Maschi", "Femmine"]))][
+            "anno"
+        ].unique(),
+        reverse=True,
+    )
+    anno = st.selectbox("Anno", anni_ok, key="gen_anno")
+with c2:
+    st.caption("Finestra utile tipica: **2020–2023** (tutte le metriche M/F).")
 
-# ── Gap sintetico dal benchmark ─────────────────────────────────────────────
+
+def _mf(metrica: str) -> pd.DataFrame:
+    d = df[(df["anno"] == anno) & (df["metrica"] == metrica)]
+    return d[d["sesso"].isin(["Maschi", "Femmine"])][["sesso", "valore"]]
+
+
+def _gap(metrica: str) -> float | None:
+    d = _mf(metrica)
+    if d.empty:
+        return None
+    m = float(d[d["sesso"] == "Maschi"]["valore"].sum())
+    f = float(d[d["sesso"] == "Femmine"]["valore"].sum())
+    if m <= 0:
+        return None
+    return (f - m) / m * 100
+
+
+# ── Gap sintetico benchmark ─────────────────────────────────────────────────
+
+st.subheader(f"Gap di genere — {anno}")
 
 bench_yr = df_bench[df_bench["anno"] == anno]
 if not bench_yr.empty:
     b = bench_yr.iloc[0]
-    g_ass = b.get("gap_genere_assunzioni_pct")
-    g_pen = b.get("gap_genere_pensioni_pct")
-    g_nas = b.get("gap_genere_naspi_pct")
-
-    st.subheader("Gap di genere (rapporto F/M)")
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3, c4 = st.columns(4)
     with c1:
-        st.metric("Assunzioni", f"+{g_ass:.1f}%" if pd.notna(g_ass) else "–",
-                  help="Quanto piu assunzioni maschili")
+        val = b.get("gap_genere_assunzioni_pct")
+        st.metric("Assunzioni", f"+{val:.1f}%" if pd.notna(val) else "–", help="+ = più uomini")
     with c2:
-        st.metric("Pensioni", f"+{g_pen:.1f}%" if pd.notna(g_pen) else "–",
-                  help="Quanto piu pensioni femminili")
+        val = b.get("gap_genere_cessazioni_pct")
+        st.metric("Cessazioni", f"+{val:.1f}%" if pd.notna(val) else "–", help="+ = più uomini")
     with c3:
-        st.metric("NASpI", f"+{g_nas:.1f}%" if pd.notna(g_nas) else "–",
-                  help="Quanto piu disoccupazione femminile")
+        val = b.get("gap_genere_pensioni_pct")
+        st.metric("Pensioni", f"+{val:.1f}%" if pd.notna(val) else "–", help="+ = più donne")
+    with c4:
+        val = b.get("gap_genere_naspi_pct")
+        st.metric("NASpI", f"+{val:.1f}%" if pd.notna(val) else "–", help="+ = più donne")
+    st.info(
+        "Assunzioni/Cessazioni: + = più uomini. "
+        "Pensioni/NASP I: + = più donne. "
+        "DIS-COLL nella pratica è a maggioranza femminile."
+    )
 
-    st.info("Assunzioni: + = piu uomini. Pensioni/NASpI: + = piu donne.")
+# ── Tabella gap tutte le metriche M/F ──────────────────────────────────────
 
-# ── Barre impilatte ─────────────────────────────────────────────────────────
+st.subheader("Tutte le metriche con split M/F")
 
-st.subheader(f"Confronto donne/uomini — {anno}")
+rows = []
+for met in METRICHE_SESSO:
+    d = _mf(met)
+    if d.empty:
+        continue
+    m = float(d[d["sesso"] == "Maschi"]["valore"].sum())
+    f = float(d[d["sesso"] == "Femmine"]["valore"].sum())
+    gap = (f - m) / m * 100 if m else None
+    rows.append(
+        {
+            "Metrica": METRICHE.get(met, met),
+            "Maschi": m,
+            "Femmine": f,
+            "Gap %": round(gap, 1) if gap is not None else None,
+            "Chi ha di più": "Donne" if (gap or 0) > 0 else "Uomini",
+        }
+    )
 
-df_yr = df[(df["anno"] == anno) & (df["sesso"].isin(["Maschi", "Femmine"]))]
-df_bar = df_yr[["metrica", "sesso", "valore"]].copy()
-df_bar["label"] = df_bar["metrica"].map(METRICHE)
+if rows:
+    df_gap = pd.DataFrame(rows).sort_values("Gap %")
+    st.dataframe(df_gap, use_container_width=True, hide_index=True)
 
-chart = alt.Chart(df_bar).mark_bar().encode(
-    x=alt.X("valore:Q", title="Valore", scale=alt.Scale(type="symlog")),
-    y=alt.Y("label:N", title=""),
-    yOffset=alt.YOffset("sesso:N"),
-    color=alt.Color("sesso:N", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
-    tooltip=["label", "sesso", alt.Tooltip("valore", format=",.0f")],
-).properties(height=300)
-st.altair_chart(chart, use_container_width=True)
-
-# ── Tabella gap ─────────────────────────────────────────────────────────────
-
-st.subheader("Dettaglio gap")
-pivot = df_yr.pivot_table(index="metrica", columns="sesso", values="valore", aggfunc="sum").reset_index()
-pivot["label"] = pivot["metrica"].map(METRICHE)
-pivot["gap%"] = ((pivot["Femmine"] - pivot["Maschi"]) / pivot["Maschi"] * 100).round(1)
-df_gap = pivot[["label", "Maschi", "Femmine", "gap%"]].copy()
-df_gap.columns = ["Metrica", "Maschi", "Femmine", "Gap %"]
-st.dataframe(df_gap, use_container_width=True, hide_index=True)
+    # Barre gap
+    chart = (
+        alt.Chart(df_gap)
+        .mark_bar()
+        .encode(
+            x=alt.X("Gap %:Q", title="Gap F/M (%)"),
+            y=alt.Y("Metrica:N", sort="-x", title=""),
+            color=alt.Color(
+                "Chi ha di più:N",
+                scale=alt.Scale(domain=["Donne", "Uomini"], range=["#ec4899", "#2563eb"]),
+            ),
+            tooltip=["Metrica", "Maschi", "Femmine", "Gap %"],
+        )
+        .properties(height=320)
+    )
+    st.altair_chart(chart, use_container_width=True)
 
 # ── Trend gap ───────────────────────────────────────────────────────────────
 
-st.subheader("Evoluzione del gap nel tempo")
-met = st.selectbox("Metrica", list(METRICHE.keys()), format_func=lambda x: METRICHE[x], key="gap_met")
-df_t = df[(df["metrica"] == met) & (df["sesso"].isin(["Maschi", "Femmine"]))]
-pivot_t = df_t.pivot_table(index="anno", columns="sesso", values="valore", aggfunc="sum").reset_index()
-pivot_t = pivot_t.dropna(subset=["Maschi", "Femmine"])
-pivot_t["gap%"] = ((pivot_t["Femmine"] - pivot_t["Maschi"]) / pivot_t["Maschi"] * 100).round(1)
+st.markdown("---")
+st.subheader("📈 Evoluzione del gap nel tempo")
 
-chart2 = alt.Chart(pivot_t).mark_line(point=True, color="#d97706").encode(
-    x=alt.X("anno:O", title="Anno"),
-    y=alt.Y("gap%:Q", title="Gap F/M (%)"),
-    tooltip=["anno", alt.Tooltip("gap%", format="+.1f")],
-).properties(height=250)
-st.altair_chart(chart2, use_container_width=True)
+met = st.selectbox(
+    "Metrica",
+    METRICHE_SESSO,
+    format_func=lambda x: METRICHE.get(x, x),
+    key="gen_trend_met",
+)
+df_t = df[(df["metrica"] == met) & (df["sesso"].isin(["Maschi", "Femmine"]))]
+pivot_t = (
+    df_t.pivot_table(index="anno", columns="sesso", values="valore", aggfunc="sum")
+    .reset_index()
+    .dropna(subset=["Maschi", "Femmine"])
+)
+if not pivot_t.empty:
+    pivot_t["gap%"] = ((pivot_t["Femmine"] - pivot_t["Maschi"]) / pivot_t["Maschi"] * 100).round(1)
+
+    # zero line + serie
+    base = alt.Chart(pivot_t).mark_rule(color="#94a3b8", strokeDash=[4, 4]).encode(y=alt.datum(0))
+    line = (
+        alt.Chart(pivot_t)
+        .mark_line(point=True, color="#d97706", strokeWidth=2)
+        .encode(
+            x=alt.X("anno:O", title="Anno"),
+            y=alt.Y("gap%:Q", title="Gap F/M (%)"),
+            tooltip=["anno", alt.Tooltip("gap%", format="+.1f")],
+        )
+    )
+    st.altair_chart((base + line).properties(height=280), use_container_width=True)
+
+    if METRICHE.get(met, "").lower().find("cessaz") >= 0 or met == "cessazioni_lavoro":
+        st.caption(
+            "Sulle cessazioni il gap è tipicamente più contenuto che sulle "
+            "assunzioni: le donne entrano meno ma, quando entrano, restano."
+        )
+    if met.startswith("pensioni"):
+        st.caption(
+            "Sulle pensioni il gap è positivo (più donne): riflette la maggiore "
+            "aspettativa di vita e la minore carriera contributiva media."
+        )
