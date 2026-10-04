@@ -53,41 +53,36 @@ Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
 ## Setup
 
 ```bash
-pip install -r requirements.txt
+pip install -e ".[dev,pipeline,dashboard]"
 ```
+
+Le dipendenze vivono in `pyproject.toml` (standard Lab). `dashboard/requirements.txt`
+è solo export pin per Streamlit Cloud.
 
 ## Uso
 
 ```bash
-make run           # pipeline toolkit completa
-make check         # valida config
-make registry      # genera registry.json (dry-run)
+make run            # tutti i dataset singoli
+make compose        # compose inps-analisi (dopo i dataset)
+make dashboard      # Streamlit: compose + mart (flussi, settore, welfare)
+make check          # valida config
 make registry-write # scrivi registry.json
-make clean         # pulisci output
+make clean          # pulisci output
 ```
+
+Il compose unifica le metriche nazionali/territoriali (incluse cessazioni,
+pensionamento, PA, redditi, RdC, DIS-COLL e serie storica pensioni pre-2022).
+La dashboard legge compose + mart singoli.
 
 ## Struttura
 
 ```
 ├── scripts/common.py              # API client INPS (condiviso)
-├── datasets/
-│   ├── inps-pensioni-vigenti/
-│   ├── inps-pensioni-liquidate/
-│   ├── inps-pensioni-serie/
-│   ├── inps-pensionamento-flussi/
-│   ├── inps-lavoratori-pubblici/
-│   ├── inps-lavoratori-redditi/
-│   ├── inps-rdc-pdc/
-│   ├── inps-dis-coll/
-│   ├── inps-rapporti-lavoro/
-│   ├── inps-rapporti-cessazioni/
-│   ├── inps-flussi-settore/
-│   ├── inps-retribuzioni/
-│   ├── inps-naspi/
-│   ├── inps-cig/
-│   ├── inps-assegno-unico/
-│   └── inps-dipendenti-pubblici/
-├── registry/registry.json         # artifact catalog
+├── datasets/                      # 17 dataset toolkit
+├── compose/inps-analisi/          # compose multi-dataset
+├── dashboard/                     # Streamlit (Panoramica, Genere, Territorio,
+│                                  # Pensioni, Lavoro, Welfare, Tabelle)
+├── registry/registry.json
 ├── Makefile
 ├── NOTE.md                        # documentazione API
 ├── catalog.json                   # 194 osservatori INPS
