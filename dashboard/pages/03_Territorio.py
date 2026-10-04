@@ -1,10 +1,7 @@
 """Territorio — Mappa e ranking regionale."""
 
-import altair as alt
-import pandas as pd
 import plotly.express as px
 import streamlit as st
-
 from sources import GEOJSON_URL, METRICHE, REGIONI, fmt_num, require_compose
 
 st.title("🗺️ Territorio")

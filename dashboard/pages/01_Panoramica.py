@@ -1,74 +1,96 @@
-"""Panoramica — Il sistema welfare italiano in numeri."""
+"""Panoramica — Il sistema welfare e lavoro italiano in numeri."""
 
 import altair as alt
 import pandas as pd
 import streamlit as st
-
-from sources import METRICHE, require_compose, fmt_num
+from sources import METRICHE, fmt_num, require_compose
 
 st.title("🇮🇹 Open INPS")
-st.markdown("**Panoramica** — Come si muove il sistema pensionistico e del lavoro italiano.")
+st.markdown(
+    "**Panoramica** — Pensioni, mercato del lavoro e welfare: "
+    "il quadro nazionale multi-dataset INPS."
+)
 
 # ── Dati ────────────────────────────────────────────────────────────────────
 
 df = require_compose("mart_nazionale")
 df_bench = require_compose("mart_benchmark")
 
-# ── Anno con piu copertura ──────────────────────────────────────────────────
+# ── Anno con più copertura ──────────────────────────────────────────────────
 
 anni_completi = df.groupby("anno")["metrica"].nunique().reset_index()
-anno_max = int(anni_completi[anni_completi["metrica"] >= 4]["anno"].max())
+anno_max = int(anni_completi[anni_completi["metrica"] >= 5]["anno"].max())
 
 # ── Filtri ──────────────────────────────────────────────────────────────────
 
 c1, c2 = st.columns(2)
 with c1:
-    anno = st.selectbox("Anno", sorted(df["anno"].unique(), reverse=True),
-                        index=sorted(df["anno"].unique(), reverse=True).index(anno_max))
+    anno = st.selectbox(
+        "Anno",
+        sorted(df["anno"].unique(), reverse=True),
+        index=sorted(df["anno"].unique(), reverse=True).index(anno_max),
+    )
 with c2:
     sesso = st.radio("Sesso", ["Tutti", "Maschi", "Femmine"], horizontal=True)
 
-# ── KPI ─────────────────────────────────────────────────────────────────────
 
-st.subheader(f"Indicatori {anno}")
-
-kpi_items = [
-    ("pensioni_vigenti", "Pensioni in pagamento"),
-    ("rapporti_lavoro", "Nuove assunzioni"),
-    ("naspi", "Beneficiari NASpI"),
-    ("cig_ore", "Ore CIG"),
-]
-
-cols = st.columns(len(kpi_items))
-df_yr = df[df["anno"] == anno]
-
-for col, (metrica, label) in zip(cols, kpi_items):
-    df_m = df_yr[df_yr["metrica"] == metrica]
+def _val(metrica: str, anno: int) -> float:
+    df_m = df[(df["anno"] == anno) & (df["metrica"] == metrica)]
     if sesso == "Tutti":
         if (df_m["sesso"] == "Totale").any():
-            val = df_m[df_m["sesso"] == "Totale"]["valore"].sum()
-        else:
-            val = df_m[df_m["sesso"].isin(["Maschi", "Femmine"])]["valore"].sum()
-    else:
-        val = df_m[df_m["sesso"] == sesso]["valore"].sum()
+            return float(df_m[df_m["sesso"] == "Totale"]["valore"].sum())
+        return float(df_m[df_m["sesso"].isin(["Maschi", "Femmine"])]["valore"].sum())
+    return float(df_m[df_m["sesso"] == sesso]["valore"].sum())
 
-    # Delta YoY
-    df_m_prev = df[(df["anno"] == anno - 1) & (df["metrica"] == metrica)]
-    if sesso == "Tutti":
-        if (df_m_prev["sesso"] == "Totale").any():
-            val_prev = df_m_prev[df_m_prev["sesso"] == "Totale"]["valore"].sum()
-        else:
-            val_prev = df_m_prev[df_m_prev["sesso"].isin(["Maschi", "Femmine"])]["valore"].sum()
-    else:
-        val_prev = df_m_prev[df_m_prev["sesso"] == sesso]["valore"].sum()
 
-    delta = None
-    if val > 0 and val_prev > 0:
-        delta_pct = (val - val_prev) / val_prev * 100
-        # Non mostrare delta se troppo grande (>50%) — segno di dato parziale
-        if abs(delta_pct) <= 50:
-            delta = f"{delta_pct:+.1f}%"
+# ── KPI mercato del lavoro ──────────────────────────────────────────────────
 
+st.subheader(f"Mercato del lavoro {anno}")
+
+kpi_lavoro = [
+    ("rapporti_lavoro", "Assunzioni"),
+    ("cessazioni_lavoro", "Cessazioni"),
+    ("lavoratori_privati", "Lav. privati"),
+    ("lavoratori_pa", "Lav. pubblici"),
+]
+cols = st.columns(len(kpi_lavoro) + 1)
+for col, (metrica, label) in zip(cols[: len(kpi_lavoro)], kpi_lavoro):
+    val = _val(metrica, anno)
+    prev = _val(metrica, anno - 1) if anno > df["anno"].min() else 0
+    delta = (
+        f"{(val - prev) / prev * 100:+.1f}%"
+        if prev > 0 and abs((val - prev) / prev) <= 0.5
+        else None
+    )
+    with col:
+        st.metric(label, fmt_num(int(val)) if val else "–", delta=delta)
+
+a = _val("rapporti_lavoro", anno)
+c = _val("cessazioni_lavoro", anno)
+with cols[-1]:
+    ratio = f"{c / a * 100:.1f}%" if a else "–"
+    st.metric("Cess./Assun.", ratio, help="Rapporto cessazioni su assunzioni")
+
+# ── KPI welfare e pensioni ──────────────────────────────────────────────────
+
+st.subheader(f"Pensioni e welfare {anno}")
+
+kpi_welfare = [
+    ("pensioni_vigenti", "Pensioni in pagamento"),
+    ("pensionamento_flussi", "Nuove pensioni"),
+    ("naspi", "NASpI"),
+    ("dis_coll", "DIS-COLL"),
+    ("rdc_nuclei", "Nuclei RdC/PdC"),
+]
+cols_w = st.columns(len(kpi_welfare))
+for col, (metrica, label) in zip(cols_w, kpi_welfare):
+    val = _val(metrica, anno)
+    prev = _val(metrica, anno - 1) if anno > df["anno"].min() else 0
+    delta = (
+        f"{(val - prev) / prev * 100:+.1f}%"
+        if prev > 0 and abs((val - prev) / prev) <= 0.5
+        else None
+    )
     with col:
         st.metric(label, fmt_num(int(val)) if val else "–", delta=delta)
 
@@ -83,21 +105,31 @@ if not bench_yr.empty:
     b1, b2, b3, b4 = st.columns(4)
 
     with b1:
-        val = b.get("rapporto_pensioni_lavoratori")
-        st.metric("Pensioni / Lavoratori", f"{val:.2f}" if pd.notna(val) else "–",
-                  help="Quante pensioni per ogni lavoratore privato")
+        val = b.get("rapporto_cessazioni_assunzioni_pct")
+        st.metric(
+            "Cessazioni / Assunzioni",
+            f"{val:.1f}%" if pd.notna(val) else "–",
+            help="Quante cessazioni per 100 assunzioni",
+        )
     with b2:
-        val = b.get("rapporto_naspi_assunzioni_pct")
-        st.metric("NASpI / Assunzioni", f"{val:.1f}%" if pd.notna(val) else "–",
-                  help="Quanti beneficiari NASpI per 100 nuove assunzioni")
+        val = b.get("rapporto_pensioni_lavoratori")
+        st.metric(
+            "Pensioni / Lav. privati",
+            f"{val:.2f}" if pd.notna(val) else "–",
+        )
     with b3:
-        val = b.get("gap_genere_pensioni_pct")
-        st.metric("Gap F/M pensioni", f"+{val:.1f}%" if pd.notna(val) else "–",
-                  help="Quanto piu pensioni hanno le donne")
+        val = b.get("rapporto_dis_coll_naspi_pct")
+        st.metric(
+            "DIS-COLL / NASpI",
+            f"{val:.2f}%" if pd.notna(val) else "–",
+            help="Nicchia co.co.co rispetto alla NASpI",
+        )
     with b4:
         val = b.get("gap_genere_assunzioni_pct")
-        st.metric("Gap M/F assunzioni", f"+{val:.1f}%" if pd.notna(val) else "–",
-                  help="Quante piu assunzioni hanno gli uomini")
+        st.metric(
+            "Gap M/F assunzioni",
+            f"+{val:.1f}%" if pd.notna(val) else "–",
+        )
 
 # ── Trend ───────────────────────────────────────────────────────────────────
 
@@ -105,16 +137,33 @@ st.markdown("---")
 st.subheader("📈 Trend")
 
 met = st.selectbox("Metrica", list(METRICHE.keys()), format_func=lambda x: METRICHE[x])
-df_t = df[(df["metrica"] == met) & (df["sesso"].isin(["Maschi", "Femmine"]))]
+df_t = df[(df["metrica"] == met) & (df["sesso"].isin(["Maschi", "Femmine", "Totale"]))]
 
-chart = alt.Chart(df_t).mark_line(point=True, strokeWidth=2).encode(
-    x=alt.X("anno:O", title="Anno"),
-    y=alt.Y("valore:Q", title=METRICHE[met]),
-    color=alt.Color("sesso:N", scale=alt.Scale(domain=["Maschi", "Femmine"], range=["#2563eb", "#ec4899"])),
-    tooltip=["anno", "sesso", alt.Tooltip("valore", format=",.0f"),
-             alt.Tooltip("share_pct", format=".1f", title="Share %"),
-             alt.Tooltip("yoy_pct", format="+.1f", title="YoY %")],
-).properties(height=350)
+if df_t.empty:
+    df_t = df[df["metrica"] == met]
+
+chart = (
+    alt.Chart(df_t)
+    .mark_line(point=True, strokeWidth=2)
+    .encode(
+        x=alt.X("anno:O", title="Anno"),
+        y=alt.Y("valore:Q", title=METRICHE[met]),
+        color=alt.Color(
+            "sesso:N",
+            scale=alt.Scale(
+                domain=["Maschi", "Femmine", "Totale"], range=["#2563eb", "#ec4899", "#64748b"]
+            ),
+        ),
+        tooltip=[
+            "anno",
+            "sesso",
+            alt.Tooltip("valore", format=",.0f"),
+            alt.Tooltip("share_pct", format=".1f", title="Share %"),
+            alt.Tooltip("yoy_pct", format="+.1f", title="YoY %"),
+        ],
+    )
+    .properties(height=350)
+)
 st.altair_chart(chart, use_container_width=True)
 
 # ── Riepilogo ───────────────────────────────────────────────────────────────
@@ -122,6 +171,8 @@ st.altair_chart(chart, use_container_width=True)
 st.subheader("📋 Riepilogo")
 df_riep = df[df["anno"] == anno].copy()
 df_riep["label"] = df_riep["metrica"].map(METRICHE)
-pivot = df_riep.pivot_table(index="label", columns="sesso", values="valore", aggfunc="sum").reset_index()
+pivot = df_riep.pivot_table(
+    index="label", columns="sesso", values="valore", aggfunc="sum"
+).reset_index()
 cols_t = ["label"] + [c for c in ["Maschi", "Femmine", "Totale"] if c in pivot.columns]
 st.dataframe(pivot[cols_t], use_container_width=True, hide_index=True)

@@ -1,10 +1,8 @@
 """Pensioni — Deep dive: importo, eta, regione."""
 
 import altair as alt
-import pandas as pd
 import streamlit as st
-
-from sources import fmt_num, require_mart
+from sources import require_mart
 
 st.title("🏦 Pensioni")
 st.markdown("Dettaglio sulle pensioni INPS: distribuzione per importo, eta e regione.")

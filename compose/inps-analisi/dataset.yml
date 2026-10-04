@@ -6,13 +6,13 @@ dataset:
   source_id: "dataciviclab_composite"
   tags: [inps, compose, welfare, lavoro, pensioni, analisi]
   category: welfare
-  description: "Compose INPS: incrocio multi-dataset per analisi di genere, territorio e lifecycle."
+  description: "Compose INPS: incrocio multi-dataset per analisi di genere, territorio, mercato del lavoro e welfare."
   years: [2026]
   time_coverage:
     mode: snapshot
 
-# Compose: legge i clean parquet dei 7 dataset INPS e produce3 mart unificati.
-# Eseguire prima: toolkit run per tutti i dataset singoli in datasets/.
+# Compose: legge i clean parquet dei dataset INPS e produce mart unificati.
+# Eseguire prima: toolkit run per i dataset singoli in datasets/.
 
 raw:
   output_policy: overwrite
@@ -30,6 +30,10 @@ support:
     config: ../../datasets/inps-pensioni-liquidate/dataset.yml
     years: [2026]
   - type: dataset
+    name: pensioni_serie
+    config: ../../datasets/inps-pensioni-serie/dataset.yml
+    years: [2026]
+  - type: dataset
     name: retribuzioni
     config: ../../datasets/inps-retribuzioni/dataset.yml
     years: [2026]
@@ -38,8 +42,28 @@ support:
     config: ../../datasets/inps-rapporti-lavoro/dataset.yml
     years: [2026]
   - type: dataset
+    name: cessazioni
+    config: ../../datasets/inps-rapporti-cessazioni/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: pensionamento
+    config: ../../datasets/inps-pensionamento-flussi/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: lavoratori_pa
+    config: ../../datasets/inps-lavoratori-pubblici/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: lavoratori_redditi
+    config: ../../datasets/inps-lavoratori-redditi/dataset.yml
+    years: [2026]
+  - type: dataset
     name: naspi
     config: ../../datasets/inps-naspi/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: dis_coll
+    config: ../../datasets/inps-dis-coll/dataset.yml
     years: [2026]
   - type: dataset
     name: cig
@@ -48,6 +72,10 @@ support:
   - type: dataset
     name: assegno
     config: ../../datasets/inps-assegno-unico/dataset.yml
+    years: [2026]
+  - type: dataset
+    name: rdc
+    config: ../../datasets/inps-rdc-pdc/dataset.yml
     years: [2026]
   - type: dataset
     name: dp
@@ -61,7 +89,7 @@ clean:
     mode: latest
   required_columns: [anno, metrica, sesso, valore]
   validate:
-    min_rows: 100
+    min_rows: 200
 
 mart:
   tables:
@@ -73,13 +101,15 @@ mart:
       sql: "sql/mart_lifecycle.sql"
     - name: "mart_benchmark"
       sql: "sql/mart_benchmark.sql"
-  required_tables: [mart_nazionale, mart_territoriale]
+  required_tables: [mart_nazionale, mart_territoriale, mart_benchmark]
   validate:
     table_rules:
       mart_nazionale:
-        min_rows: 50
+        min_rows: 80
       mart_territoriale:
-        min_rows: 100
+        min_rows: 200
+      mart_benchmark:
+        min_rows: 8
 
 validation:
   fail_on_error: true

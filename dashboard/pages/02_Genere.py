@@ -3,8 +3,7 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
-
-from sources import METRICHE, require_compose, fmt_num
+from sources import METRICHE, require_compose
 
 st.title("⚖️ Genere")
 st.markdown("**Il paradosso**: le donne hanno piu pensioni ma meno lavoro.")

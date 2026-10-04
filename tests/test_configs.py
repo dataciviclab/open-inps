@@ -1,8 +1,9 @@
 """Test: i dataset.yml sono validi (preflight toolkit)."""
-import subprocess
-import pytest
 import glob
 import os
+import subprocess
+
+import pytest
 
 REPO_ROOT = os.path.dirname(os.path.dirname(__file__))
 DATASET_CONFIGS = sorted(glob.glob(os.path.join(REPO_ROOT, "datasets", "*", "dataset.yml")))

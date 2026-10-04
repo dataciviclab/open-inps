@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Open INPS · Dashboard Streamlit
-Intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
+Intelligence sui dati INPS: pensioni, lavoro, welfare.
 """
 
 import streamlit as st
@@ -24,6 +24,7 @@ pages = {
     "Deep dive": [
         st.Page("pages/04_Pensioni.py", title="Pensioni", icon="🏦"),
         st.Page("pages/05_Lavoro.py", title="Lavoro", icon="💼"),
+        st.Page("pages/07_Welfare.py", title="Welfare", icon="🏛️"),
     ],
     "Strumenti": [
         st.Page("pages/06_Dati.py", title="Tabelle", icon="📋"),
