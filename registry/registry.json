@@ -59,7 +59,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_analisi/2026/inps_analisi_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_analisi/2026/inps_analisi_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -135,7 +135,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_assegno_unico/2026/inps_assegno_unico_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_assegno_unico/2026/inps_assegno_unico_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -211,7 +211,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_cig/2026/inps_cig_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_cig/2026/inps_cig_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -292,7 +292,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_dipendenti_pubblici/2026/inps_dipendenti_pubblici_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_dipendenti_pubblici/2026/inps_dipendenti_pubblici_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -372,7 +372,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_dis_coll/2026/inps_dis_coll_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_dis_coll/2026/inps_dis_coll_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -463,7 +463,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_flussi_settore/2026/inps_flussi_settore_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_flussi_settore/2026/inps_flussi_settore_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -567,7 +567,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_lavoratori_pubblici/2026/inps_lavoratori_pubblici_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_lavoratori_pubblici/2026/inps_lavoratori_pubblici_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -668,7 +668,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_lavoratori_redditi/2026/inps_lavoratori_redditi_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_lavoratori_redditi/2026/inps_lavoratori_redditi_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -751,7 +751,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_naspi/2026/inps_naspi_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_naspi/2026/inps_naspi_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -845,7 +845,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_pensionamento_flussi/2026/inps_pensionamento_flussi_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_pensionamento_flussi/2026/inps_pensionamento_flussi_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -920,7 +920,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_pensioni_liquidate/2026/inps_pensioni_liquidate_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_pensioni_liquidate/2026/inps_pensioni_liquidate_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1012,7 +1012,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_pensioni_serie/2026/inps_pensioni_serie_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_pensioni_serie/2026/inps_pensioni_serie_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1099,7 +1099,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_pensioni_vigenti/2026/inps_pensioni_vigenti_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_pensioni_vigenti/2026/inps_pensioni_vigenti_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1181,7 +1181,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_rapporti_cessazioni/2026/inps_rapporti_cessazioni_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_rapporti_cessazioni/2026/inps_rapporti_cessazioni_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1263,7 +1263,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_rapporti_lavoro/2026/inps_rapporti_lavoro_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_rapporti_lavoro/2026/inps_rapporti_lavoro_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1357,7 +1357,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_rdc_pdc/2026/inps_rdc_pdc_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_rdc_pdc/2026/inps_rdc_pdc_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1446,7 +1446,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open_inps/inps_retribuzioni/2026/inps_retribuzioni_2026_clean.parquet",
+        "path": "gs://dataciviclab-clean/open-inps/inps_retribuzioni/2026/inps_retribuzioni_2026_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1463,7 +1463,7 @@
       "table": "mart_benchmark",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_benchmark.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_benchmark.parquet",
         "multi_file": false
       }
     },
@@ -1473,7 +1473,7 @@
       "table": "mart_lifecycle",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_lifecycle.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_lifecycle.parquet",
         "multi_file": false
       }
     },
@@ -1483,7 +1483,7 @@
       "table": "mart_nazionale",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_nazionale.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_nazionale.parquet",
         "multi_file": false
       }
     },
@@ -1493,7 +1493,7 @@
       "table": "mart_territoriale",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_analisi/2026/mart_territoriale.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_territoriale.parquet",
         "multi_file": false
       }
     },
@@ -1503,7 +1503,7 @@
       "table": "mart_au_isee",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_assegno_unico/2026/mart_au_isee.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_assegno_unico/2026/mart_au_isee.parquet",
         "multi_file": false
       }
     },
@@ -1513,7 +1513,7 @@
       "table": "mart_au_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_assegno_unico/2026/mart_au_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_assegno_unico/2026/mart_au_regione.parquet",
         "multi_file": false
       }
     },
@@ -1523,7 +1523,7 @@
       "table": "mart_cig_mensile",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_mensile.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_cig/2026/mart_cig_mensile.parquet",
         "multi_file": false
       }
     },
@@ -1533,7 +1533,7 @@
       "table": "mart_cig_ramo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_ramo.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_cig/2026/mart_cig_ramo.parquet",
         "multi_file": false
       }
     },
@@ -1543,7 +1543,7 @@
       "table": "mart_cig_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_cig/2026/mart_cig_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_cig/2026/mart_cig_regione.parquet",
         "multi_file": false
       }
     },
@@ -1553,7 +1553,7 @@
       "table": "mart_dp_forma_giuridica",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_dipendenti_pubblici/2026/mart_dp_forma_giuridica.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_dipendenti_pubblici/2026/mart_dp_forma_giuridica.parquet",
         "multi_file": false
       }
     },
@@ -1563,7 +1563,7 @@
       "table": "mart_dp_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_dipendenti_pubblici/2026/mart_dp_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_dipendenti_pubblici/2026/mart_dp_regione.parquet",
         "multi_file": false
       }
     },
@@ -1573,7 +1573,7 @@
       "table": "mart_dis_coll_nazionale",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_dis_coll/2026/mart_dis_coll_nazionale.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_dis_coll/2026/mart_dis_coll_nazionale.parquet",
         "multi_file": false
       }
     },
@@ -1583,7 +1583,7 @@
       "table": "mart_flussi_settore",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_flussi_settore/2026/mart_flussi_settore.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_flussi_settore/2026/mart_flussi_settore.parquet",
         "multi_file": false
       }
     },
@@ -1593,7 +1593,7 @@
       "table": "mart_lavoratori_pa_eta",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_eta.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_eta.parquet",
         "multi_file": false
       }
     },
@@ -1603,7 +1603,7 @@
       "table": "mart_lavoratori_pa_gruppo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_gruppo.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_gruppo.parquet",
         "multi_file": false
       }
     },
@@ -1613,7 +1613,7 @@
       "table": "mart_lavoratori_pa_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_regione.parquet",
         "multi_file": false
       }
     },
@@ -1623,7 +1623,7 @@
       "table": "mart_lavoratori_pa_tipo_contratto",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_tipo_contratto.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_tipo_contratto.parquet",
         "multi_file": false
       }
     },
@@ -1633,7 +1633,7 @@
       "table": "mart_lavoratori_redditi_cittadinanza",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_cittadinanza.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_cittadinanza.parquet",
         "multi_file": false
       }
     },
@@ -1643,7 +1643,7 @@
       "table": "mart_lavoratori_redditi_eta",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_eta.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_eta.parquet",
         "multi_file": false
       }
     },
@@ -1653,7 +1653,7 @@
       "table": "mart_lavoratori_redditi_posizione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_posizione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_posizione.parquet",
         "multi_file": false
       }
     },
@@ -1663,7 +1663,7 @@
       "table": "mart_lavoratori_redditi_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_regione.parquet",
         "multi_file": false
       }
     },
@@ -1673,7 +1673,7 @@
       "table": "mart_naspi_durata",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_naspi/2026/mart_naspi_durata.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_naspi/2026/mart_naspi_durata.parquet",
         "multi_file": false
       }
     },
@@ -1683,7 +1683,7 @@
       "table": "mart_naspi_eta",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_naspi/2026/mart_naspi_eta.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_naspi/2026/mart_naspi_eta.parquet",
         "multi_file": false
       }
     },
@@ -1693,7 +1693,7 @@
       "table": "mart_naspi_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_naspi/2026/mart_naspi_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_naspi/2026/mart_naspi_regione.parquet",
         "multi_file": false
       }
     },
@@ -1703,7 +1703,7 @@
       "table": "mart_pensionamento_categoria",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensionamento_flussi/2026/mart_pensionamento_categoria.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensionamento_flussi/2026/mart_pensionamento_categoria.parquet",
         "multi_file": false
       }
     },
@@ -1713,7 +1713,7 @@
       "table": "mart_pensionamento_gestione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensionamento_flussi/2026/mart_pensionamento_gestione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensionamento_flussi/2026/mart_pensionamento_gestione.parquet",
         "multi_file": false
       }
     },
@@ -1723,7 +1723,7 @@
       "table": "mart_pensionamento_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensionamento_flussi/2026/mart_pensionamento_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensionamento_flussi/2026/mart_pensionamento_regione.parquet",
         "multi_file": false
       }
     },
@@ -1733,7 +1733,7 @@
       "table": "mart_liquidate_importo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_liquidate/2026/mart_liquidate_importo.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_liquidate/2026/mart_liquidate_importo.parquet",
         "multi_file": false
       }
     },
@@ -1743,7 +1743,7 @@
       "table": "mart_liquidate_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_liquidate/2026/mart_liquidate_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_liquidate/2026/mart_liquidate_regione.parquet",
         "multi_file": false
       }
     },
@@ -1753,7 +1753,7 @@
       "table": "mart_pensioni_serie_categoria",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_serie/2026/mart_pensioni_serie_categoria.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_serie/2026/mart_pensioni_serie_categoria.parquet",
         "multi_file": false
       }
     },
@@ -1763,7 +1763,7 @@
       "table": "mart_pensioni_serie_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_serie/2026/mart_pensioni_serie_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_serie/2026/mart_pensioni_serie_regione.parquet",
         "multi_file": false
       }
     },
@@ -1773,7 +1773,7 @@
       "table": "mart_pensioni_serie_tipogest",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_serie/2026/mart_pensioni_serie_tipogest.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_serie/2026/mart_pensioni_serie_tipogest.parquet",
         "multi_file": false
       }
     },
@@ -1783,7 +1783,7 @@
       "table": "mart_vigenti_eta",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_vigenti/2026/mart_vigenti_eta.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_vigenti/2026/mart_vigenti_eta.parquet",
         "multi_file": false
       }
     },
@@ -1793,7 +1793,7 @@
       "table": "mart_vigenti_importo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_vigenti/2026/mart_vigenti_importo.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_vigenti/2026/mart_vigenti_importo.parquet",
         "multi_file": false
       }
     },
@@ -1803,7 +1803,7 @@
       "table": "mart_vigenti_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_pensioni_vigenti/2026/mart_vigenti_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_vigenti/2026/mart_vigenti_regione.parquet",
         "multi_file": false
       }
     },
@@ -1813,7 +1813,7 @@
       "table": "mart_cessazioni_motivo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_cessazioni/2026/mart_cessazioni_motivo.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_cessazioni/2026/mart_cessazioni_motivo.parquet",
         "multi_file": false
       }
     },
@@ -1823,7 +1823,7 @@
       "table": "mart_cessazioni_provincia",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_cessazioni/2026/mart_cessazioni_provincia.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_cessazioni/2026/mart_cessazioni_provincia.parquet",
         "multi_file": false
       }
     },
@@ -1833,7 +1833,7 @@
       "table": "mart_cessazioni_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_cessazioni/2026/mart_cessazioni_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_cessazioni/2026/mart_cessazioni_regione.parquet",
         "multi_file": false
       }
     },
@@ -1843,7 +1843,7 @@
       "table": "mart_rapporti_eta",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_eta.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_lavoro/2026/mart_rapporti_eta.parquet",
         "multi_file": false
       }
     },
@@ -1853,7 +1853,7 @@
       "table": "mart_rapporti_provincia",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_provincia.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_lavoro/2026/mart_rapporti_provincia.parquet",
         "multi_file": false
       }
     },
@@ -1863,7 +1863,7 @@
       "table": "mart_rapporti_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rapporti_lavoro/2026/mart_rapporti_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_lavoro/2026/mart_rapporti_regione.parquet",
         "multi_file": false
       }
     },
@@ -1873,7 +1873,7 @@
       "table": "mart_rdc_pdc_componenti",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_componenti.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_componenti.parquet",
         "multi_file": false
       }
     },
@@ -1883,7 +1883,7 @@
       "table": "mart_rdc_pdc_fragili",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_fragili.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_fragili.parquet",
         "multi_file": false
       }
     },
@@ -1893,7 +1893,7 @@
       "table": "mart_rdc_pdc_nazionale",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_nazionale.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_nazionale.parquet",
         "multi_file": false
       }
     },
@@ -1903,7 +1903,7 @@
       "table": "mart_rdc_pdc_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_rdc_pdc/2026/mart_rdc_pdc_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_regione.parquet",
         "multi_file": false
       }
     },
@@ -1913,7 +1913,7 @@
       "table": "mart_retribuzioni_eta",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_retribuzioni/2026/mart_retribuzioni_eta.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_eta.parquet",
         "multi_file": false
       }
     },
@@ -1923,7 +1923,7 @@
       "table": "mart_retribuzioni_regione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open_inps/inps_retribuzioni/2026/mart_retribuzioni_regione.parquet",
+        "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_regione.parquet",
         "multi_file": false
       }
     }
@@ -1937,7 +1937,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261004T101735Z_cc53460d",
+        "run_id": "20261004T114048Z_cf2f91d9",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -1951,12 +1951,12 @@
         },
         "output_bytes": {
           "raw": 7364,
-          "clean": 21178,
-          "mart": 49192
+          "clean": 18962,
+          "mart": 49212
         },
-        "started_at": "2026-10-04T10:17:35.962106+00:00",
-        "finished_at": "2026-10-04T10:17:36.984622+00:00",
-        "duration_seconds": 1.023
+        "started_at": "2026-10-04T11:40:48.652862+00:00",
+        "finished_at": "2026-10-04T11:40:48.919170+00:00",
+        "duration_seconds": 0.266
       }
     },
     {
@@ -1967,7 +1967,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T194610Z_567f6bc9",
+        "run_id": "20261004T112500Z_3154dd54",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -1985,9 +1985,9 @@
           "clean": 3152,
           "mart": 2705
         },
-        "started_at": "2026-10-03T19:46:10.952946+00:00",
-        "finished_at": "2026-10-03T19:46:41.320791+00:00",
-        "duration_seconds": 30.368
+        "started_at": "2026-10-04T11:25:00.751755+00:00",
+        "finished_at": "2026-10-04T11:26:25.956429+00:00",
+        "duration_seconds": 85.205
       }
     },
     {
@@ -1998,7 +1998,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T173334Z_aa3ea8c4",
+        "run_id": "20261004T112626Z_2fe17a33",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2016,9 +2016,9 @@
           "clean": 3596,
           "mart": 4032
         },
-        "started_at": "2026-09-17T17:33:34.309674+00:00",
-        "finished_at": "2026-09-17T17:33:46.804718+00:00",
-        "duration_seconds": 12.495
+        "started_at": "2026-10-04T11:26:26.283398+00:00",
+        "finished_at": "2026-10-04T11:27:10.135174+00:00",
+        "duration_seconds": 43.852
       }
     },
     {
@@ -2029,7 +2029,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T184611Z_2e1bfac1",
+        "run_id": "20261004T112710Z_8dbab065",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2047,9 +2047,9 @@
           "clean": 6586,
           "mart": 6929
         },
-        "started_at": "2026-09-17T18:46:11.577537+00:00",
-        "finished_at": "2026-09-17T18:46:48.627127+00:00",
-        "duration_seconds": 37.05
+        "started_at": "2026-10-04T11:27:10.472039+00:00",
+        "finished_at": "2026-10-04T11:27:19.549079+00:00",
+        "duration_seconds": 9.077
       }
     },
     {
@@ -2060,7 +2060,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T222149Z_c677573b",
+        "run_id": "20261004T112719Z_26e73486",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2078,9 +2078,9 @@
           "clean": 1873,
           "mart": 1599
         },
-        "started_at": "2026-10-03T22:21:49.001899+00:00",
-        "finished_at": "2026-10-03T22:21:55.607431+00:00",
-        "duration_seconds": 6.606
+        "started_at": "2026-10-04T11:27:19.881173+00:00",
+        "finished_at": "2026-10-04T11:27:27.644860+00:00",
+        "duration_seconds": 7.764
       }
     },
     {
@@ -2091,7 +2091,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T212202Z_fe3f1c3f",
+        "run_id": "20261004T112727Z_547d9e4a",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2109,9 +2109,9 @@
           "clean": 14560,
           "mart": 10703
         },
-        "started_at": "2026-10-03T21:22:02.619862+00:00",
-        "finished_at": "2026-10-03T21:22:37.148560+00:00",
-        "duration_seconds": 34.529
+        "started_at": "2026-10-04T11:27:27.983341+00:00",
+        "finished_at": "2026-10-04T11:28:15.963640+00:00",
+        "duration_seconds": 47.98
       }
     },
     {
@@ -2122,7 +2122,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T215459Z_e54dbad0",
+        "run_id": "20261004T112816Z_811c21e2",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2140,9 +2140,9 @@
           "clean": 56151,
           "mart": 38109
         },
-        "started_at": "2026-10-03T21:54:59.334589+00:00",
-        "finished_at": "2026-10-03T21:55:43.808332+00:00",
-        "duration_seconds": 44.474
+        "started_at": "2026-10-04T11:28:16.315071+00:00",
+        "finished_at": "2026-10-04T11:29:11.761456+00:00",
+        "duration_seconds": 55.446
       }
     },
     {
@@ -2153,7 +2153,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T220153Z_75c399cf",
+        "run_id": "20261004T112912Z_c3ef1e7a",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2171,9 +2171,9 @@
           "clean": 17540,
           "mart": 19198
         },
-        "started_at": "2026-10-03T22:01:53.565835+00:00",
-        "finished_at": "2026-10-03T22:02:28.838735+00:00",
-        "duration_seconds": 35.273
+        "started_at": "2026-10-04T11:29:12.144797+00:00",
+        "finished_at": "2026-10-04T11:29:47.786879+00:00",
+        "duration_seconds": 35.642
       }
     },
     {
@@ -2184,7 +2184,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T172847Z_64fea3f0",
+        "run_id": "20261004T112948Z_98ff3607",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2202,9 +2202,9 @@
           "clean": 4389,
           "mart": 5086
         },
-        "started_at": "2026-09-17T17:28:47.878741+00:00",
-        "finished_at": "2026-09-17T17:29:02.592025+00:00",
-        "duration_seconds": 14.713
+        "started_at": "2026-10-04T11:29:48.165935+00:00",
+        "finished_at": "2026-10-04T11:30:29.554113+00:00",
+        "duration_seconds": 41.388
       }
     },
     {
@@ -2215,7 +2215,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T214518Z_d6f3020d",
+        "run_id": "20261004T113029Z_7931e05e",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2233,9 +2233,9 @@
           "clean": 18562,
           "mart": 17046
         },
-        "started_at": "2026-10-03T21:45:18.899637+00:00",
-        "finished_at": "2026-10-03T21:45:38.273753+00:00",
-        "duration_seconds": 19.374
+        "started_at": "2026-10-04T11:30:29.911353+00:00",
+        "finished_at": "2026-10-04T11:31:02.254614+00:00",
+        "duration_seconds": 32.343
       }
     },
     {
@@ -2246,7 +2246,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T170023Z_08e05434",
+        "run_id": "20261004T113102Z_d7cfd078",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2264,9 +2264,9 @@
           "clean": 5154,
           "mart": 5004
         },
-        "started_at": "2026-09-17T17:00:23.019703+00:00",
-        "finished_at": "2026-09-17T17:00:43.245035+00:00",
-        "duration_seconds": 20.225
+        "started_at": "2026-10-04T11:31:02.617138+00:00",
+        "finished_at": "2026-10-04T11:31:14.661799+00:00",
+        "duration_seconds": 12.045
       }
     },
     {
@@ -2277,7 +2277,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T213036Z_4a26df31",
+        "run_id": "20261004T113115Z_9f5f716c",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2295,9 +2295,9 @@
           "clean": 30299,
           "mart": 28478
         },
-        "started_at": "2026-10-03T21:30:36.695925+00:00",
-        "finished_at": "2026-10-03T21:31:12.303802+00:00",
-        "duration_seconds": 35.608
+        "started_at": "2026-10-04T11:31:15.012988+00:00",
+        "finished_at": "2026-10-04T11:32:08.919419+00:00",
+        "duration_seconds": 53.906
       }
     },
     {
@@ -2308,10 +2308,27 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T170110Z_2b5fce93",
+        "run_id": "20261004T113209Z_d933c859",
         "year": 2026,
-        "status": "RUNNING",
-        "started_at": "2026-09-17T17:01:10.750376+00:00"
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 620,
+          "clean": 620,
+          "mart": 500
+        },
+        "output_bytes": {
+          "raw": 38140,
+          "clean": 7364,
+          "mart": 7338
+        },
+        "started_at": "2026-10-04T11:32:09.300712+00:00",
+        "finished_at": "2026-10-04T11:32:33.018783+00:00",
+        "duration_seconds": 23.718
       }
     },
     {
@@ -2322,7 +2339,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T200655Z_04045bb6",
+        "run_id": "20261004T113233Z_3533b2db",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2340,9 +2357,9 @@
           "clean": 80294,
           "mart": 67687
         },
-        "started_at": "2026-10-03T20:06:55.543254+00:00",
-        "finished_at": "2026-10-03T20:10:11.522005+00:00",
-        "duration_seconds": 195.979
+        "started_at": "2026-10-04T11:32:33.378614+00:00",
+        "finished_at": "2026-10-04T11:35:37.017657+00:00",
+        "duration_seconds": 183.639
       }
     },
     {
@@ -2353,7 +2370,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T194646Z_ae11f7d4",
+        "run_id": "20261004T113537Z_ca09524a",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2371,9 +2388,9 @@
           "clean": 23222,
           "mart": 21389
         },
-        "started_at": "2026-10-03T19:46:46.839168+00:00",
-        "finished_at": "2026-10-03T19:47:37.033928+00:00",
-        "duration_seconds": 50.195
+        "started_at": "2026-10-04T11:35:37.391329+00:00",
+        "finished_at": "2026-10-04T11:36:11.957447+00:00",
+        "duration_seconds": 34.566
       }
     },
     {
@@ -2384,7 +2401,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T220901Z_5fefbf31",
+        "run_id": "20261004T113612Z_c88afd24",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2402,9 +2419,9 @@
           "clean": 6081,
           "mart": 9205
         },
-        "started_at": "2026-10-03T22:09:01.677894+00:00",
-        "finished_at": "2026-10-03T22:09:22.182656+00:00",
-        "duration_seconds": 20.505
+        "started_at": "2026-10-04T11:36:12.331921+00:00",
+        "finished_at": "2026-10-04T11:36:32.000117+00:00",
+        "duration_seconds": 19.668
       }
     },
     {
@@ -2415,21 +2432,27 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T181803Z_ef6a688e",
+        "run_id": "20261004T113632Z_d04582c7",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
+          "raw": 100,
+          "clean": 100,
           "mart": 100
         },
         "output_rows": {
+          "raw": 540,
+          "clean": 540,
           "mart": 530
         },
         "output_bytes": {
+          "raw": 39622,
+          "clean": 7925,
           "mart": 8600
         },
-        "started_at": "2026-09-17T18:18:03.873505+00:00",
-        "finished_at": "2026-09-17T18:18:04.035612+00:00",
-        "duration_seconds": 0.162
+        "started_at": "2026-10-04T11:36:32.381324+00:00",
+        "finished_at": "2026-10-04T11:40:48.226199+00:00",
+        "duration_seconds": 255.845
       }
     }
   ],
