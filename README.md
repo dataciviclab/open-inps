@@ -1,90 +1,105 @@
-# Open INPS
+# Open INPS 🇮🇹 — pensioni, lavoro e welfare, aperti e interrogabili
 
-Sistema di intelligence sui dati INPS: pensioni, lavoro, CIG, NASpI, welfare.
+**17 dataset INPS su mercato del lavoro, pensioni e welfare — da assunzioni e cessazioni a NASpI, RdC/PdC e DIS-COLL — pronti per SQL, dashboard e analisi civiche.**
 
-- **Fonte**: [INPS Osservatori Statistici](https://servizi2.inps.it/servizi/osservatoristatistici/)
-- **API**: JSON non documentata (backend SAS, body senza spazi)
-- **Copertura**: 2014-2026
+I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osservatori Statistici contengono serie aggiornate al 2026: qui le raccogliamo, normalizziamo in parquet e componiamo in metriche nazionali e territoriali.
 
-## Dataset
+## Perché questi dati
 
-| Dataset | Obs ID | Cosa | Anni | Mart |
-|---|---|---|---|---|
-| `inps-pensioni-vigenti` | 378 | Stock pensioni per sesso, importo, eta, regione | 2022-2026 | 3 |
-| `inps-pensioni-liquidate` | 370 | Nuove pensioni per sesso, importo, regione | 2021-2025 | 2 |
-| `inps-pensioni-serie` | 390+376 | Serie storica: vigenti 1998-2026, liquidate 1997-2025 | 1997-2026 | 3 |
-| `inps-pensionamento-flussi` | 475 | Flussi trimestrali per decorrenza: regione, gestione, categoria | 2021-2026 | 3 |
-| `inps-lavoratori-pubblici` | 435 | Lavoratori PA: retribuzioni, giornate per comparto, eta, contratto, regione | 2014-2024 | 4 |
-| `inps-lavoratori-redditi` | 465 | Lavoratori, redditi e settimane per posizione, regione, eta, cittadinanza | 2014-2024 | 4 |
-| `inps-rdc-pdc` | 452 | Nuclei RdC/PdC: misura, regione, componenti, disabili, minori | 2019-2023 | 4 |
-| `inps-dis-coll` | 397+398 | DIS-COLL nazionale per sesso: beneficiari e trattamenti | 2020-2024 | 1 |
-| `inps-rapporti-lavoro` | 489 | Assunzioni per provincia, sesso, tipo | 2014-2026 | 3 |
-| `inps-rapporti-cessazioni` | 490 | Cessazioni per provincia, sesso, tipo e motivo | 2014-2026 | 3 |
-| `inps-flussi-settore` | 407+406+528+530 | Assunzioni e cessazioni per settore NACE (nazionale) | 2014-2026 | 1 |
-| `inps-retribuzioni` | 347+492 | Retribuzioni e lavoratori privato per regione, eta | 2014-2023 | 2 |
-| `inps-naspi` | 395+396 | Beneficiari e trattamenti NASpI per eta, durata | 2020-2024 | 3 |
-| `inps-cig` | 512 | Ore CIG autorizzate per gestione, ramo, mese | 2023-2026 | 3 |
-| `inps-assegno-unico` | 498+499 | Assegno Unico: figli e nuclei per ISEE, regione | 2022-2024 | 2 |
-| `inps-dipendenti-pubblici` | 440 | Dipendenti pubblici: enti, retribuzioni, forma giuridica | 2022-2026 | 2 |
+- **Mercato del lavoro**: assunzioni vs cessazioni per provincia, sesso e settore NACE — non solo il lato “ingresso”.
+- **Pensioni**: stock recente **e** serie storica 1997–2026, più flussi trimestrali di pensionamento.
+- **Welfare**: NASpI, DIS-COLL, Reddito/Pensione di Cittadinanza, Assegno Unico, CIG.
+- **Ponte lavoro→redditi**: lavoratori, reddito cumulato e settimane per posizione prevalente e cittadinanza.
+- **PA**: lavoratori pubblici per comparto, età e retribuzioni (non solo contare gli enti).
 
-**Totale**: 17 dataset, 47 mart
+## Cosa contengono
 
-> **Nota DIS-COLL**: osservatori 397/398 su API con tagli territoriali non
-> additivi al nazionale — il dataset espone solo grana anno×sesso.
-> Nel 2022 la serie 397 (beneficiari) è irregolare nella fonte (Femmine
-> anomalo); usare 398 (trattamenti) o escludere quell'anno.
-> `importo_fonte` non è validato come euro assoluti: solo confronti relativi.
-> DIS-COLL ~23k/anno vs NASpI ~2M — nicchia co.co.co.
+| | |
+|---|---|
+| **Dataset** | **17** toolkit + 1 compose multi-dataset |
+| **Mart analitici** | **47** |
+| **Periodo** | 1997 — 2026 (a seconda della serie) |
+| **Granularità** | Nazionale, regionale, provinciale, settore NACE |
+| **Formato** | Parquet (clean/mart) + registry JSON |
+| **Fonte** | [INPS Osservatori Statistici](https://servizi2.inps.it/servizi/osservatoristatistici/) |
 
-> **Nota definizioni pensioni**: `inps-pensioni-serie` (376) conta le pensioni
-> liquidate nell'anno (~1,5M/anno). `inps-pensionamento-flussi` (475) conta i
-> flussi con decorrenza nel trimestre (~0,9M/anno, ~58% del totale) — universo
-> più ristretto, utile per stagionalità e mix gestione. Non sommare i due.
+### Temi coperti
 
-> **Nota PA**: `inps-dipendenti-pubblici` (440) = enti e giornate per forma
-> giuridica. `inps-lavoratori-pubblici` (435) = lavoratori e retribuzioni per
-> gruppo contrattuale (complementare, non sovrapponibile). Campo SESSO rotto
-> sull'obs 435: nessuna dimensione genere.
+| Tema | Esempi |
+|---|---|
+| 💼 Lavoro | Assunzioni, cessazioni, settore NACE, retribuzioni private |
+| 🏛️ Pubblico | Comparti PA, retribuzioni, giornate |
+| 🏦 Pensioni | Vigenti, liquidate, serie storica, pensionamento trimestrale |
+| 🛡️ Disoccupazione | NASpI, DIS-COLL (co.co.co) |
+| 🏠 Welfare | RdC/PdC, Assegno Unico, CIG |
+| 💰 Redditi | Posizione prevalente, settimane, cittadinanza |
 
-> **Nota redditi**: `inps-lavoratori-redditi` (465) è il ponte lavoro→reddito
-> (posizione prevalente, settimane, cittadinanza). Dipendente pubblico 465
-> (~3,7M) ≈ lavoratori PA 435 — definizioni diverse, non sommare.
+Dettaglio per osservatorio: [NOTE.md](NOTE.md) · Catalogo fonte: [catalog.json](catalog.json) (194 osservatori).
 
-## Setup
+## Esempi di domande
+
+1. Quante **cessazioni** ci sono per ogni assunzione, per regione e per settore?
+2. Come è cambiato lo **stock di pensioni** dal 1998, e quanti ne entrano oggi (decorrenza trimestrale)?
+3. Chi beneficia di **DIS-COLL** rispetto alla NASpI, e com’è il gap di genere su assunzioni e cessazioni?
+4. Quanti sono i **lavoratori pubblici** per comparto, e quanto pagano di retribuzione media?
+5. Come si distribuiscono i **nuclei RdC/PdC** per regione e composizione del nucleo?
+
+## Come accedere
+
+### 1. Dashboard locale (più rapida)
 
 ```bash
-pip install -e ".[dev,pipeline,dashboard]"
+git clone https://github.com/dataciviclab/open-inps.git
+cd open-inps
+pip install -e ".[dashboard]"
+make run && make compose
+make dashboard
 ```
 
-Le dipendenze vivono in `pyproject.toml` (standard Lab). `dashboard/requirements.txt`
-è solo export pin per Streamlit Cloud.
+Pagine: Panoramica, Genere, Territorio, Pensioni, Lavoro, Welfare, Tabelle.
 
-## Uso
+### 2. DuckDB / SQL sui parquet
 
 ```bash
-make run            # tutti i dataset singoli
-make compose        # compose inps-analisi (dopo i dataset)
-make dashboard      # Streamlit: compose + mart (flussi, settore, welfare)
-make check          # valida config
-make registry-write # scrivi registry.json
-make clean          # pulisci output
+duckdb -c "
+SELECT anno, SUM(valore) AS assunzioni
+FROM 'out/data/mart/inps_analisi/2026/mart_nazionale.parquet'
+WHERE metrica = 'rapporti_lavoro' AND sesso IN ('Maschi','Femmine')
+GROUP BY 1 ORDER BY 1;
+"
 ```
 
-Il compose unifica le metriche nazionali/territoriali (incluse cessazioni,
-pensionamento, PA, redditi, RdC, DIS-COLL e serie storica pensioni pre-2022).
-La dashboard legge compose + mart singoli.
+### 3. Pipeline toolkit (rigenerare tutto)
 
-## Struttura
+```bash
+make run       # 17 dataset
+make compose   # inps-analisi (14 metriche)
+make test
+```
 
-```
-├── scripts/common.py              # API client INPS (condiviso)
-├── datasets/                      # 17 dataset toolkit
-├── compose/inps-analisi/          # compose multi-dataset
-├── dashboard/                     # Streamlit (Panoramica, Genere, Territorio,
-│                                  # Pensioni, Lavoro, Welfare, Tabelle)
-├── registry/registry.json
-├── Makefile
-├── NOTE.md                        # documentazione API
-├── catalog.json                   # 194 osservatori INPS
-└── out/                           # output pipeline
-```
+Registry machine-readable: [`registry/registry.json`](registry/registry.json).
+
+## Limiti e definizioni (da leggere)
+
+- **API INPS non documentata** (backend SAS): il catalogo ufficiale open data non basta; l’endpoint Osservatori è stabile al momento ma non è un contratto pubblico. Dettagli in [NOTE.md](NOTE.md).
+- **Non sommare metriche con definizioni diverse**: es. pensioni liquidate/anno (376) vs flussi per decorrenza trimestrale (475); lavoratori PA 435 vs enti 440; dipendente pubblico 465 ≈ 435.
+- **DIS-COLL**: grana nazionale per sesso; nel 2022 la serie 397 è irregolare nella fonte; `importo_fonte` non validato come euro assoluti.
+- **Obs 435 (PA)**: campo SESSO rotto sull’API — nessuna dimensione genere.
+- **Anni parziali**: 2025–2026 spesso incompleti sulle serie più lente (welfare, redditi).
+
+## Approfondimenti
+
+- Analisi e discussioni: [dataciviclab/dataciviclab](https://github.com/dataciviclab/dataciviclab/discussions)
+- Contesto Lab: [dataciviclab.org](https://dataciviclab.org/)
+
+## Partecipa
+
+- **Discussion**: proponi domande di analisi o segnala serie mancanti
+- **Issue**: bug di estrazione, mapping territoriale, nuovi osservatori del catalogo
+- **PR**: nuovi dataset dal catalogo `catalog.json` (194 osservatori, ne abbiamo coperti 17+)
+
+Contributi e standard del Lab: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Licenza
+
+Codice: [MIT](LICENSE). Dati INPS: termini della fonte (Osservatori Statistici INPS).
