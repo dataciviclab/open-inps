@@ -6,7 +6,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 
 ## Perché questi dati
 
-- **Mercato del lavoro**: assunzioni vs cessazioni per provincia, sesso e settore NACE — non solo il lato “ingresso”.
+- **Mercato del lavoro**: assunzioni vs cessazioni per provincia, sesso e settore NACE (nazionale e regionale) — non solo il lato “ingresso”.
 - **Pensioni**: stock recente **e** serie storica 1997–2026, più flussi trimestrali di pensionamento.
 - **Welfare**: NASpI, DIS-COLL, Reddito/Pensione di Cittadinanza, Assegno Unico, CIG.
 - **Ponte lavoro→redditi**: lavoratori, reddito cumulato e settimane per posizione prevalente e cittadinanza.
@@ -17,7 +17,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 | | |
 |---|---|
 | **Dataset** | **17** toolkit + 1 compose multi-dataset |
-| **Mart analitici** | **47** |
+| **Mart analitici** | **48** |
 | **Periodo** | 1997 — 2026 (a seconda della serie) |
 | **Granularità** | Nazionale, regionale, provinciale, settore NACE |
 | **Formato** | Parquet (clean/mart) + registry JSON |

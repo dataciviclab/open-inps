@@ -36,7 +36,7 @@ EXPECTED = {
         "mart_cessazioni_provincia",
         "mart_cessazioni_motivo",
     ],
-    "inps_flussi_settore": ["mart_flussi_settore"],
+    "inps_flussi_settore": ["mart_flussi_settore", "mart_flussi_settore_regione"],
     "inps_pensioni_serie": [
         "mart_pensioni_serie_categoria",
         "mart_pensioni_serie_tipogest",

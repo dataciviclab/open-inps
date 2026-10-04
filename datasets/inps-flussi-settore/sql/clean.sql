@@ -13,6 +13,7 @@ WITH raw AS (
         normalize_string(nace_class) AS nace_class,
         normalize_string(Sesso) AS sesso,
         normalize_string("Settore di attività economica (NACE Rev. 2)") AS settore_label,
+        normalize_string(Regione) AS regione,
         normalize_string(
             COALESCE("Tipologia assunzione", "Tipologia cessazione")
         ) AS tipo_flusso,
@@ -71,6 +72,7 @@ SELECT
         ELSE 'Altre attivita'
     END AS settore_nace,
     settore_label AS settore_label_api,
+    regione,
     tipo_flusso,
     n_rapporti
 FROM raw

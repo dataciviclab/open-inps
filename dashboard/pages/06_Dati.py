@@ -24,6 +24,7 @@ DATASETS = {
     "cessazioni/regione": ("inps_rapporti_cessazioni", "mart_cessazioni_regione"),
     "cessazioni/motivo": ("inps_rapporti_cessazioni", "mart_cessazioni_motivo"),
     "settore/nazionale": ("inps_flussi_settore", "mart_flussi_settore"),
+    "settore/regione": ("inps_flussi_settore", "mart_flussi_settore_regione"),
     "retribuzioni/regione": ("inps_retribuzioni", "mart_retribuzioni_regione"),
     "pa/gruppo": ("inps_lavoratori_pubblici", "mart_lavoratori_pa_gruppo"),
     "pa/regione": ("inps_lavoratori_pubblici", "mart_lavoratori_pa_regione"),
