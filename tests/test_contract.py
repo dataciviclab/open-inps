@@ -71,24 +71,42 @@ def test_each_dataset_declares_minimum_contract(dataset_configs: list[Path]) -> 
         assert "root" in dataset, f"{rel}: manca root (path relativo a out/)"
         assert "dataset" in dataset, f"{rel}: manca blocco dataset"
         assert dataset["dataset"].get("name"), f"{rel}: manca dataset.name"
-        assert isinstance(dataset["dataset"].get("years"), list), f"{rel}: years deve essere una lista"
+        assert isinstance(dataset["dataset"].get("years"), list), (
+            f"{rel}: years deve essere una lista"
+        )
         assert dataset["dataset"]["years"], f"{rel}: years non deve essere vuota"
         assert "raw" in dataset and dataset["raw"].get("sources"), f"{rel}: manca raw.sources"
-        assert dataset["raw"]["sources"][0].get("primary") is True, f"{rel}: la prima source deve essere primary"
+        assert dataset["raw"]["sources"][0].get("primary") is True, (
+            f"{rel}: la prima source deve essere primary"
+        )
         assert dataset["clean"]["sql"], f"{rel}: manca clean.sql"
         assert dataset["clean"].get("required_columns"), f"{rel}: manca clean.required_columns"
         assert dataset["clean"]["validate"].get("min_rows"), f"{rel}: manca clean.validate.min_rows"
         assert dataset["mart"]["tables"], f"{rel}: manca mart.tables"
         assert dataset["mart"].get("required_tables"), f"{rel}: manca mart.required_tables"
-        assert dataset["mart"]["validate"].get("table_rules"), f"{rel}: manca mart.validate.table_rules"
-        assert dataset["validation"]["fail_on_error"] is True, f"{rel}: fail_on_error deve essere true"
-        assert dataset["output"]["artifacts"] in {"minimal", "standard", "debug"}, f"{rel}: artifacts non valido"
+        assert dataset["mart"]["validate"].get("table_rules"), (
+            f"{rel}: manca mart.validate.table_rules"
+        )
+        assert dataset["validation"]["fail_on_error"] is True, (
+            f"{rel}: fail_on_error deve essere true"
+        )
+        assert dataset["output"]["artifacts"] in {"minimal", "standard", "debug"}, (
+            f"{rel}: artifacts non valido"
+        )
 
 
 def _iter_path_values(node: object):
     if isinstance(node, dict):
         for key, value in node.items():
-            if isinstance(value, str) and key in {"root", "source", "sql", "target", "dir", "path", "filename"}:
+            if isinstance(value, str) and key in {
+                "root",
+                "source",
+                "sql",
+                "target",
+                "dir",
+                "path",
+                "filename",
+            }:
                 yield key, value
             yield from _iter_path_values(value)
     elif isinstance(node, list):
@@ -108,7 +126,9 @@ def test_dataset_paths_are_relative_and_posix(dataset_configs: list[Path]) -> No
             assert "\\" not in value, f"{rel}: path '{key}' deve usare separatori POSIX: {value}"
             assert not value.startswith("/"), f"{rel}: path assoluto POSIX per '{key}': {value}"
             assert not value.startswith("~"), f"{rel}: path home-relative per '{key}': {value}"
-            assert not re.match(r"^[A-Za-z]:[\\/]", value), f"{rel}: path Windows per '{key}': {value}"
+            assert not re.match(r"^[A-Za-z]:[\\/]", value), (
+                f"{rel}: path Windows per '{key}': {value}"
+            )
 
 
 @pytest.mark.contract
@@ -157,9 +177,12 @@ def test_no_run_outputs_committed() -> None:
     if not OUT_DIR.exists():
         return
     import subprocess
+
     result = subprocess.run(
         ["git", "ls-files", "out/"],
-        capture_output=True, text=True, cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        cwd=REPO_ROOT,
     )
     tracked = [line for line in result.stdout.strip().split("\n") if line]
     assert not tracked, f"File generati tracked da git in out/: {tracked}"

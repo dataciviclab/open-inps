@@ -26,9 +26,13 @@ df_f = df[(df["anno"] == anno) & (df["metrica"] == met) & (df["sesso"] == sesso)
 
 # Se Sesso="Totale" ma non esiste, aggrega Maschi+Femmine
 if df_f.empty and sesso == "Totale":
-    df_f = df[(df["anno"] == anno) & (df["metrica"] == met) & df["sesso"].isin(["Maschi", "Femmine"])]
+    df_f = df[
+        (df["anno"] == anno) & (df["metrica"] == met) & df["sesso"].isin(["Maschi", "Femmine"])
+    ]
     if not df_f.empty:
-        df_f = df_f.groupby("regione", as_index=False).agg({"valore": "sum", "share_pct": "sum", "indice_vs_media": "mean"})
+        df_f = df_f.groupby("regione", as_index=False).agg(
+            {"valore": "sum", "share_pct": "sum", "indice_vs_media": "mean"}
+        )
         df_f["sesso"] = "Totale"
     else:
         st.warning("Nessun dato disponibile per questa combinazione.")
@@ -41,8 +45,11 @@ df_f = df_f[df_f["regione"].isin(REGIONI)]
 st.subheader(f"{METRICHE[met]} — {anno} ({sesso})")
 
 fig = px.choropleth(
-    df_f, geojson=GEOJSON_URL, locations="regione",
-    featureidkey="properties.reg_name", color="valore",
+    df_f,
+    geojson=GEOJSON_URL,
+    locations="regione",
+    featureidkey="properties.reg_name",
+    color="valore",
     color_continuous_scale="Blues",
     hover_name="regione",
     hover_data={"valore": ":,.0f", "share_pct": ":.1f", "indice_vs_media": ":.0f"},

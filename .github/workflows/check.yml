@@ -1,47 +1,38 @@
-name: check
+# CI for open-inps: lint, test, validate configs
+# Pattern standard Lab (come eurostat): python-ci + dataset-config-check-reusable.
+
+name: CI
 
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+
     steps:
       - uses: actions/checkout@v7
 
       - uses: dataciviclab/.github/actions/python-setup@main
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
           install-extras: "dev,pipeline"
 
       - uses: dataciviclab/.github/actions/python-ci@main
         with:
-          lint_paths: "tests/ dashboard/ datasets/ compose/ scripts/"
+          lint_paths: "tests/"
           mypy_paths: ""
           test_dir: "tests"
           pytest_args: "-v --tb=short"
 
   validate-config:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: dataciviclab/.github/actions/python-setup@main
-        with:
-          python-version: "3.12"
-          install-extras: "dev,pipeline"
-
-      - name: Preflight dataset.yml + compose
-        env:
-          TOOLKIT_ALLOW_SCRIPT_SOURCE: "1"
-        run: |
-          set -euo pipefail
-          mapfile -t CONFIGS < <(find datasets compose -name dataset.yml | sort)
-          echo "→ ${#CONFIGS[@]} config da validare"
-          for f in "${CONFIGS[@]}"; do
-            echo "-> $f"
-            toolkit run preflight --config "$f"
-          done
-          echo "✅ All configs valid"
+    uses: dataciviclab/.github/.github/workflows/dataset-config-check-reusable.yml@main
+    with:
+      globs: "datasets compose"
+      years: "from-config"

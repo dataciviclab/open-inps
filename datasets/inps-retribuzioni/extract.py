@@ -4,19 +4,49 @@
 Il backend SAS non gestisce la dimensione 'Tipologia contrattuale' come colonna.
 L'estrazione usa solo rows (anno, sesso, regione) con le misure dirette.
 """
-import sys, csv, time, json
+
+import csv
+import json
+import sys
+import time
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
 from common import api_post, flatten_nested
 
 ANNO_SESSO_REGIONE = {
-    "id_osservatorio": "{obs}", "language": "",
-    "totalRow": True, "totalColumn": True, "subtotalRow": True, "subtotalColumn": True,
+    "id_osservatorio": "{obs}",
+    "language": "",
+    "totalRow": True,
+    "totalColumn": True,
+    "subtotalRow": True,
+    "subtotalColumn": True,
     "selections": {
         "rows": [
-            {"id": "Anno", "label": "Anno", "order": 1, "expand": "", "hide": False, "aggregate": False},
-            {"id": "Sesso", "label": "Sesso", "order": 2, "expand": "", "hide": False, "aggregate": False},
-            {"id": "Regione", "label": "Regione", "order": 3, "expand": "", "hide": False, "aggregate": False},
+            {
+                "id": "Anno",
+                "label": "Anno",
+                "order": 1,
+                "expand": "",
+                "hide": False,
+                "aggregate": False,
+            },
+            {
+                "id": "Sesso",
+                "label": "Sesso",
+                "order": 2,
+                "expand": "",
+                "hide": False,
+                "aggregate": False,
+            },
+            {
+                "id": "Regione",
+                "label": "Regione",
+                "order": 3,
+                "expand": "",
+                "hide": False,
+                "aggregate": False,
+            },
         ],
         "cols": [],
         "measures": [
@@ -29,15 +59,40 @@ ANNO_SESSO_REGIONE = {
 }
 
 ANNO_SESSO_ETA = {
-    "id_osservatorio": "{obs}", "language": "",
-    "totalRow": True, "totalColumn": True, "subtotalRow": True, "subtotalColumn": True,
+    "id_osservatorio": "{obs}",
+    "language": "",
+    "totalRow": True,
+    "totalColumn": True,
+    "subtotalRow": True,
+    "subtotalColumn": True,
     "selections": {
         "rows": [
-            {"id": "Anno", "label": "Anno", "order": 1, "expand": "", "hide": False, "aggregate": False},
-            {"id": "Sesso", "label": "Sesso", "order": 2, "expand": "", "hide": False, "aggregate": False},
+            {
+                "id": "Anno",
+                "label": "Anno",
+                "order": 1,
+                "expand": "",
+                "hide": False,
+                "aggregate": False,
+            },
+            {
+                "id": "Sesso",
+                "label": "Sesso",
+                "order": 2,
+                "expand": "",
+                "hide": False,
+                "aggregate": False,
+            },
         ],
         "cols": [
-            {"id": "CLASSI DI ETA", "label": "CLASSI DI ETA", "order": 1, "expand": "", "hide": False, "aggregate": True},
+            {
+                "id": "CLASSI DI ETA",
+                "label": "CLASSI DI ETA",
+                "order": 1,
+                "expand": "",
+                "hide": False,
+                "aggregate": True,
+            },
         ],
         "measures": [
             {"id": "lav_annoSUM", "label": "lav_annoSUM", "order": 1},
@@ -54,12 +109,12 @@ def query_with_retry(payload, max_retries=3, timeout=120):
             r = api_post("getDatiOsservatorio", payload, timeout=timeout)
             if "error" in r or "errorCode" in r:
                 err = r.get("error") or r.get("message", "unknown")
-                print(f"    tentativo {attempt+1}: {str(err)[:60]}", file=sys.stderr)
+                print(f"    tentativo {attempt + 1}: {str(err)[:60]}", file=sys.stderr)
                 time.sleep(2)
                 continue
             return r
         except Exception as e:
-            print(f"    tentativo {attempt+1}: {type(e).__name__}", file=sys.stderr)
+            print(f"    tentativo {attempt + 1}: {type(e).__name__}", file=sys.stderr)
             time.sleep(3)
     return None
 

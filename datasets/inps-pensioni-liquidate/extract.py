@@ -1,21 +1,50 @@
 #!/usr/bin/env python3
 """Estrae pensioni liquidate — obs INPS #370 (2021-2025)."""
+
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
 from common import run_queries
 
 OBS_ID = 370
 QUERIES = {
     "anno_sesso_importo": {
-        "id_osservatorio": "370", "language": "",
-        "totalRow": True, "totalColumn": True, "subtotalRow": True, "subtotalColumn": True,
+        "id_osservatorio": "370",
+        "language": "",
+        "totalRow": True,
+        "totalColumn": True,
+        "subtotalRow": True,
+        "subtotalColumn": True,
         "selections": {
             "rows": [
-                {"id": "Anno-", "label": "Anno-", "order": 1, "expand": "", "hide": False, "aggregate": False},
-                {"id": "Sesso-", "label": "Sesso-", "order": 2, "expand": "", "hide": False, "aggregate": False},
+                {
+                    "id": "Anno-",
+                    "label": "Anno-",
+                    "order": 1,
+                    "expand": "",
+                    "hide": False,
+                    "aggregate": False,
+                },
+                {
+                    "id": "Sesso-",
+                    "label": "Sesso-",
+                    "order": 2,
+                    "expand": "",
+                    "hide": False,
+                    "aggregate": False,
+                },
             ],
-            "cols": [{"id": "Classi di importo", "label": "Classi di importo", "order": 1, "expand": "", "hide": False, "aggregate": True}],
+            "cols": [
+                {
+                    "id": "Classi di importo",
+                    "label": "Classi di importo",
+                    "order": 1,
+                    "expand": "",
+                    "hide": False,
+                    "aggregate": True,
+                }
+            ],
             "measures": [
                 {"id": "_FREQ_SUM", "label": "_FREQ_SUM", "order": 1},
                 {"id": "Importo medio mensile", "label": "Importo medio mensile", "order": 2},
@@ -24,14 +53,41 @@ QUERIES = {
         },
     },
     "anno_regione": {
-        "id_osservatorio": "370", "language": "",
-        "totalRow": True, "totalColumn": True, "subtotalRow": True, "subtotalColumn": True,
+        "id_osservatorio": "370",
+        "language": "",
+        "totalRow": True,
+        "totalColumn": True,
+        "subtotalRow": True,
+        "subtotalColumn": True,
         "selections": {
             "rows": [
-                {"id": "Anno-", "label": "Anno-", "order": 1, "expand": "", "hide": False, "aggregate": False},
-                {"id": "Regione", "label": "Regione", "order": 2, "expand": "", "hide": False, "aggregate": False},
+                {
+                    "id": "Anno-",
+                    "label": "Anno-",
+                    "order": 1,
+                    "expand": "",
+                    "hide": False,
+                    "aggregate": False,
+                },
+                {
+                    "id": "Regione",
+                    "label": "Regione",
+                    "order": 2,
+                    "expand": "",
+                    "hide": False,
+                    "aggregate": False,
+                },
             ],
-            "cols": [{"id": "Sesso-", "label": "Sesso-", "order": 1, "expand": "", "hide": False, "aggregate": True}],
+            "cols": [
+                {
+                    "id": "Sesso-",
+                    "label": "Sesso-",
+                    "order": 1,
+                    "expand": "",
+                    "hide": False,
+                    "aggregate": True,
+                }
+            ],
             "measures": [
                 {"id": "_FREQ_SUM", "label": "_FREQ_SUM", "order": 1},
                 {"id": "Importo medio mensile", "label": "Importo medio mensile", "order": 2},
