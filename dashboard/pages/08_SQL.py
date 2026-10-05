@@ -1,4 +1,4 @@
-"""Query SQL — clean layer INPS via lab-connectors + GCS."""
+"""Query SQL — clean layer INPS via lab-connectors (pattern open-siope)."""
 
 from pathlib import Path
 
@@ -7,15 +7,11 @@ from lab_connectors.registry import load_registry
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
-try:
-    registry = load_registry(_REPO_ROOT / "registry" / "registry.json")
-except Exception:
-    registry = None
+registry = load_registry(_REPO_ROOT / "registry" / "registry.json")
 
-# Path GCS clean: dataciviclab-clean/open-inps/{slug}/...
-# Il registry usa prefix "open-inps/" — senza, gli URL 404.
+# Come open-siope: prefix esplicito per i path GCS del repo
 render_sql_query(
-    registry=registry if registry is not None else [],
+    registry=registry,
     prefix="open-inps/",
     default_slug="inps_rapporti_lavoro",
     title="🧪 Query SQL",

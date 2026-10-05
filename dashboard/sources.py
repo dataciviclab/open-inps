@@ -1,66 +1,34 @@
 """Fonti dati per la dashboard Open INPS.
 
-Pattern standard (standards/dashboard.md): **GCS via lab-connectors**.
-I mart si leggono da ``dataciviclab-mart/open-inps/...`` con il prefix
-del registry. Nessun auto-detect locale in produzione.
-
-``OPEN_INPS_LOCAL_DATA`` (opzionale) abilita il fallback su ``out/data/``
-per lo sviluppo post-``make run``.
+Pattern standard Lab (standards/dashboard.md) — come RNA/open-siope:
+wrappa ``lab_connectors.duckdb.queries`` con ``@st.cache_data``.
+La risoluzione path (registry prefix → GCS, o out/data se presente
+in dev) sta in lab-connectors, non qui.
 """
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 
-import duckdb
 import pandas as pd
 import streamlit as st
+from lab_connectors.duckdb.queries import load_mart_table
 from lab_connectors.formatters import fmt_num, fmt_pct
-from lab_connectors.gcs.paths import https_url
 from lab_connectors.registry import load_registry
 
 REPO_ROOT = Path(__file__).parent.parent
 LOCAL_ROOT = str(REPO_ROOT / "out" / "data")
 
-# Prefix GCS default del repo (registry: prefix_for_slug → "open-inps/")
-DEFAULT_PREFIX = "open-inps/"
+_registry = load_registry(REPO_ROOT / "registry" / "registry.json")
+
+# Slug del compose multi-dataset
 COMPOSE_SLUG = "inps_analisi"
 
-
-def _load_registry():
-    """Registry del repo; None se assente (deploy senza cartella registry/)."""
-    path = REPO_ROOT / "registry" / "registry.json"
-    try:
-        return load_registry(path)
-    except Exception:
-        return None
+# Prefix GCS del repo (stesso di registry.prefix_for_slug)
+PREFIX = "open-inps/"
 
 
-_registry = _load_registry()
-
-
-def get_registry():
-    return _registry
-
-
-def _prefix_for(slug: str) -> str:
-    """Prefix GCS dal registry, fallback open-inps/."""
-    if _registry is not None:
-        try:
-            p = _registry.prefix_for_slug(slug)
-            if p:
-                return p
-        except Exception:
-            pass
-    return DEFAULT_PREFIX
-
-
-def _use_local() -> bool:
-    return os.environ.get("OPEN_INPS_LOCAL_DATA", "").lower() in {"1", "true", "yes"}
-
-
-# ── Formattazione italiana (re-export LC + helper locale) ──────────────────
+# ── Formattazione italiana ─────────────────────────────────────────────────
 
 
 def fmt_it(n: float | int | None) -> str:
@@ -70,49 +38,25 @@ def fmt_it(n: float | int | None) -> str:
     return f"{n:,.0f}".replace(",", ".")
 
 
-# ── Loader mart — solo GCS (path contract MART) ────────────────────────────
+# ── Cached wrappers (pattern RNA) ──────────────────────────────────────────
 
 
 @st.cache_data(ttl=300, show_spinner=False)
 def load_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
-    """Carica un mart da GCS (bucket dataciviclab-mart).
+    """Carica un mart table.
 
-    Path: ``{prefix}{slug}/{year}/{table}.parquet``
-    con ``prefix`` dal registry (``open-inps/``).
+    Auto-detect lab-connectors: GCS con prefix dal registry, oppure
+    ``out/data/`` se presente (sviluppo locale post-``make run``).
+    In produzione Streamlit Cloud non c'è out/ → legge da GCS.
     """
-    if _use_local():
-        local = Path(LOCAL_ROOT) / "mart" / slug / str(year) / f"{table}.parquet"
-        if local.is_file():
-            with duckdb.connect() as con:
-                return con.sql(f"SELECT * FROM read_parquet('{local}')").df()
-
-    prefix = _prefix_for(slug)
-    url = https_url(
-        "mart",
-        "mart_parquet",
-        prefix=prefix,
-        slug=slug,
-        year=str(year),
-        table=table,
-    )
-    with duckdb.connect() as con:
-        return con.sql(f"SELECT * FROM read_parquet('{url}')").df()
+    return load_mart_table(slug, table, year, registry=_registry)
 
 
 def require_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
     """Mart di un dataset singolo. Errore esplicito se assente."""
-    try:
-        df = load_mart(slug, table, year)
-    except Exception as e:
-        st.error(f"Errore caricamento mart `{slug}/{table}/{year}`: {e}")
-        st.caption(
-            "La dashboard legge i mart da GCS "
-            f"(`dataciviclab-mart/{_prefix_for(slug)}…`). "
-            "Verifica che la pipeline abbia pubblicato l'artefatto."
-        )
-        st.stop()
+    df = load_mart(slug, table, year)
     if df is None or df.empty:
-        st.error(f"Mart vuoto: `{slug}/{table}/{year}`")
+        st.error(f"Mart non trovato o vuoto: `{slug}/{table}/{year}`")
         st.stop()
     return df
 
@@ -120,6 +64,11 @@ def require_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
 def require_compose(table: str, year: int = 2026) -> pd.DataFrame:
     """Mart del compose `inps_analisi`."""
     return require_mart(COMPOSE_SLUG, table, year)
+
+
+def get_registry():
+    """Registry del repo (SQL page e tool LC)."""
+    return _registry
 
 
 # ── Costanti ────────────────────────────────────────────────────────────────
@@ -198,11 +147,11 @@ __all__ = [
     "ANNO_PIENO_CONSIGLIATO",
     "ANNI",
     "COMPOSE_SLUG",
-    "DEFAULT_PREFIX",
     "GEOJSON_URL",
     "GEO_NAME_MAP",
     "METRICHE",
     "METRICHE_DERIVATE",
+    "PREFIX",
     "REGIONI",
     "fmt_it",
     "fmt_num",
