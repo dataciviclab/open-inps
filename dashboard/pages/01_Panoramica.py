@@ -3,7 +3,7 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
-from sources import METRICHE, fmt_num, require_compose
+from sources import ANNO_PIENO_CONSIGLIATO, METRICHE, fmt_num, require_compose
 
 st.title("🇮🇹 Open INPS")
 st.markdown(
@@ -16,10 +16,13 @@ st.markdown(
 df = require_compose("mart_nazionale")
 df_bench = require_compose("mart_benchmark")
 
-# ── Anno con più copertura ──────────────────────────────────────────────────
+# ── Anno default: il più pieno nel compose ──────────────────────────────────
 
 anni_completi = df.groupby("anno")["metrica"].nunique().reset_index()
-anno_max = int(anni_completi[anni_completi["metrica"] >= 5]["anno"].max())
+if ANNO_PIENO_CONSIGLIATO in set(anni_completi["anno"]):
+    anno_max = ANNO_PIENO_CONSIGLIATO
+else:
+    anno_max = int(anni_completi[anni_completi["metrica"] >= 5]["anno"].max())
 
 # ── Filtri ──────────────────────────────────────────────────────────────────
 
@@ -32,6 +35,15 @@ with c1:
     )
 with c2:
     sesso = st.radio("Sesso", ["Tutti", "Maschi", "Femmine"], horizontal=True)
+
+n_met = df[df["anno"] == anno]["metrica"].nunique()
+n_met_max = int(anni_completi["metrica"].max())
+if n_met < n_met_max:
+    st.info(
+        f"**{anno}**: {n_met}/{n_met_max} metriche disponibili. "
+        f"Per un quadro completo usa il **{ANNO_PIENO_CONSIGLIATO}** "
+        f"(14 metriche)."
+    )
 
 
 def _val(metrica: str, anno: int) -> float:
@@ -130,6 +142,31 @@ if not bench_yr.empty:
             "Gap M/F assunzioni",
             f"+{val:.1f}%" if pd.notna(val) else "–",
         )
+
+# ── Insight sintetici ───────────────────────────────────────────────────────
+
+st.markdown("---")
+insights = []
+c_a = bench_yr.iloc[0].get("rapporto_cessazioni_assunzioni_pct") if not bench_yr.empty else None
+if pd.notna(c_a):
+    insights.append(f"Per ogni 100 assunzioni ci sono circa **{c_a:.0f} cessazioni** ({anno}).")
+pen_lav = bench_yr.iloc[0].get("rapporto_pensioni_lavoratori") if not bench_yr.empty else None
+if pd.notna(pen_lav):
+    insights.append(
+        f"Ogni lavoratore privato “sostiene” circa **{pen_lav:.2f} pensioni** in pagamento."
+    )
+g_ass = bench_yr.iloc[0].get("gap_genere_assunzioni_pct") if not bench_yr.empty else None
+if pd.notna(g_ass):
+    insights.append(f"Le assunzioni restano a **maggioranza maschile** (+{g_ass:.1f}% M vs F).")
+if n_met < n_met_max:
+    insights.append(
+        f"Attenzione: {n_met}/{n_met_max} metriche in {anno} — non confrontare anni parziali senza filtro."
+    )
+
+if insights:
+    st.markdown("**In sintesi**")
+    for line in insights:
+        st.markdown(f"- {line}")
 
 # ── Trend ───────────────────────────────────────────────────────────────────
 

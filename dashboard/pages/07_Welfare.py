@@ -3,7 +3,7 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
-from sources import fmt_num, require_compose, require_mart
+from sources import ANNO_PIENO_CONSIGLIATO, fmt_num, require_compose, require_mart
 
 st.title("🏛️ Welfare e politiche passive")
 st.markdown(
@@ -13,9 +13,11 @@ st.markdown(
 df = require_compose("mart_nazionale")
 bench = require_compose("mart_benchmark")
 
+anni = sorted(df["anno"].unique(), reverse=True)
+default_idx = anni.index(ANNO_PIENO_CONSIGLIATO) if ANNO_PIENO_CONSIGLIATO in anni else 0
 c1, c2 = st.columns(2)
 with c1:
-    anno = st.selectbox("Anno", sorted(df["anno"].unique(), reverse=True), key="wf_anno")
+    anno = st.selectbox("Anno", anni, index=default_idx, key="wf_anno")
 with c2:
     sesso = st.radio("Sesso", ["Tutti", "Maschi", "Femmine"], horizontal=True, key="wf_sesso")
 
@@ -49,22 +51,17 @@ for col, (metrica, label) in zip(cols, kpi):
     with col:
         st.metric(label, fmt_num(int(val)) if val else "–")
 
-# ── Trend welfare ───────────────────────────────────────────────────────────
+# ── Trend: scala grande vs DIS-COLL ────────────────────────────────────────
 
 st.markdown("---")
 st.subheader("📈 Serie storiche welfare")
 
+BIG = [("naspi", "NASpI"), ("rdc_nuclei", "RdC/PdC"), ("assegno_unico", "Assegno Unico")]
 trend_parts = []
-for metrica, label in [
-    ("naspi", "NASpI"),
-    ("dis_coll", "DIS-COLL"),
-    ("rdc_nuclei", "RdC/PdC"),
-    ("assegno_unico", "Assegno Unico"),
-]:
+for metrica, label in BIG:
     d = _series(metrica)
     if not d.empty:
-        d = d.assign(metrica=label)
-        trend_parts.append(d)
+        trend_parts.append(d.assign(metrica=label))
 
 if trend_parts:
     trend = pd.concat(trend_parts, ignore_index=True)
@@ -73,17 +70,35 @@ if trend_parts:
         .mark_line(point=True, strokeWidth=2)
         .encode(
             x=alt.X("anno:O", title="Anno"),
-            y=alt.Y("valore:Q", title="Beneficiari / nuclei"),
+            y=alt.Y("valore:Q", title="Beneficiari / nuclei / figli"),
             color="metrica:N",
             tooltip=["anno", "metrica", alt.Tooltip("valore", format=",.0f")],
         )
-        .properties(height=360),
+        .properties(height=320),
+        use_container_width=True,
+    )
+    st.caption("Scala unitaria (milioni). RdC/PdC 2019–2023; Assegno Unico dal 2022.")
+
+st.subheader("DIS-COLL (scala separata)")
+df_dc = _series("dis_coll")
+if not df_dc.empty:
+    st.altair_chart(
+        alt.Chart(df_dc)
+        .mark_line(point=True, strokeWidth=2, color="#b45309")
+        .encode(
+            x=alt.X("anno:O", title="Anno"),
+            y=alt.Y("valore:Q", title="N. beneficiari"),
+            tooltip=["anno", alt.Tooltip("valore", format=",.0f")],
+        )
+        .properties(height=240),
         use_container_width=True,
     )
     st.caption(
-        "Scale diverse: NASpI ~milioni, DIS-COLL ~decine di migliaia, "
-        "RdC/PdC ~milioni di nuclei (2019-2023), Assegno Unico ~milioni di figli."
+        "DIS-COLL è una nicchia co.co.co (~23k/anno vs ~2M NASpI): "
+        "grafico separato per non appiattirlo sulle altre serie."
     )
+else:
+    st.info(f"Nessun dato DIS-COLL per {sesso}.")
 
 # ── RdC per regione ─────────────────────────────────────────────────────────
 

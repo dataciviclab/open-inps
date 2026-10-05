@@ -11,7 +11,7 @@ requires-python = ">=3.12"
 license = "MIT"
 
 dependencies = [
-    "duckdb>=1.0,<2",
+    "duckdb>=1.5,<2",
     "pyyaml>=6.0",
 ]
 
@@ -32,7 +32,7 @@ dashboard = [
     "plotly>=5.18",
     "altair>=6.2",
     "pandas>=2.0",
-    "duckdb>=1.0",
+    "duckdb>=1.5",
     "lab-connectors[duckdb] @ git+https://github.com/dataciviclab/lab-connectors.git",
 ]
 

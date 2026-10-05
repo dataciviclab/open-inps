@@ -1,8 +1,9 @@
-# Export pin per Streamlit Cloud (non supporta pyproject).
-# Fonte di verità: extra `dashboard` in pyproject.toml.
+# Dipendenze dashboard — standard lab-ops/standards/dashboard.md
+# Fonte di verità extras: pyproject.toml [project.optional-dependencies].dashboard
+# requirements.txt = export pin (Streamlit Cloud non supporta pyproject).
 streamlit>=1.61
-duckdb>=1.0
+duckdb>=1.5
 pandas>=2.0
 plotly>=5.18
 altair>=6.2
-lab-connectors[duckdb]
+lab-connectors[duckdb] @ git+https://github.com/dataciviclab/lab-connectors.git

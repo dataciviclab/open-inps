@@ -2,15 +2,23 @@
 """
 Open INPS · Dashboard Streamlit
 Intelligence sui dati INPS: pensioni, lavoro, welfare.
+
+Pattern: lab-ops/standards/dashboard.md
 """
 
 import streamlit as st
+from lab_connectors.branding import apply_branding
 
 st.set_page_config(
     page_title="Open INPS · Dashboard",
     page_icon="🇮🇹",
     layout="wide",
     initial_sidebar_state="expanded",
+)
+
+apply_branding(
+    repo_name="open-inps",
+    repo_url="https://github.com/dataciviclab/open-inps",
 )
 
 pages = {
@@ -27,14 +35,9 @@ pages = {
         st.Page("pages/07_Welfare.py", title="Welfare", icon="🏛️"),
     ],
     "Strumenti": [
-        st.Page("pages/06_Dati.py", title="Tabelle", icon="📋"),
+        st.Page("pages/08_SQL.py", title="Query SQL", icon="🧪"),
     ],
 }
-
-st.sidebar.markdown("---")
-st.sidebar.caption("Dati: INPS Osservatori Statistici")
-st.sidebar.caption("Codice: [dataciviclab/open-inps](https://github.com/dataciviclab/open-inps)")
-st.sidebar.caption("[DataCivicLab](https://dataciviclab.org/) · CC BY 4.0")
 
 pg = st.navigation(pages, position="sidebar")
 pg.run()
