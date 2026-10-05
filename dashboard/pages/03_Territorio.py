@@ -10,6 +10,7 @@ from sources import (
     METRICHE_DERIVATE,
     REGIONI,
     fmt_num,
+    fmt_pct,
     require_compose,
     to_geo_name,
 )
@@ -140,7 +141,7 @@ if "indice_vs_media" in df_rank.columns and df_rank["indice_vs_media"].notna().a
 df_rank = df_rank[cols_rank].copy()
 df_rank.columns = ["Regione", "Valore"] + [c.replace("_", " ").title() for c in cols_rank[2:]]
 if met == "ratio_cessazioni_assunzioni":
-    df_rank["Valore"] = df_rank["Valore"].apply(lambda x: f"{x:.1f}%")
+    df_rank["Valore"] = df_rank["Valore"].map(lambda x: fmt_pct(x) if pd.notna(x) else "–")
 else:
     df_rank["Valore"] = df_rank["Valore"].apply(fmt_num)
 st.dataframe(df_rank, width="stretch")

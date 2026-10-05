@@ -10,7 +10,7 @@ registry = load_registry(_REPO_ROOT / "registry" / "registry.json")
 
 render_sql_query(
     registry=registry,
-    prefix="",
+    prefix="open-inps/",
     default_slug="inps_rapporti_lavoro",
     title="🧪 Query SQL",
     description=(

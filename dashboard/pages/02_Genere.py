@@ -3,7 +3,7 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
-from sources import METRICHE, require_compose
+from sources import METRICHE, fmt_num, require_compose
 
 st.title("⚖️ Genere")
 st.markdown(
@@ -106,9 +106,12 @@ for met in METRICHE_SESSO:
 
 if rows:
     df_gap = pd.DataFrame(rows).sort_values("Gap %")
+    df_gap["Maschi"] = df_gap["Maschi"].map(fmt_num)
+    df_gap["Femmine"] = df_gap["Femmine"].map(fmt_num)
     st.dataframe(df_gap, use_container_width=True, hide_index=True)
 
-    # Barre gap
+    # Barre gap (valori grezzi non servono più nella tabella formattata)
+    df_bar = pd.DataFrame(rows).sort_values("Gap %")
     chart = (
         alt.Chart(df_gap)
         .mark_bar()

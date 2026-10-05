@@ -13,7 +13,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 from lab_connectors.duckdb.queries import load_mart_table
-from lab_connectors.formatters import fmt_num
+from lab_connectors.formatters import fmt_num, fmt_pct
 from lab_connectors.registry import load_registry
 
 REPO_ROOT = Path(__file__).parent.parent
@@ -25,7 +25,7 @@ _registry = load_registry(REPO_ROOT / "registry" / "registry.json")
 # Slug del compose multi-dataset (out/data/mart/inps_analisi/)
 COMPOSE_SLUG = "inps_analisi"
 
-# ── Formattazione italiana ─────────────────────────────────────────────────
+# ── Formattazione italiana (re-export LC + helper locale) ──────────────────
 
 
 def fmt_it(n: float | int | None) -> str:
@@ -40,12 +40,15 @@ def fmt_it(n: float | int | None) -> str:
 
 @st.cache_data(ttl=300, show_spinner=False)
 def load_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
-    """Carica un mart. Auto-detect: out/data locale o GCS via registry."""
+    """Carica un mart.
+
+    Pattern standard: GCS via lab-connectors (registry path).
+    Fallback locale `out/data/` per sviluppo post-`make run`.
+    """
     try:
-        return load_mart_table(slug, table, year, local_root=LOCAL_ROOT)
-    except Exception:
-        # Fallback GCS (pattern standard) se il path locale non risolve
         return load_mart_table(slug, table, year)
+    except Exception:
+        return load_mart_table(slug, table, year, local_root=LOCAL_ROOT)
 
 
 def require_mart(slug: str, table: str, year: int = 2026) -> pd.DataFrame:
@@ -155,6 +158,7 @@ __all__ = [
     "REGIONI",
     "fmt_it",
     "fmt_num",
+    "fmt_pct",
     "get_registry",
     "load_mart",
     "require_compose",
