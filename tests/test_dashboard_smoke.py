@@ -54,26 +54,23 @@ def test_pages_parse_and_follow_naming() -> None:
 
 
 def test_sources_contract() -> None:
-    """sources espone loader GCS, cache e formatter italiani (solo file)."""
+    """sources wrappa lab-connectors come da standards/dashboard.md (RNA)."""
     src = (DASH / "sources.py").read_text(encoding="utf-8")
     for needle in (
         "def load_mart",
         "def require_mart",
         "def require_compose",
         "def fmt_it",
+        "load_mart_table",
+        "load_registry",
+        "registry=_registry",
+        "@st.cache_data",
         "fmt_num",
         "fmt_pct",
-        "DEFAULT_PREFIX",
-        "@st.cache_data",
-        "https_url",
-        "OPEN_INPS_LOCAL_DATA",
-        "prefix_for_slug",
     ):
         assert needle in src, f"sources.py manca: {needle}"
-    # Non importare sources in pytest: streamlit/plotly lento o instabile in CI
-    assert "load_mart_table" not in src, (
-        "load_mart_table auto-detecta out/data: usare https_url GCS"
-    )
+    # Niente loader custom: il path lo risolve lab-connectors
+    assert "https_url" not in src
 
 
 def test_requirements_match_standard() -> None:
