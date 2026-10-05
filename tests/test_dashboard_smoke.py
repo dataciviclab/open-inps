@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import ast
 import re
-import sys
 from pathlib import Path
 
 import pytest
@@ -55,18 +54,26 @@ def test_pages_parse_and_follow_naming() -> None:
 
 
 def test_sources_contract() -> None:
-    """sources espone loader LC, cache e formatter italiani."""
-    sys.path.insert(0, str(DASH))
-    try:
-        import sources
-    finally:
-        if str(DASH) in sys.path:
-            sys.path.remove(str(DASH))
-
-    for name in ("load_mart", "require_mart", "require_compose", "fmt_it", "fmt_num"):
-        assert hasattr(sources, name), f"sources manca {name}"
-    assert "load_mart_table" in (DASH / "sources.py").read_text(encoding="utf-8")
-    assert "@st.cache_data" in (DASH / "sources.py").read_text(encoding="utf-8")
+    """sources espone loader GCS, cache e formatter italiani (solo file)."""
+    src = (DASH / "sources.py").read_text(encoding="utf-8")
+    for needle in (
+        "def load_mart",
+        "def require_mart",
+        "def require_compose",
+        "def fmt_it",
+        "fmt_num",
+        "fmt_pct",
+        "DEFAULT_PREFIX",
+        "@st.cache_data",
+        "https_url",
+        "OPEN_INPS_LOCAL_DATA",
+        "prefix_for_slug",
+    ):
+        assert needle in src, f"sources.py manca: {needle}"
+    # Non importare sources in pytest: streamlit/plotly lento o instabile in CI
+    assert "load_mart_table" not in src, (
+        "load_mart_table auto-detecta out/data: usare https_url GCS"
+    )
 
 
 def test_requirements_match_standard() -> None:
