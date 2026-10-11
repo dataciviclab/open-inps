@@ -84,7 +84,7 @@ chart_m = (
     )
     .properties(height=300)
 )
-st.altair_chart(chart_m, use_container_width=True)
+st.altair_chart(chart_m, width="stretch")
 st.caption("Valori di competenza in mld €. Escluse le righe a zero (fondi da ripartire).")
 
 # Trend 2022→2024
@@ -113,7 +113,7 @@ chart_conf = (
     )
     .properties(height=260)
 )
-st.altair_chart(chart_conf, use_container_width=True)
+st.altair_chart(chart_conf, width="stretch")
 
 # ── 2. Conto economico ──────────────────────────────────────────────────────
 
@@ -206,7 +206,7 @@ chart_rg = (
     )
     .properties(height=380)
 )
-st.altair_chart(chart_rg, use_container_width=True)
+st.altair_chart(chart_rg, width="stretch")
 
 with st.expander("Nota metodologica"):
     st.markdown(
