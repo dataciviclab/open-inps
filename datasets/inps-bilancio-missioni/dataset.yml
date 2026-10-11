@@ -1,0 +1,70 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_bilancio_missioni"
+  source_id: "inps"
+  tags: [bilancio, inps, spesa-pubblica, cofog, missioni, welfare]
+  category: bilancio
+  description: "Bilancio INPS per Missioni/Programmi/COFOG (CKAN 2023-2024, con comparative 2022): spesa per competenza e cassa."
+  years: [2026]
+  time_coverage:
+    # 2022 presente come comparative dentro i file multi-anno 2023/2024
+    start_year: 2022
+    end_year: 2024
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "missioni_2023"
+      type: "http_file"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/b431b141-ab4b-4b81-b307-6c1de403266a/resource/65cdc4f0-6b09-42cf-a7b3-18f65041b0ee/download/inpsod_missioni_programmi_2023.csv"
+        filename: "missioni_2023.csv"
+      client:
+        timeout: 120
+      primary: true
+    - name: "missioni_2024"
+      type: "http_file"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/0e55818f-570d-420a-ad0e-89a6c7a9059c/resource/f837fdf0-719b-433d-ade0-427dabafa9bd/download/inpsod_missioni_programmi_2024.csv"
+        filename: "missioni_2024.csv"
+      client:
+        timeout: 120
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "cp1252"
+    delim: ";"
+    decimal: ","
+  required_columns: [anno, missione, competenza_eur]
+  validate:
+    min_rows: 40
+
+mart:
+  tables:
+    - name: "mart_bilancio_missioni"
+      sql: "sql/mart_missione.sql"
+    - name: "mart_bilancio_prestazioni"
+      sql: "sql/mart_prestazione.sql"
+    - name: "mart_bilancio_confronto"
+      sql: "sql/mart_confronto.sql"
+  required_tables:
+    - mart_bilancio_missioni
+    - mart_bilancio_prestazioni
+  validate:
+    table_rules:
+      mart_bilancio_missioni:
+        min_rows: 10
+      mart_bilancio_prestazioni:
+        min_rows: 40
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"

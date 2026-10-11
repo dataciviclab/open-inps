@@ -1,8 +1,8 @@
 # Open INPS 🇮🇹 — pensioni, lavoro e welfare, aperti e interrogabili
 
-**17 dataset INPS su mercato del lavoro, pensioni e welfare — da assunzioni e cessazioni a NASpI, RdC/PdC e DIS-COLL — pronti per SQL, dashboard e analisi civiche.**
+**20 dataset INPS su mercato del lavoro, welfare e bilancio istituzionale — da assunzioni e cessazioni a NASpI, RdC/PdC, DIS-COLL, spesa per missioni COFOG e rendiconto gestionale — pronti per SQL, dashboard e analisi civiche.**
 
-I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osservatori Statistici contengono serie aggiornate al 2026: qui le raccogliamo, normalizziamo in parquet e componiamo in metriche nazionali e territoriali.
+I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osservatori Statistici contengono serie aggiornate al 2026; il bilancio istituzionale arriva dal CKAN open data: qui raccogliamo entrambe le fonti, normalizziamo in parquet e componiamo in metriche nazionali e territoriali.
 
 ## Perché questi dati
 
@@ -11,17 +11,18 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 - **Welfare**: NASpI, DIS-COLL, Reddito/Pensione di Cittadinanza, Assegno Unico, CIG.
 - **Ponte lavoro→redditi**: lavoratori, reddito cumulato e settimane per posizione prevalente e cittadinanza.
 - **PA**: lavoratori pubblici per comparto, età e retribuzioni (non solo contare gli enti).
+- **Bilancio**: conto economico, spesa per Missioni/ProgramMI COFOG e rendiconto gestionale per capitolo.
 
 ## Cosa contengono
 
 | | |
 |---|---|
-| **Dataset** | **17** toolkit + 1 compose multi-dataset |
-| **Mart analitici** | **48** |
-| **Periodo** | 1997 — 2026 (a seconda della serie) |
-| **Granularità** | Nazionale, regionale, provinciale, settore NACE |
+| **Dataset** | **20** toolkit + 1 compose multi-dataset |
+| **Mart analitici** | **57** |
+| **Periodo** | 1997 — 2026 (a seconda della serie); bilancio: missioni/CE 2022–2024 (2022 = comparative nei file multi-anno), gestionale 2023–2024 |
+| **Granularità** | Nazionale, regionale, provinciale, settore NACE, missioni COFOG, capitoli contabili |
 | **Formato** | Parquet (clean/mart) + registry JSON |
-| **Fonte** | [INPS Osservatori Statistici](https://servizi2.inps.it/servizi/osservatoristatistici/) |
+| **Fonte** | [INPS Osservatori Statistici](https://servizi2.inps.it/servizi/osservatoristatistici/) + [INPS Open Data](https://opendata.inps.it/) |
 
 ### Temi coperti
 
@@ -33,6 +34,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 | 🛡️ Disoccupazione | NASpI, DIS-COLL (co.co.co) |
 | 🏠 Welfare | RdC/PdC, Assegno Unico, CIG |
 | 💰 Redditi | Posizione prevalente, settimane, cittadinanza |
+| 🧾 Bilancio | Conto economico (generale/GIAS), missioni COFOG, rendiconto gestionale |
 
 Dettaglio per osservatorio: [NOTE.md](NOTE.md) · Catalogo fonte: [catalog.json](catalog.json) (194 osservatori).
 

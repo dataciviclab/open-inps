@@ -149,3 +149,18 @@ Per appiattire in CSV: la funzione `flatten_nested()` in extract.py gestisce la 
 - **ISTAT Casellario dei Pensioni** (SDMX): 2012-2022, granularità territoriale simile ma senza la dimensione importo
 - **Dataset 6002 DAM INPS**: JSON trimestrale 2017-Q2 2024, dimensioni simili ma URL non verificato
 - **DoveVannoINostriSoldi**: ha integrato dati INPS da PDF (obs 388) e ISTAT SDMX — il nostro script automatizza ciò che loro fanno manualmente
+
+## Bilancio istituzionale (CKAN open data)
+
+Non fa parte degli Osservatori: il conto economico e le missioni COFOG arrivano dal
+CKAN `opendata.inps.it` (gruppo `economia`, tag `bilancio`), ~23 dataset.
+
+| Dataset repo | Fonte CKAN | Anni | Note |
+|---|---|---|---|
+| `inps-bilancio-missioni` | Missioni Programmi 2023, 2024 | 2022–2024 | Competenza e cassa; i file multi-anno si sovrappongono (DISTINCT) e includono il 2022 come comparative |
+| `inps-bilancio-ce` | Conto Economico generale + GIAS 2023, 2024 | 2022–2024 | Come missioni: 2022 dentro i file come comparative; Progressivo non stabile; `fonte` via `inject_column` |
+| `inps-bilancio-gestionale` | Rendiconto gestionale entrate/uscite 2023, 2024 | 2023–2024 | Capitoli contabili; `anno`/`tipo` via `inject_column`; usare `cast_double` (il profile applica `decimal=','`) |
+
+- CSV `;`, decimale `,`, encoding `latin-1`/`cp1252`
+- Legacy CKAN (CE 2015-19, RG 2014-18, missioni 2016/18): schema diverso, non ancora estratto
+- URL e package id possono cambiare:preferire discovery CKAN (`package_search?q=tags:bilancio`) in caso di re-ingest

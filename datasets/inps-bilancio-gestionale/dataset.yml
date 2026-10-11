@@ -1,0 +1,96 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_bilancio_gestionale"
+  source_id: "inps"
+  tags: [bilancio, inps, rendiconto, gestionale, contributi, entrate, spese]
+  category: bilancio
+  description: "Rendiconto gestionale INPS (entrate e uscite per capitolo) da CKAN open data 2023-2024: accertato/impegnato, previsioni e residui."
+  years: [2026]
+  time_coverage:
+    start_year: 2023
+    end_year: 2024
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "rg_entrate_2023"
+      type: "http_file"
+      inject_column:
+        anno: "2023"
+        tipo: "entrata"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/dec4a574-8f62-472b-95d1-428218aea870/resource/c8cc8271-bfdd-47ed-b69a-90ffe334f632/download/inpsod_rendiconto_gestionale_entrate_2023.csv"
+        filename: "rg_entrate_2023.csv"
+      client:
+        timeout: 120
+      primary: true
+    - name: "rg_entrate_2024"
+      type: "http_file"
+      inject_column:
+        anno: "2024"
+        tipo: "entrata"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/c46719ba-d36f-4d91-a81c-0a4bac63dbba/resource/af4d9171-d5cc-43d7-b367-3f08bbca58e5/download/inpsod_rendiconto_gestionale_entrate_2024.csv"
+        filename: "rg_entrate_2024.csv"
+      client:
+        timeout: 120
+    - name: "rg_uscite_2023"
+      type: "http_file"
+      inject_column:
+        anno: "2023"
+        tipo: "uscita"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/7cb704ce-72e6-49c5-9fa1-041615911a2c/resource/f570828d-da1a-42aa-8b9a-ab7e89059dd0/download/inpsod_rendiconto_gestionale_uscite_2023.csv"
+        filename: "rg_uscite_2023.csv"
+      client:
+        timeout: 120
+    - name: "rg_uscite_2024"
+      type: "http_file"
+      inject_column:
+        anno: "2024"
+        tipo: "uscita"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/2bc9c677-e306-4bce-8873-a4d55c11e9f7/resource/54a782a2-4859-4fcf-b8a1-8de1ccb834d1/download/inpsod_rendiconto_gestionale_uscite_2024.csv"
+        filename: "rg_uscite_2024.csv"
+      client:
+        timeout: 120
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "cp1252"
+    delim: ";"
+  required_columns: [anno, tipo, codice, denominazione, importo_esercizio_eur]
+  validate:
+    min_rows: 800
+
+mart:
+  tables:
+    - name: "mart_rg_top_entrate"
+      sql: "sql/mart_top_entrate.sql"
+    - name: "mart_rg_top_uscite"
+      sql: "sql/mart_top_uscite.sql"
+    - name: "mart_rg_contributi_lavoratori"
+      sql: "sql/mart_contributi_lavoratori.sql"
+  required_tables:
+    - mart_rg_top_entrate
+    - mart_rg_top_uscite
+  validate:
+    table_rules:
+      mart_rg_top_entrate:
+        min_rows: 20
+      mart_rg_top_uscite:
+        min_rows: 20
+      mart_rg_contributi_lavoratori:
+        min_rows: 5
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"
