@@ -1,0 +1,90 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_bilancio_ce"
+  source_id: "inps"
+  tags: [bilancio, inps, conto-economico, entrate, spese, gias]
+  category: bilancio
+  description: "Conto Economico INPS (generale + GIAS) da CKAN open data 2022-2024: voci di conto e importi in euro."
+  years: [2026]
+  time_coverage:
+    start_year: 2022
+    end_year: 2024
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "ce_generale_2023"
+      type: "http_file"
+      inject_column:
+        fonte: "generale"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/5888b132-e8b9-4a8f-95c3-6b43bd6d94af/resource/bf46879a-aaf0-4799-a711-71d79dfb4fc5/download/inpsod_conto_economico_2023.csv"
+        filename: "ce_generale_2023.csv"
+      client:
+        timeout: 120
+      primary: true
+    - name: "ce_generale_2024"
+      type: "http_file"
+      inject_column:
+        fonte: "generale"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/5c0c80b1-381b-4aa3-afb8-4a25265b8108/resource/65f517f4-51f3-49b4-9c0a-8f142f9d2136/download/inpsod_conto_economico_2024.csv"
+        filename: "ce_generale_2024.csv"
+      client:
+        timeout: 120
+    - name: "ce_gias_2023"
+      type: "http_file"
+      inject_column:
+        fonte: "gias"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/586a5d5c-906e-4743-8a38-ac98039a4cd4/resource/a30817a0-28c3-45b4-bfe1-5cb19fcaa5a6/download/inpsod_conto_economico_gias_2023.csv"
+        filename: "ce_gias_2023.csv"
+      client:
+        timeout: 120
+    - name: "ce_gias_2024"
+      type: "http_file"
+      inject_column:
+        fonte: "gias"
+      args:
+        url: "https://opendata.inps.it/opendata/dataset/73c19e3d-8b29-4e15-9008-126006b79f57/resource/81453eeb-51a0-434c-94db-70025758f25b/download/inpsod_conto_economico_gias_2024.csv"
+        filename: "ce_gias_2024.csv"
+      client:
+        timeout: 120
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "cp1252"
+    delim: ";"
+  required_columns: [anno, fonte, voce, importo_eur]
+  validate:
+    min_rows: 40
+
+mart:
+  tables:
+    - name: "mart_ce_voci"
+      sql: "sql/mart_voci.sql"
+    - name: "mart_ce_aggregati"
+      sql: "sql/mart_aggregati.sql"
+    - name: "mart_ce_confronto_fonti"
+      sql: "sql/mart_confronto_fonti.sql"
+  required_tables:
+    - mart_ce_voci
+    - mart_ce_aggregati
+  validate:
+    table_rules:
+      mart_ce_voci:
+        min_rows: 40
+      mart_ce_aggregati:
+        min_rows: 10
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"
