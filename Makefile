@@ -2,6 +2,7 @@
 # (lab-connectors) via env DUCKDB_MEMORY_LIMIT (default 2GB); nei runner CI
 # con RAM ridotta il pipeline imposta limiti conservativi.
 TOOLKIT = toolkit
+export TOOLKIT_ALLOW_SCRIPT_SOURCE := 1
 
 DATASETS := $(shell find datasets -name dataset.yml 2>/dev/null | sort)
 COMPOSE  := $(shell find compose -name dataset.yml 2>/dev/null | sort)
@@ -12,7 +13,7 @@ COMPOSE  := $(shell find compose -name dataset.yml 2>/dev/null | sort)
 compose:
 	@for f in $(COMPOSE); do \
 		echo "=== $$f ==="; \
-		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run --config "$$f" || exit 1; \
+		$(TOOLKIT) run --config "$$f" || exit 1; \
 	done
 
 # --- Dataset principali ------------------------------------------------------
@@ -21,12 +22,21 @@ compose:
 run:
 	@for f in $(DATASETS); do \
 		echo "=== $$f ==="; \
-		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run --config "$$f" || exit 1; \
+		$(TOOLKIT) run --config "$$f" || exit 1; \
 	done
 
 # CI post-merge e dispatch: dataset + compose (come pipeline.yml)
 .PHONY: run-all
 run-all: run compose
+
+# Batch selettivo (PR post-merge: solo dataset cambiati, da batch.txt)
+.PHONY: run-batch
+run-batch:
+	@if [ -s batch.txt ]; then \
+		$(TOOLKIT) run --batch batch.txt; \
+	else \
+		echo "Nessun dataset da processare"; \
+	fi
 
 # Alias documentato in README/CONTRIBUTING
 .PHONY: all
@@ -38,7 +48,7 @@ all: run-all test
 check:
 	@for f in $(DATASETS) $(COMPOSE); do \
 		echo "-> $$f"; \
-		TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) run preflight --config "$$f" > /dev/null 2>&1 || exit 1; \
+		$(TOOLKIT) run preflight --config "$$f" > /dev/null 2>&1 || exit 1; \
 	done
 	@echo "✅ All configs valid"
 
@@ -56,10 +66,10 @@ clean-runs:
 
 .PHONY: registry registry-write
 registry:
-	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open-inps
+	$(TOOLKIT) registry build --prefix open-inps
 
 registry-write:
-	TOOLKIT_ALLOW_SCRIPT_SOURCE=1 $(TOOLKIT) registry build --prefix open-inps --write
+	$(TOOLKIT) registry build --prefix open-inps --write
 
 # --- Test --------------------------------------------------------------------
 

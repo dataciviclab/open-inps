@@ -1,3 +1,9 @@
+# Pipeline — open-inps
+#
+# Post-merge + refresh. Usa pipeline-reusable.yml dell'org.
+# Su PR merged: solo i dataset toccati (detect + batch).
+# Su schedule/dispatch: tutti i dataset + compose.
+
 name: Pipeline
 
 on:
@@ -26,7 +32,9 @@ jobs:
     with:
       repo-slug: "open-inps"
       run-command: "make run-all"
+      run-batch-command: "make run-batch"
       detect-paths: "datasets compose"
+      sync-pattern: "per-dataset"
       install-extras: "dev,pipeline"
     permissions:
       contents: write
