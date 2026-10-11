@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "open-inps",
   "source_repo": "dataciviclab/open-inps",
-  "updated_at": "2026-10-11",
+  "updated_at": "2026-10-04",
   "datasets": [
     {
       "slug": "inps_analisi",
@@ -142,249 +142,6 @@
       "mart_refs": [
         "inps_assegno_unico__mart_au_regione",
         "inps_assegno_unico__mart_au_isee"
-      ]
-    },
-    {
-      "slug": "inps_bilancio_ce",
-      "name": "Inps Bilancio Ce",
-      "description": "Conto Economico INPS (generale + GIAS) da CKAN open data 2022-2024: voci di conto e importi in euro.",
-      "source": "",
-      "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2024
-      },
-      "tags": [
-        "bilancio",
-        "inps",
-        "conto-economico",
-        "entrate",
-        "spese",
-        "gias"
-      ],
-      "category": "bilancio",
-      "columns": [
-        {
-          "name": "anno",
-          "type": "INTEGER",
-          "role": "dimension",
-          "description": "",
-          "semantic_type": "year"
-        },
-        {
-          "name": "fonte",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "voce",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "importo_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        }
-      ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_bilancio_ce/2026/inps_bilancio_ce_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
-      "mart_refs": [
-        "inps_bilancio_ce__mart_ce_voci",
-        "inps_bilancio_ce__mart_ce_aggregati",
-        "inps_bilancio_ce__mart_ce_confronto_fonti"
-      ]
-    },
-    {
-      "slug": "inps_bilancio_gestionale",
-      "name": "Inps Bilancio Gestionale",
-      "description": "Rendiconto gestionale INPS (entrate e uscite per capitolo) da CKAN open data 2023-2024: accertato/impegnato, previsioni e residui.",
-      "source": "",
-      "source_id": "inps",
-      "period": {
-        "start": 2023,
-        "end": 2024
-      },
-      "tags": [
-        "bilancio",
-        "inps",
-        "rendiconto",
-        "gestionale",
-        "contributi",
-        "entrate",
-        "spese"
-      ],
-      "category": "bilancio",
-      "columns": [
-        {
-          "name": "anno",
-          "type": "INTEGER",
-          "role": "dimension",
-          "description": "",
-          "semantic_type": "year"
-        },
-        {
-          "name": "tipo",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "codice",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "denominazione",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "previsioni_iniziali_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "previsioni_definitive_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "importo_esercizio_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "residui_iniziali_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "residui_totali_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "previsioni_cassa_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "incassi_pagamenti_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "residui_finali_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        }
-      ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_bilancio_gestionale/2026/inps_bilancio_gestionale_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
-      "mart_refs": [
-        "inps_bilancio_gestionale__mart_rg_top_entrate",
-        "inps_bilancio_gestionale__mart_rg_top_uscite",
-        "inps_bilancio_gestionale__mart_rg_contributi_lavoratori"
-      ]
-    },
-    {
-      "slug": "inps_bilancio_missioni",
-      "name": "Inps Bilancio Missioni",
-      "description": "Bilancio INPS per Missioni/Programmi/COFOG (CKAN open data 2022-2024): spesa istituzionale per competenza e cassa.",
-      "source": "",
-      "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2024
-      },
-      "tags": [
-        "bilancio",
-        "inps",
-        "spesa-pubblica",
-        "cofog",
-        "missioni",
-        "welfare"
-      ],
-      "category": "bilancio",
-      "columns": [
-        {
-          "name": "anno",
-          "type": "INTEGER",
-          "role": "dimension",
-          "description": "",
-          "semantic_type": "year"
-        },
-        {
-          "name": "missione",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": "",
-          "semantic_type": "programma_code"
-        },
-        {
-          "name": "programma",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": "",
-          "semantic_type": "programma_code"
-        },
-        {
-          "name": "gruppo_cofog",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "prestazione",
-          "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
-        },
-        {
-          "name": "competenza_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        },
-        {
-          "name": "cassa_eur",
-          "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
-        }
-      ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_bilancio_missioni/2026/inps_bilancio_missioni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
-      "mart_refs": [
-        "inps_bilancio_missioni__mart_bilancio_missioni",
-        "inps_bilancio_missioni__mart_bilancio_prestazioni",
-        "inps_bilancio_missioni__mart_bilancio_confronto"
       ]
     },
     {
@@ -1769,96 +1526,6 @@
       }
     },
     {
-      "slug": "inps_bilancio_ce__mart_ce_aggregati",
-      "dataset": "inps_bilancio_ce",
-      "table": "mart_ce_aggregati",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_ce/2026/mart_ce_aggregati.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_ce__mart_ce_confronto_fonti",
-      "dataset": "inps_bilancio_ce",
-      "table": "mart_ce_confronto_fonti",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_ce/2026/mart_ce_confronto_fonti.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_ce__mart_ce_voci",
-      "dataset": "inps_bilancio_ce",
-      "table": "mart_ce_voci",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_ce/2026/mart_ce_voci.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_gestionale__mart_rg_contributi_lavoratori",
-      "dataset": "inps_bilancio_gestionale",
-      "table": "mart_rg_contributi_lavoratori",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_contributi_lavoratori.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_gestionale__mart_rg_top_entrate",
-      "dataset": "inps_bilancio_gestionale",
-      "table": "mart_rg_top_entrate",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_top_entrate.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_gestionale__mart_rg_top_uscite",
-      "dataset": "inps_bilancio_gestionale",
-      "table": "mart_rg_top_uscite",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_top_uscite.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_missioni__mart_bilancio_confronto",
-      "dataset": "inps_bilancio_missioni",
-      "table": "mart_bilancio_confronto",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_missioni/2026/mart_bilancio_confronto.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_missioni__mart_bilancio_missioni",
-      "dataset": "inps_bilancio_missioni",
-      "table": "mart_bilancio_missioni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_missioni/2026/mart_bilancio_missioni.parquet",
-        "multi_file": false
-      }
-    },
-    {
-      "slug": "inps_bilancio_missioni__mart_bilancio_prestazioni",
-      "dataset": "inps_bilancio_missioni",
-      "table": "mart_bilancio_prestazioni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_missioni/2026/mart_bilancio_prestazioni.parquet",
-        "multi_file": false
-      }
-    },
-    {
       "slug": "inps_cig__mart_cig_mensile",
       "dataset": "inps_cig",
       "table": "mart_cig_mensile",
@@ -2342,99 +2009,6 @@
       }
     },
     {
-      "id": "inps_bilancio_ce",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_bilancio_ce",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261010T232736Z_a79cd8dc",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 198,
-          "clean": 615,
-          "mart": 1000
-        },
-        "output_bytes": {
-          "raw": 75698,
-          "clean": 7642,
-          "mart": 18940
-        },
-        "started_at": "2026-10-10T23:27:36.498634+00:00",
-        "finished_at": "2026-10-10T23:27:40.360128+00:00",
-        "duration_seconds": 3.861
-      }
-    },
-    {
-      "id": "inps_bilancio_gestionale",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_bilancio_gestionale",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261011T073520Z_8c664c2b",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 485,
-          "clean": 1897,
-          "mart": 1520
-        },
-        "output_bytes": {
-          "raw": 509580,
-          "clean": 119134,
-          "mart": 86668
-        },
-        "started_at": "2026-10-11T07:35:20.216101+00:00",
-        "finished_at": "2026-10-11T07:35:25.029264+00:00",
-        "duration_seconds": 4.813
-      }
-    },
-    {
-      "id": "inps_bilancio_missioni",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_bilancio_missioni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261010T232522Z_38837be9",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 88,
-          "clean": 132,
-          "mart": 160
-        },
-        "output_bytes": {
-          "raw": 23956,
-          "clean": 5212,
-          "mart": 9275
-        },
-        "started_at": "2026-10-10T23:25:22.346221+00:00",
-        "finished_at": "2026-10-10T23:25:25.216339+00:00",
-        "duration_seconds": 2.87
-      }
-    },
-    {
       "id": "inps_cig",
       "source_id": "inps",
       "status": "ok",
@@ -2880,27 +2454,6 @@
   "codelists": [],
   "entities": {
     "entities": {
-      "Programma": {
-        "entity": "Programma",
-        "label": "Programma",
-        "datasets": [
-          {
-            "slug": "inps_bilancio_missioni",
-            "name": "Inps Bilancio Missioni",
-            "column": "missione",
-            "semantic_type": "programma_code"
-          },
-          {
-            "slug": "inps_bilancio_missioni",
-            "name": "Inps Bilancio Missioni",
-            "column": "programma",
-            "semantic_type": "programma_code"
-          }
-        ],
-        "types": {
-          "programma_code": 2
-        }
-      },
       "Provincia": {
         "entity": "Provincia",
         "label": "Provincia",
@@ -3044,24 +2597,6 @@
             "semantic_type": "year"
           },
           {
-            "slug": "inps_bilancio_ce",
-            "name": "Inps Bilancio Ce",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_bilancio_gestionale",
-            "name": "Inps Bilancio Gestionale",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_bilancio_missioni",
-            "name": "Inps Bilancio Missioni",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
             "slug": "inps_cig",
             "name": "Inps Cig",
             "column": "anno",
@@ -3159,25 +2694,11 @@
           }
         ],
         "types": {
-          "year": 20,
+          "year": 17,
           "month": 1
         }
       }
     },
-    "bridges": [
-      {
-        "from": {
-          "entity": "Programma",
-          "dataset": "inps_bilancio_missioni",
-          "via": "programma_code"
-        },
-        "to": {
-          "entity": "Progetto",
-          "bridge": "opencoesione_progetti_esteso",
-          "on": "CUP",
-          "semantic_type": "cup_code"
-        }
-      }
-    ]
+    "bridges": []
   }
 }
