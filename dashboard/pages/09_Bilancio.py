@@ -56,6 +56,7 @@ m["missione_label"] = m["missione"].map(_MISSIONI_LABEL).fillna(m["missione"])
 m = m.sort_values("competenza_eur", ascending=False)
 tot = float(m["competenza_eur"].sum())
 m["pct"] = 100.0 * m["competenza_eur"] / tot
+m["competenza_mld"] = m["competenza_eur"] / 1e9
 
 c1, c2, c3 = st.columns(3)
 with c1:
@@ -70,10 +71,10 @@ with c3:
 
 chart_m = (
     alt.Chart(m)
-    .mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4)
+    .mark_bar(cornerRadiusEnd=3)
     .encode(
-        x=alt.X("competenza_eur:Q", title="Competenza (€)", scale=alt.Scale(type="log")),
-        y=alt.Y("missione_label:N", sort="-x", title=None),
+        x=alt.X("competenza_mld:Q", title="Competenza (mld €)"),
+        y=alt.Y("missione_label:N", sort="-x", title=None, axis=alt.Axis(labelLimit=180)),
         color=alt.Color("missione_label:N", legend=None),
         tooltip=[
             alt.Tooltip("missione_label:N", title="Missione"),
@@ -81,10 +82,10 @@ chart_m = (
             alt.Tooltip("pct:Q", title="% spesa", format=".1f"),
         ],
     )
-    .properties(height=280)
+    .properties(height=300)
 )
 st.altair_chart(chart_m, use_container_width=True)
-st.caption("Scala log perché le grandezze variano di 2 ordini. Escluse partite di giro a zero.")
+st.caption("Valori di competenza in mld €. Escluse le righe a zero (fondi da ripartire).")
 
 # Trend 2022→2024
 st.subheader("Variazione 2022 → 2024")
@@ -97,7 +98,7 @@ chart_conf = (
     .mark_bar()
     .encode(
         x=alt.X("variazione_pct:Q", title="Variazione % competenza"),
-        y=alt.Y("missione_label:N", sort="-x", title=None),
+        y=alt.Y("missione_label:N", sort="-x", title=None, axis=alt.Axis(labelLimit=180)),
         color=alt.Color(
             "variazione_pct:Q",
             scale=alt.Scale(scheme="redblue", domain=[-50, 50]),
@@ -196,14 +197,14 @@ chart_rg = (
     .mark_bar(cornerRadiusEnd=3)
     .encode(
         x=alt.X("importo_esercizio_eur:Q", title="Accertato (€)"),
-        y=alt.Y("voce_label:N", sort="-x", title=None),
+        y=alt.Y("voce_label:N", sort="-x", title=None, axis=alt.Axis(labelLimit=180)),
         color=alt.Color("importo_esercizio_eur:Q", scale=alt.Scale(scheme="blues"), legend=None),
         tooltip=[
             alt.Tooltip("voce_label:N", title="Capitolo"),
             alt.Tooltip("importo_esercizio_eur:Q", title="Accertato €", format=",.0f"),
         ],
     )
-    .properties(height=360)
+    .properties(height=380)
 )
 st.altair_chart(chart_rg, use_container_width=True)
 
