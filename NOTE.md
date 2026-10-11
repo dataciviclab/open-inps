@@ -157,8 +157,8 @@ CKAN `opendata.inps.it` (gruppo `economia`, tag `bilancio`), ~23 dataset.
 
 | Dataset repo | Fonte CKAN | Anni | Note |
 |---|---|---|---|
-| `inps-bilancio-missioni` | Missioni Programmi 2023, 2024 | 2022–2024 | Competenza e cassa; i file si sovrappongono sull'anno di mezzo (DISTINCT) |
-| `inps-bilancio-ce` | Conto Economico generale + GIAS 2023, 2024 | 2022–2024 | Progressivo non stabile tra file; colonna `fonte` via `inject_column` |
+| `inps-bilancio-missioni` | Missioni Programmi 2023, 2024 | 2022–2024 | Competenza e cassa; i file multi-anno si sovrappongono (DISTINCT) e includono il 2022 come comparative |
+| `inps-bilancio-ce` | Conto Economico generale + GIAS 2023, 2024 | 2022–2024 | Come missioni: 2022 dentro i file come comparative; Progressivo non stabile; `fonte` via `inject_column` |
 | `inps-bilancio-gestionale` | Rendiconto gestionale entrate/uscite 2023, 2024 | 2023–2024 | Capitoli contabili; `anno`/`tipo` via `inject_column`; usare `cast_double` (il profile applica `decimal=','`) |
 
 - CSV `;`, decimale `,`, encoding `latin-1`/`cp1252`

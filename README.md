@@ -19,7 +19,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 |---|---|
 | **Dataset** | **20** toolkit + 1 compose multi-dataset |
 | **Mart analitici** | **57** |
-| **Periodo** | 1997 — 2026 (a seconda della serie); bilancio 2022–2024 |
+| **Periodo** | 1997 — 2026 (a seconda della serie); bilancio: missioni/CE 2022–2024 (2022 = comparative nei file multi-anno), gestionale 2023–2024 |
 | **Granularità** | Nazionale, regionale, provinciale, settore NACE, missioni COFOG, capitoli contabili |
 | **Formato** | Parquet (clean/mart) + registry JSON |
 | **Fonte** | [INPS Osservatori Statistici](https://servizi2.inps.it/servizi/osservatoristatistici/) + [INPS Open Data](https://opendata.inps.it/) |

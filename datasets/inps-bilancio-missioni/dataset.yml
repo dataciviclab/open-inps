@@ -6,9 +6,10 @@ dataset:
   source_id: "inps"
   tags: [bilancio, inps, spesa-pubblica, cofog, missioni, welfare]
   category: bilancio
-  description: "Bilancio INPS per Missioni/Programmi/COFOG (CKAN open data 2022-2024): spesa istituzionale per competenza e cassa."
+  description: "Bilancio INPS per Missioni/Programmi/COFOG (CKAN 2023-2024, con comparative 2022): spesa per competenza e cassa."
   years: [2026]
   time_coverage:
+    # 2022 presente come comparative dentro i file multi-anno 2023/2024
     start_year: 2022
     end_year: 2024
 
