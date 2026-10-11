@@ -66,7 +66,7 @@ with c2:
 with c3:
     lavoro = m[m["missione_label"] == "Lavoro"]
     if not lavoro.empty:
-        st.metric("Politiche per il lavoro", f"{_mld(float(laboro.iloc[0]['competenza_eur']))} mld €")
+        st.metric("Politiche per il lavoro", f"{_mld(float(lavoro.iloc[0]['competenza_eur']))} mld €")
 
 chart_m = (
     alt.Chart(m)
