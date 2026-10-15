@@ -6,4 +6,6 @@ __pycache__/
 .tmp/
 *.parquet
 *.csv
+# Snapshot demografici ISTAT per la dashboard (rigenerabili da dataset-incubator)
+!dashboard/data/*.csv
 .pytest_cache/
