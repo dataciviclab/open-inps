@@ -58,7 +58,7 @@ make run && make compose
 make dashboard
 ```
 
-Pagine: Panoramica, Genere, Territorio, Pensioni, Lavoro, Welfare, Tabelle.
+Pagine: Panoramica, Genere, Territorio, Pensioni, Lavoro, Welfare, Bilancio, **Sostenibilità**, Query SQL.
 
 ### 2. DuckDB / SQL sui parquet
 
