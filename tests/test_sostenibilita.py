@@ -1,17 +1,13 @@
-"""Test modello sostenibilità — protegge l'identità contabile e le inverse."""
+"""Test modello sostenibilità — protegge l'identità contabile e le inverse.
+
+Il path di `dashboard/` è aggiunto dal conftest.py di repo.
+"""
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 import pandas as pd
 import pytest
-
-DASH = Path(__file__).resolve().parents[1] / "dashboard"
-sys.path.insert(0, str(DASH))
-
-from sostenibilita import (  # noqa: E402
+from sostenibilita import (
     Baseline,
     calcola_bisogno,
     carica_proiezioni_istat,

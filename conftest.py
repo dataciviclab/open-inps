@@ -2,7 +2,16 @@
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import pytest
+
+# I moduli della dashboard (sostenibilita, sources, …) vivono in dashboard/
+# che non è un package installabile: lo aggiungiamo al path per i test.
+_DASH = Path(__file__).parent / "dashboard"
+if str(_DASH) not in sys.path:
+    sys.path.insert(0, str(_DASH))
 
 
 def pytest_configure(config: pytest.Config) -> None:
