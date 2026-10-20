@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "open-inps",
   "source_repo": "dataciviclab/open-inps",
-  "updated_at": "2026-10-11",
+  "updated_at": "2026-10-20",
   "datasets": [
     {
       "slug": "inps_analisi",
@@ -1677,19 +1677,49 @@
           "description": ""
         },
         {
+          "name": "settore_label",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "settore_codice",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "settore_nace",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
           "name": "n_lavoratori",
           "type": "DOUBLE",
           "role": "metric",
           "description": ""
         },
         {
-          "name": "somma_retribuzioni",
+          "name": "retribuzione_totale",
           "type": "DOUBLE",
           "role": "metric",
           "description": ""
         },
         {
-          "name": "unita_lavorative",
+          "name": "settimane_retribuite",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "settimane_utili",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "giornate_retribuite",
           "type": "DOUBLE",
           "role": "metric",
           "description": ""
@@ -1703,7 +1733,8 @@
       "stage": "incubating",
       "mart_refs": [
         "inps_retribuzioni__mart_retribuzioni_regione",
-        "inps_retribuzioni__mart_retribuzioni_eta"
+        "inps_retribuzioni__mart_retribuzioni_eta",
+        "inps_retribuzioni__mart_retribuzioni_settore"
       ]
     }
   ],
@@ -2275,6 +2306,16 @@
       "location": {
         "type": "gcs",
         "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_retribuzioni__mart_retribuzioni_settore",
+      "dataset": "inps_retribuzioni",
+      "table": "mart_retribuzioni_settore",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_settore.parquet",
         "multi_file": false
       }
     }
@@ -2859,21 +2900,27 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260917T181803Z_ef6a688e",
+        "run_id": "20261020T100706Z_903a0f3f",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
+          "raw": 100,
+          "clean": 100,
           "mart": 100
         },
         "output_rows": {
-          "mart": 530
+          "raw": 720,
+          "clean": 720,
+          "mart": 710
         },
         "output_bytes": {
-          "mart": 8600
+          "raw": 77906,
+          "clean": 19478,
+          "mart": 34007
         },
-        "started_at": "2026-09-17T18:18:03.873505+00:00",
-        "finished_at": "2026-09-17T18:18:04.035612+00:00",
-        "duration_seconds": 0.162
+        "started_at": "2026-10-20T10:07:06.500122+00:00",
+        "finished_at": "2026-10-20T10:14:30.382503+00:00",
+        "duration_seconds": 443.882
       }
     }
   ],
