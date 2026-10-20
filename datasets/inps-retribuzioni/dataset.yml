@@ -6,7 +6,7 @@ dataset:
   source_id: "inps"
   tags: [lavoro, inps, retribuzioni, redditi, privato]
   category: lavoro
-  description: "Retribuzioni e lavoratori del settore privato per provincia, sesso, qualifica, contratto (obs 347+492)."
+  description: "Retribuzioni, settimane e giornate del lavoro privato per regione, età e sezione ATECO 2007 (obs 347+492)."
   years: [2026]
   time_coverage:
     start_year: 2014
@@ -21,7 +21,7 @@ raw:
         command: "python3 extract.py raw.csv"
         output: "raw.csv"
       client:
-        timeout: 300
+        timeout: 900
       primary: true
 
 clean:
@@ -31,9 +31,14 @@ clean:
     mode: all
     header: true
     encoding: "utf-8"
-  required_columns: [anno, sesso, n_lavoratori]
+  required_columns:
+    [anno, sesso, n_lavoratori, retribuzione_totale, settimane_retribuite, settimane_utili]
   validate:
+    not_null: [anno, n_lavoratori, retribuzione_totale]
     min_rows: 100
+    ranges:
+      n_lavoratori: {min: 0}
+      retribuzione_totale: {min: 0}
 
 mart:
   tables:
@@ -41,11 +46,26 @@ mart:
       sql: "sql/mart_regione.sql"
     - name: "mart_retribuzioni_eta"
       sql: "sql/mart_eta.sql"
-  required_tables: [mart_retribuzioni_regione]
+    - name: "mart_retribuzioni_settore"
+      sql: "sql/mart_settore.sql"
+  required_tables: [mart_retribuzioni_regione, mart_retribuzioni_settore]
   validate:
     table_rules:
       mart_retribuzioni_regione:
         min_rows: 100
+        ranges:
+          retribuzione_media: {min: 1000, max: 200000}
+          retribuzione_media_settimana: {min: 1, max: 5000}
+      mart_retribuzioni_eta:
+        min_rows: 10
+        ranges:
+          retribuzione_media: {min: 1000, max: 200000}
+          retribuzione_media_settimana: {min: 1, max: 5000}
+      mart_retribuzioni_settore:
+        min_rows: 100
+        ranges:
+          retribuzione_media: {min: 1000, max: 200000}
+          retribuzione_media_settimana: {min: 1, max: 5000}
 
 validation:
   fail_on_error: true
