@@ -66,6 +66,8 @@ EXPECTED = {
         "mart_rdc_pdc_fragili",
     ],
     "inps_dis_coll": ["mart_dis_coll_nazionale"],
+    # mart_retribuzioni_settore è coperto da test_retribuzioni_semantics.py;
+    # registry/registry.json viene aggiornato dal pipeline post-merge.
     "inps_retribuzioni": ["mart_retribuzioni_regione", "mart_retribuzioni_eta"],
     "inps_naspi": ["mart_naspi_regione", "mart_naspi_eta", "mart_naspi_durata"],
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],

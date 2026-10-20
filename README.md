@@ -18,7 +18,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 | | |
 |---|---|
 | **Dataset** | **20** toolkit + 1 compose multi-dataset |
-| **Mart analitici** | **57** |
+| **Mart analitici** | **58** |
 | **Periodo** | 1997 — 2026 (a seconda della serie); bilancio: missioni/CE 2022–2024 (2022 = comparative nei file multi-anno), gestionale 2023–2024 |
 | **Granularità** | Nazionale, regionale, provinciale, settore NACE, missioni COFOG, capitoli contabili |
 | **Formato** | Parquet (clean/mart) + registry JSON |
@@ -85,6 +85,7 @@ Registry machine-readable: [`registry/registry.json`](registry/registry.json).
 
 - **API INPS non documentata** (backend SAS): il catalogo ufficiale open data non basta; l’endpoint Osservatori è stabile al momento ma non è un contratto pubblico. Dettagli in [NOTE.md](NOTE.md).
 - **Non sommare metriche con definizioni diverse**: es. pensioni liquidate/anno (376) vs flussi per decorrenza trimestrale (475); lavoratori PA 435 vs enti 440; dipendente pubblico 465 ≈ 435.
+- **Retribuzioni private (obs 347/492)**: `retribuzione_totale` è la retribuzione annua in euro (`RRSUM`); `settimane_retribuite` e `settimane_utili` sono settimane, non unità lavorative. Le vecchie colonne `somma_retribuzioni`/`unita_lavorative` erano mislabel e sono state rimosse nel 2026-10 (vedi `datasets/inps-retribuzioni/README.md`).
 - **DIS-COLL**: grana nazionale per sesso; nel 2022 la serie 397 è irregolare nella fonte; `importo_fonte` non validato come euro assoluti.
 - **Obs 435 (PA)**: campo SESSO rotto sull’API — nessuna dimensione genere.
 - **Anni parziali**: 2025–2026 spesso incompleti sulle serie più lente (welfare, redditi).

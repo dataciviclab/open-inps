@@ -2,7 +2,15 @@
 """Estrae retribuzioni lavoro privato — obs INPS #347 (2014-2018) + #492 (2019-2023).
 
 Il backend SAS non gestisce la dimensione 'Tipologia contrattuale' come colonna.
-L'estrazione usa solo rows (anno, sesso, regione) con le misure dirette.
+L'estrazione usa rows (anno, sesso, regione), (anno, sesso, eta) e (anno, settore)
+con le misure dirette.
+
+Misure API (verificate su getStrutturaOsservatorio):
+- lav_annoSUM = numero lavoratori nell'anno
+- RRSUM      = retribuzione nell'anno (euro)
+- s_retrSUM  = numero settimane retribuite nell'anno
+- UU_TOTSUM  = numero settimane utili nell'anno
+- GGSUM      = numero giornate retribuite nell'anno
 """
 
 import csv
@@ -51,8 +59,10 @@ ANNO_SESSO_REGIONE = {
         "cols": [],
         "measures": [
             {"id": "lav_annoSUM", "label": "lav_annoSUM", "order": 1},
-            {"id": "s_retrSUM", "label": "s_retrSUM", "order": 2},
-            {"id": "UU_TOTSUM", "label": "UU_TOTSUM", "order": 3},
+            {"id": "RRSUM", "label": "RRSUM", "order": 2},
+            {"id": "s_retrSUM", "label": "s_retrSUM", "order": 3},
+            {"id": "UU_TOTSUM", "label": "UU_TOTSUM", "order": 4},
+            {"id": "GGSUM", "label": "GGSUM", "order": 5},
         ],
         "filters": [],
     },
@@ -96,7 +106,48 @@ ANNO_SESSO_ETA = {
         ],
         "measures": [
             {"id": "lav_annoSUM", "label": "lav_annoSUM", "order": 1},
-            {"id": "s_retrSUM", "label": "s_retrSUM", "order": 2},
+            {"id": "RRSUM", "label": "RRSUM", "order": 2},
+            {"id": "s_retrSUM", "label": "s_retrSUM", "order": 3},
+            {"id": "UU_TOTSUM", "label": "UU_TOTSUM", "order": 4},
+            {"id": "GGSUM", "label": "GGSUM", "order": 5},
+        ],
+        "filters": [],
+    },
+}
+
+ANNO_SETTORE = {
+    "id_osservatorio": "{obs}",
+    "language": "",
+    "totalRow": False,
+    "totalColumn": False,
+    "subtotalRow": False,
+    "subtotalColumn": False,
+    "selections": {
+        "rows": [
+            {
+                "id": "Anno",
+                "label": "Anno",
+                "order": 1,
+                "expand": "",
+                "hide": False,
+                "aggregate": False,
+            },
+            {
+                "id": "ramo",
+                "label": "Sezione ATECO 2007",
+                "order": 2,
+                "expand": "",
+                "hide": False,
+                "aggregate": True,
+            },
+        ],
+        "cols": [],
+        "measures": [
+            {"id": "lav_annoSUM", "label": "lav_annoSUM", "order": 1},
+            {"id": "RRSUM", "label": "RRSUM", "order": 2},
+            {"id": "s_retrSUM", "label": "s_retrSUM", "order": 3},
+            {"id": "UU_TOTSUM", "label": "UU_TOTSUM", "order": 4},
+            {"id": "GGSUM", "label": "GGSUM", "order": 5},
         ],
         "filters": [],
     },
@@ -117,6 +168,16 @@ def query_with_retry(payload, max_retries=3, timeout=120):
             print(f"    tentativo {attempt + 1}: {type(e).__name__}", file=sys.stderr)
             time.sleep(3)
     return None
+
+
+def is_total_sector(row: dict) -> bool:
+    """Le query settore restituiscono anche righe di totale con anno 'YYYY:'.
+
+    Non sono osservazioni: vanno scartate prima di scrivere raw.csv, altrimenti
+    cast_int(anno) produce NULL e la validazione clean fallisce.
+    """
+    label = str(row.get("Sezione ATECO 2007", "")).strip()
+    return not label or label.lower() == "totale"
 
 
 def run_split_query(obs_id, base_payload, anno_range, label):
@@ -140,13 +201,23 @@ if __name__ == "__main__":
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("raw.csv")
     all_rows = []
 
-    # #347: 2014-2018
-    print("  347 (2014-2018)...")
+    # #347: 2014-2018 — regione
+    print("  347 regione (2014-2018)...")
     flat = run_split_query(347, ANNO_SESSO_REGIONE, range(2014, 2019), "347")
     for row in flat:
         row["dimensione"] = "anno_sesso_regione"
         row["fonte"] = "347"
     all_rows.extend(flat)
+
+    # #347: 2014-2018 — settore
+    print("  347 settore (2014-2018)...")
+    flat = run_split_query(347, ANNO_SETTORE, range(2014, 2019), "347")
+    for row in flat:
+        if is_total_sector(row):
+            continue
+        row["dimensione"] = "anno_settore"
+        row["fonte"] = "347"
+        all_rows.append(row)
 
     # #492: 2019-2023 — regione
     print("  492 regione (2019-2023)...")
@@ -155,6 +226,16 @@ if __name__ == "__main__":
         row["dimensione"] = "anno_sesso_regione"
         row["fonte"] = "492"
     all_rows.extend(flat)
+
+    # #492: 2019-2023 — settore
+    print("  492 settore (2019-2023)...")
+    flat = run_split_query(492, ANNO_SETTORE, range(2019, 2024), "492")
+    for row in flat:
+        if is_total_sector(row):
+            continue
+        row["dimensione"] = "anno_settore"
+        row["fonte"] = "492"
+        all_rows.append(row)
 
     # #492: 2019-2023 — eta
     print("  492 eta (2019-2023)...")
