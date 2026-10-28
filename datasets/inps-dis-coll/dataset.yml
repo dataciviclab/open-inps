@@ -31,6 +31,22 @@ clean:
     mode: all
     header: true
     encoding: "utf-8"
+    # Lettura con tutte le colonne VARCHAR. `_FREQ_SUM` è in formato italiano
+    # ("13.800") e con lo sniffing di DuckDB risulta DOUBLE (i valori hanno un
+    # solo punto): `remove_dot_thousands` rimuoveva il punto e pubblicava
+    # 138 invece di 13800 (3 valori su 22, quelli con zeri finali). Le altre
+    # colonne restano VARCHAR come prima. Sostituibile in futuro con
+    # `all_varchar: true` (toolkit#520).
+    columns:
+      anno: "VARCHAR"
+      Sesso: "VARCHAR"
+      _FREQ_SUM: "VARCHAR"
+      SGGTEORICISUM: "VARCHAR"
+      SGG_PAGSUM: "VARCHAR"
+      STOT_PAGSUM: "VARCHAR"
+      dimensione: "VARCHAR"
+      tipo_dato: "VARCHAR"
+      obs: "VARCHAR"
   required_columns: [anno, tipo_dato, n_trattamenti]
   validate:
     min_rows: 16
