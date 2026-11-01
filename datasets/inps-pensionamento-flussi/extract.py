@@ -38,7 +38,7 @@ def _row(fid: str, order: int) -> dict:
     }
 
 
-def payload(last_dim: str) -> dict:
+def payload(last_dim: str, anno: str) -> dict:
     return {
         "id_osservatorio": "475",
         "language": "",
@@ -52,31 +52,58 @@ def payload(last_dim: str) -> dict:
             "measures": [
                 {"id": m, "label": m, "order": n} for n, m in enumerate(MEASURES, start=1)
             ],
-            "filters": [],
+            # Una richiesta per anno: la query su tutte le decorrenze produce una
+            # risposta che il backend tronca (~25 KB) quando arriva dalla rete
+            # dei runner. Filtrando per annodec ogni risposta scende a ~4 KB.
+            "filters": [{"id": "annodec", "values": [anno]}],
         },
     }
 
 
-def fetch(last_dim: str, dimensione: str) -> list[dict]:
-    print(f"  475 {last_dim}...", end=" ", flush=True)
-    r = api_post("getDatiOsservatorio", payload(last_dim), timeout=120)
+def anni_decorrenza() -> list[str]:
+    """Anni disponibili per ``annodec``, dalla struttura dell'osservatorio."""
+    r = api_post(
+        "getStrutturaOsservatorio", {"id_osservatorio": "475", "language": ""}, timeout=120
+    )
     if isinstance(r, dict) and "error" in r:
-        print(f"\n  FALLITO 475/{last_dim}: {r['error'][:100]}", file=sys.stderr)
+        print(f"\n  FALLITO struttura 475: {r['error'][:100]}", file=sys.stderr)
         sys.exit(1)
-    flat = flatten_nested(r)
-    for row in flat:
+    for campo in (r.get("definition") or {}).get("fields") or []:
+        if campo.get("id") == "annodec":
+            return [str(v) for v in campo.get("distinctValues") or []]
+    return []
+
+
+def fetch(last_dim: str, dimensione: str, anni: list[str]) -> list[dict]:
+    righe: list[dict] = []
+    for anno in anni:
+        r = api_post("getDatiOsservatorio", payload(last_dim, anno), timeout=120)
+        if isinstance(r, dict) and "error" in r:
+            print(f"\n  FALLITO 475/{last_dim} anno {anno}: {r['error'][:100]}", file=sys.stderr)
+            sys.exit(1)
+        # Il filtro per anno materializza il subtotale annuale (annodec vuoto):
+        # non è un dato osservato e i mart filtrano su sesso/regione pieni.
+        righe.extend(
+            row for row in flatten_nested(r) if str(row.get("anno", "")).strip()
+        )
+    print(f"  475 {last_dim}... {len(righe)} righe", flush=True)
+    for row in righe:
         row["dimensione"] = dimensione
         row["obs"] = "475"
-    print(f"{len(flat)} righe")
-    return flat
+    return righe
 
 
 if __name__ == "__main__":
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("raw.csv")
+    anni = anni_decorrenza()
+    if not anni:
+        print("Nessun anno di decorrenza disponibile", file=sys.stderr)
+        sys.exit(1)
+    print(f"Anni di decorrenza: {', '.join(anni)}")
     all_rows: list[dict] = []
-    all_rows += fetch("REGIONE", "anno_trimestre_sesso_regione")
-    all_rows += fetch("gestio", "anno_trimestre_sesso_gestione")
-    all_rows += fetch("categ", "anno_trimestre_sesso_categoria")
+    all_rows += fetch("REGIONE", "anno_trimestre_sesso_regione", anni)
+    all_rows += fetch("gestio", "anno_trimestre_sesso_gestione", anni)
+    all_rows += fetch("categ", "anno_trimestre_sesso_categoria", anni)
 
     if not all_rows:
         print("Nessuna riga estratta", file=sys.stderr)

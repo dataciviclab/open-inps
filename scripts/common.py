@@ -7,12 +7,15 @@ Endpoint: https://servizi2.inps.it/servizi/osservatoristatistici/api/
 import csv
 import gzip
 import json
+import logging
 import sys
 import time
 from http.client import HTTPException, IncompleteRead
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+
+logger = logging.getLogger("inps.api")
 
 API_BASE = "https://servizi2.inps.it/servizi/osservatoristatistici/api"
 
@@ -88,6 +91,12 @@ def api_post(endpoint: str, payload: dict, timeout: int = 60, retries: int = API
         if esito == "fatal":
             break
         if tentativo < retries:
+            # Diagnosticabile: senza questo, un guasto deterministico sembra
+            # un singolo errore e non si sa che i tentativi sono stati fatti.
+            logger.warning(
+                "API INPS: tentativo %s/%s fallito (%s), riprovo tra %ss",
+                tentativo, retries, messaggio, API_BACKOFF_SECONDS * tentativo,
+            )
             time.sleep(API_BACKOFF_SECONDS * tentativo)
     return {"error": messaggio}
 
