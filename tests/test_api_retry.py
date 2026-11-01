@@ -11,6 +11,7 @@ from __future__ import annotations
 import sys
 from http.client import IncompleteRead, RemoteDisconnected
 from pathlib import Path
+from typing import Self
 from urllib.error import HTTPError
 
 import pytest
@@ -95,7 +96,7 @@ class _RispostaCheCade:
     def __init__(self, eccezione: BaseException) -> None:
         self._eccezione = eccezione
 
-    def __enter__(self) -> _RispostaCheCade:
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(self, *_args: object) -> bool:
@@ -134,7 +135,7 @@ def test_api_post_ritenta_dopo_un_reset(monkeypatch):
     chiamate = []
 
     class _Ok:
-        def __enter__(self) -> _Ok:
+        def __enter__(self) -> Self:
             return self
 
         def __exit__(self, *_args: object) -> bool:
