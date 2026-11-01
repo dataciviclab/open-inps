@@ -16,7 +16,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
-import common  # noqa: E402
+import common
 
 
 @pytest.fixture(autouse=True)
