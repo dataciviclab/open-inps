@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "open-inps",
   "source_repo": "dataciviclab/open-inps",
-  "updated_at": "2026-10-28",
+  "updated_at": "2026-11-01",
   "datasets": [
     {
       "slug": "inps_analisi",
@@ -2700,7 +2700,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261003T214518Z_d6f3020d",
+        "run_id": "20261101T170847Z_7c2fa771",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2709,18 +2709,18 @@
           "mart": 100
         },
         "output_rows": {
-          "raw": 2019,
-          "clean": 2019,
-          "mart": 1452
+          "raw": 2088,
+          "clean": 2088,
+          "mart": 1518
         },
         "output_bytes": {
-          "raw": 197774,
-          "clean": 18562,
-          "mart": 17046
+          "raw": 204796,
+          "clean": 18145,
+          "mart": 17058
         },
-        "started_at": "2026-10-03T21:45:18.899637+00:00",
-        "finished_at": "2026-10-03T21:45:38.273753+00:00",
-        "duration_seconds": 19.374
+        "started_at": "2026-11-01T17:08:47.117817+00:00",
+        "finished_at": "2026-11-01T17:10:01.940182+00:00",
+        "duration_seconds": 74.822
       }
     },
     {
