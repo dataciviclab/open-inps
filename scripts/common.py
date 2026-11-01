@@ -8,45 +8,81 @@ import csv
 import gzip
 import json
 import sys
+import time
 from http.client import IncompleteRead
 from pathlib import Path
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 API_BASE = "https://servizi2.inps.it/servizi/osservatoristatistici/api"
 
+# Il backend SAS tronca le risposte grandi e ogni tanto chiude la connessione:
+# sono guasti transitori, non errori di query. Un secondo tentativo li assorbe.
+API_RETRIES = 3
+API_BACKOFF_SECONDS = 2.0
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) DataCivicLab/1.0"
 
-def api_post(endpoint: str, payload: dict, timeout: int = 60) -> dict:
-    url = f"{API_BASE}/{endpoint}/"
-    data = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+
+def _post_once(url: str, data: bytes, timeout: int) -> tuple[str, object]:
+    """Una singola POST. Ritorna ``("ok", dict)`` o ``(esito, messaggio)``.
+
+    ``esito`` vale ``"transient"`` per i guasti che ha senso ritentare
+    (troncamento, timeout, connessione, HTTP 5xx) e ``"fatal"`` per quelli
+    che non cambierebbero con un altro tentativo (HTTP 4xx).
+    """
     req = Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")
-    req.add_header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) DataCivicLab/1.0")
+    req.add_header("User-Agent", USER_AGENT)
     try:
         with urlopen(req, timeout=timeout) as resp:
             try:
                 raw = resp.read()
             except IncompleteRead as e:
-                return {
-                    "error": f"Response incompleta ({len(e.partial)} bytes): IncompleteRead. "
-                    "Ridurre le dimensioni della query o riprovare."
-                }
+                return (
+                    "transient",
+                    f"Response incompleta ({len(e.partial)} bytes): IncompleteRead. "
+                    "Il backend ha troncato la risposta.",
+                )
             try:
                 raw = gzip.decompress(raw)
             except Exception:
                 pass
             try:
-                return json.loads(raw.decode("utf-8"))
+                return "ok", json.loads(raw.decode("utf-8"))
             except json.JSONDecodeError as e:
-                # Response troppo grande o troncata dal backend SAS
-                return {
-                    "error": f"JSON non valido ({len(raw)} bytes): {e}. "
-                    "Probabile response troncata — ridurre le dimensioni della query."
-                }
+                return (
+                    "transient",
+                    f"JSON non valido ({len(raw)} bytes): {e}. "
+                    "Probabile response troncata dal backend.",
+                )
+    except HTTPError as e:
+        esito = "transient" if e.code >= 500 else "fatal"
+        return esito, f"HTTP {e.code}: {e.reason}"
     except URLError as e:
-        return {"error": str(e)}
+        return "transient", str(e)
     except TimeoutError as e:
-        return {"error": f"Timeout: {e}"}
+        return "transient", f"Timeout: {e}"
+
+
+def api_post(endpoint: str, payload: dict, timeout: int = 60, retries: int = API_RETRIES) -> dict:
+    """POST verso l'API osservatori INPS, con retry sui guasti transitori.
+
+    Solo dopo ``retries`` tentativi l'errore torna al chiamante come
+    ``{"error": ...}``, che i dataset script traducono in fallimento.
+    """
+    url = f"{API_BASE}/{endpoint}/"
+    data = json.dumps(payload, separators=(",", ":")).encode("utf-8")
+    messaggio = ""
+    for tentativo in range(1, retries + 1):
+        esito, valore = _post_once(url, data, timeout)
+        if esito == "ok":
+            return valore  # type: ignore[return-value]
+        messaggio = str(valore)
+        if esito == "fatal":
+            break
+        if tentativo < retries:
+            time.sleep(API_BACKOFF_SECONDS * tentativo)
+    return {"error": messaggio}
 
 
 def get_structure(observatory_id: int) -> dict:
