@@ -9,7 +9,7 @@ import gzip
 import json
 import sys
 import time
-from http.client import IncompleteRead
+from http.client import HTTPException, IncompleteRead
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -56,8 +56,15 @@ def _post_once(url: str, data: bytes, timeout: int) -> tuple[str, object]:
                     "Probabile response troncata dal backend.",
                 )
     except HTTPError as e:
-        esito = "transient" if e.code >= 500 else "fatal"
+        # 429 è un 4xx ma transitorio: è il rate-limit del backend.
+        esito = "transient" if e.code >= 500 or e.code == 429 else "fatal"
         return esito, f"HTTP {e.code}: {e.reason}"
+    except (HTTPException, ConnectionResetError) as e:
+        # Il backend chiude la connessione durante la request o a metà
+        # risposta: RemoteDisconnected è un ConnectionResetError, gli altri
+        # guasti del protocollo sono HTTPException. IncompleteRead è già
+        # gestito sopra, con il conteggio dei byte ricevuti.
+        return "transient", f"Connessione interrotta ({type(e).__name__}): {e}"
     except URLError as e:
         return "transient", str(e)
     except TimeoutError as e:
