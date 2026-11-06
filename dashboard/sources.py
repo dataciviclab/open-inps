@@ -32,10 +32,10 @@ PREFIX = "open-inps/"
 
 
 def fmt_it(n: float | int | None) -> str:
-    """1234567 → '1.234.567'"""
+    """1234567 → '1.234.567' (formatter canonico del Lab, missing '–')."""
     if n is None:
         return "–"
-    return f"{n:,.0f}".replace(",", ".")
+    return fmt_num(n)
 
 
 # ── Cached wrappers (pattern RNA) ──────────────────────────────────────────
