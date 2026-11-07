@@ -25,8 +25,11 @@ SELECT
           OR UPPER(denominazione) LIKE '%MADRI%'
           OR UPPER(denominazione) LIKE '%PARITA%GENERE%' THEN 'Donne, maternità e parità'
         WHEN UPPER(denominazione) LIKE '%DISABIL%' THEN 'Disabilità'
-        WHEN UPPER(denominazione) LIKE '%AUTONOMI%'
-          OR UPPER(denominazione) LIKE '%LIBERI PROFESSIONISTI%' THEN 'Esonero autonomi'
+        WHEN UPPER(denominazione) LIKE '%ESONERO%'
+          AND (
+              UPPER(denominazione) LIKE '%AUTONOMI%'
+              OR UPPER(denominazione) LIKE '%LIBERI PROFESSIONISTI%'
+          ) THEN 'Esonero autonomi'
         WHEN UPPER(denominazione) LIKE '%ARMATRICI%'
           OR UPPER(denominazione) LIKE '%REGISTRO INTERNAZIONALE%' THEN 'Marittimo'
         ELSE 'Altre misure'
@@ -37,11 +40,20 @@ SELECT
 FROM clean_input
 WHERE tipo = 'uscita'
   AND importo_esercizio_eur IS NOT NULL
+  -- Perimetro: una delle keyword di agevolazione contributiva. Le famiglie
+  -- più specifiche (TFR, marittimo, disabilità) si applicano solo a righe
+  -- già dentro il perimetro, non lo allargano.
   AND (
       UPPER(denominazione) LIKE '%INCENTIV%'
       OR UPPER(denominazione) LIKE '%ESONERO%'
       OR UPPER(denominazione) LIKE '%SGRAVI%'
       OR UPPER(denominazione) LIKE '%DECONTRIB%'
       OR UPPER(denominazione) LIKE '%AGEVOLAZION%'
+  )
+  -- Esclude gli "incentivi" che non sono agevolazioni contributive
+  -- (progettazione, funzioni tecniche): oggi a importo zero, ma fuori tema.
+  AND NOT (
+      UPPER(denominazione) LIKE '%INCENTIVI PER LA PROGETTAZIONE%'
+      OR UPPER(denominazione) LIKE '%INCENTIVI AL PERSONALE PER LO SVOLGIMENTO DI FUNZIONI TECNICHE%'
   )
 ORDER BY anno, importo_esercizio_eur DESC

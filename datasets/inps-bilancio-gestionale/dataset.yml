@@ -82,6 +82,8 @@ mart:
   required_tables:
     - mart_rg_top_entrate
     - mart_rg_top_uscite
+    - mart_rg_contributi_lavoratori
+    - mart_rg_incentivi
   validate:
     table_rules:
       mart_rg_top_entrate:
@@ -91,7 +93,7 @@ mart:
       mart_rg_contributi_lavoratori:
         min_rows: 5
       mart_rg_incentivi:
-        min_rows: 40
+        min_rows: 90
 
 validation:
   fail_on_error: true

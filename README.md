@@ -95,6 +95,7 @@ Registry machine-readable: [`registry/registry.json`](registry/registry.json).
 - **Invalidi civili — regioni**: la fonte espone **18 regioni**: Valle d’Aosta e Trentino-Alto Adige non sono separati (accorpati a Piemonte e Veneto; la somma delle 18 coincide col totale nazionale). Non usare questi dati per analisi pro-capite su quei territori.
 - **Invalidi civili — spesa**: il dataset espone numero e importo medio, non la spesa annua. Le mensilità variano per prestazione (12 per le indennità, 13 per le pensioni): non derivare la spesa senza un’assunzione esplicita.
 - **Anni parziali**: 2025–2026 spesso incompleti sulle serie più lente (welfare, redditi).
+- **Incentivi (rendiconto gestionale)**: `mart_rg_incentivi` copre solo i capitoli di **uscita**. Le agevolazioni che riducono le entrate contributive non ci sono, quindi il totale (33,6 mld nel 2024) è inferiore al valore economico del focus INPS (40,7 mld). La famiglia è assegnata con parole chiave sul titolo del capitolo — non è una classificazione giuridica, e un titolo nuovo senza keyword finisce in “Altre misure”.
 
 ## Approfondimenti
 
