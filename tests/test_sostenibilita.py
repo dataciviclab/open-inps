@@ -15,6 +15,7 @@ from sostenibilita import (
     leva_decurtazione_eta,
     leva_floor,
     leva_prelievo_solidale,
+    massa_annua,
     proietta_fase_b,
     tau_necessario,
 )
@@ -25,7 +26,7 @@ def baseline_2024() -> Baseline:
     return Baseline(
         anno=2024,
         n_pensionati=20_913_338,
-        spesa_pensioni_eur=313.8e9,
+        spesa_pensioni_eur=339.9e9,
         n_lavoratori=26_988_186,
         reddito_lavoro_eur=703.8e9,
         contributi_ce_eur=282.8e9,
@@ -106,8 +107,8 @@ def test_estrai_baseline_da_mart_fixture() -> None:
     )
     b = estrai_baseline(pen, lav, ce, 2024)
     assert b.n_pensionati == 3_000_000
-    # spesa = (1000×1e6 + 500×2e6)×12 = 24 mld
-    assert b.spesa_pensioni_eur == pytest.approx(24e9)
+    # spesa = (1000×1e6 + 500×2e6)×13 mensilità = 26 mld
+    assert b.spesa_pensioni_eur == pytest.approx(26e9)
     assert b.contributi_ce_eur == pytest.approx(25e9)
     assert b.trasferimenti_stato_ce_eur == pytest.approx(10e9)
     # ^ Spese per prestazioni istituzionali NON devono essere catturate
@@ -140,24 +141,68 @@ def _fixture_eta() -> pd.DataFrame:
 
 def test_leva_prelievo_esclude_totale_e_sotto_soglia() -> None:
     lv = leva_prelievo_solidale(_fixture_importo(), soglia_mensile=2000, aliquota=0.20)
-    # solo la classe 2500-2999: 100k × 2700 × 12 × 20% = 6.48 mld
+    # solo la classe 2500-2999: 100k × 2700 × 13 × 20% = 7.02 mld
     assert lv["n_pensionati"] == 100_000
-    assert lv["risparmio_eur"] == pytest.approx(100_000 * 2700 * 12 * 0.20)
+    assert lv["risparmio_eur"] == pytest.approx(100_000 * 2700 * 13 * 0.20)
 
 
 def test_leva_decurtazione_eta_parse() -> None:
     lv = leva_decurtazione_eta(_fixture_eta(), eta_minima=85, aliquota=0.15)
-    # solo 85-89: 50k × 1000 × 12 × 15% = 90 mln
+    # solo 85-89: 50k × 1000 × 13 × 15% = 97,5 mln
     assert lv["n_pensionati"] == 50_000
-    assert lv["risparmio_eur"] == pytest.approx(50_000 * 1000 * 12 * 0.15)
+    assert lv["risparmio_eur"] == pytest.approx(50_000 * 1000 * 13 * 0.15)
 
 
 def test_leva_floor_costo_positivo() -> None:
     lv = leva_floor(_fixture_importo(), floor_mensile=2000)
-    # sotto 2000: solo 1000-1249 → attuale 1100×500k×12; target 2000×500k×12
-    attuale = 1100 * 500_000 * 12
-    target = 2000 * 500_000 * 12
+    # sotto 2000: solo 1000-1249 → attuale 1100×500k×13; target 2000×500k×13
+    attuale = 1100 * 500_000 * 13
+    target = 2000 * 500_000 * 13
     assert lv["costo_extra_eur"] == pytest.approx(target - attuale)
+
+
+@pytest.mark.policy
+def test_massa_annua_usa_tredici_mensilita() -> None:
+    """La spesa annua usa 13 mensilità e riconcilia il totale fonte INPS 2024.
+
+    Dati 2024 (stock vigenti): 11.717.335 pensioni femminili a 991,68 €/mese e
+    9.196.003 maschili a 1.580,20 €/mese. Il totale annuo fonte (tot_impSUM)
+    è 338,8 mld €: 13 mensilità lo ricostruiscono entro -0,3%, 12 lo
+    sottostimano del 7,4%.
+    """
+    df = pd.DataFrame(
+        {
+            "n_pensioni": [11_717_335, 9_196_003],
+            "importo_medio_mensile_eur": [991.68, 1_580.20],
+        }
+    )
+    fonte = 338.813e9
+    assert massa_annua(df) == pytest.approx(fonte, rel=0.01)
+    assert massa_annua(df) / fonte > 1.0  # 13 mensilità, non meno
+
+
+@pytest.mark.contract
+def test_pensione_media_mensile_resta_la_media_fonte() -> None:
+    """Con 13 mensilità la media mensile mostrata resta 1.250 € (fonte 2024)."""
+    pen = pd.DataFrame(
+        {
+            "anno": [2024, 2024],
+            "sesso": ["Femmine", "Maschi"],
+            "chiave": ["Lombardia", "Lazio"],
+            "n_pensioni": [11_717_335.0, 9_196_003.0],
+            "importo_medio_mensile_eur": [991.68, 1_580.20],
+        }
+    )
+    lav = pd.DataFrame(
+        {
+            "anno": [2024],
+            "n_lavoratori": [26_988_186.0],
+            "reddito_cumulato": [703.8e9],
+        }
+    )
+    ce = pd.DataFrame({"anno": [2024], "voce": ["Spese per prestazioni"], "importo_eur": [-417.4e9]})
+    b = estrai_baseline(pen, lav, ce, 2024)
+    assert b.pensione_media_mensile == pytest.approx(1_250.46, rel=1e-4)
 
 
 def test_proietta_fase_b_anchors_and_direction(baseline_2024: Baseline) -> None:

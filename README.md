@@ -17,7 +17,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 
 | | |
 |---|---|
-| **Dataset** | **20** toolkit + 1 compose multi-dataset |
+| **Dataset** | **19** toolkit + 1 compose multi-dataset (20 in registry) |
 | **Mart analitici** | **58** |
 | **Periodo** | 1997 — 2026 (a seconda della serie); bilancio: missioni/CE 2022–2024 (2022 = comparative nei file multi-anno), gestionale 2023–2024 |
 | **Granularità** | Nazionale, regionale, provinciale, settore NACE, missioni COFOG, capitoli contabili |
@@ -74,7 +74,7 @@ GROUP BY 1 ORDER BY 1;
 ### 3. Pipeline toolkit (rigenerare tutto)
 
 ```bash
-make run       # 17 dataset
+make run       # 19 dataset
 make compose   # inps-analisi (14 metriche)
 make test
 ```
@@ -99,7 +99,7 @@ Registry machine-readable: [`registry/registry.json`](registry/registry.json).
 
 - **Discussion**: proponi domande di analisi o segnala serie mancanti
 - **Issue**: bug di estrazione, mapping territoriale, nuovi osservatori del catalogo
-- **PR**: nuovi dataset dal catalogo `catalog.json` (194 osservatori, ne abbiamo coperti 17+)
+- **PR**: nuovi dataset dal catalogo `catalog.json` (194 osservatori, ne abbiamo coperti 19+)
 
 Contributi e standard del Lab: [CONTRIBUTING.md](CONTRIBUTING.md).
 

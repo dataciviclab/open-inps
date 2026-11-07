@@ -10,6 +10,8 @@ SELECT
     normalize_string("Classe di età") AS classe_eta,
     normalize_string("Regione della sede INPS") AS regione,
     cast_bigint("_FREQ_SUM") AS n_pensioni,
-    cast_bigint("tot_impSUM") AS importo_totale_migliaia_eur,
+    -- La misura fonte "tot_impSUM" è in milioni di euro, non in migliaia:
+    -- totale annuo / (n pensioni × importo medio mensile) dà ~12,95 mensilità.
+    cast_bigint("tot_impSUM") * 1000000 AS importo_totale_eur,
     cast_double("Importo medio mensile") AS importo_medio_mensile_eur
 FROM raw_input
