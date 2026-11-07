@@ -9,7 +9,8 @@ dataset:
   description: "Compose INPS: incrocio multi-dataset per analisi di genere, territorio, mercato del lavoro e welfare."
   years: [2026]
   time_coverage:
-    mode: snapshot
+    start_year: 1998
+    end_year: 2026
 
 # Compose: legge i clean parquet dei dataset INPS e produce mart unificati.
 # Eseguire prima: toolkit run per i dataset singoli in datasets/.
