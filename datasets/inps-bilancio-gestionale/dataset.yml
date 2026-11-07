@@ -6,7 +6,7 @@ dataset:
   source_id: "inps"
   tags: [bilancio, inps, rendiconto, gestionale, contributi, entrate, spese]
   category: bilancio
-  description: "Rendiconto gestionale INPS (entrate e uscite per capitolo) da CKAN open data 2023-2024: accertato/impegnato, previsioni e residui."
+  description: "Rendiconto gestionale INPS (entrate e uscite per capitolo) da open data 2023-2024: accertato/impegnato, previsioni e residui. Include la vista incentivi per capitolo (famiglia di agevolazione)."
   years: [2026]
   time_coverage:
     start_year: 2023
@@ -77,6 +77,8 @@ mart:
       sql: "sql/mart_top_uscite.sql"
     - name: "mart_rg_contributi_lavoratori"
       sql: "sql/mart_contributi_lavoratori.sql"
+    - name: "mart_rg_incentivi"
+      sql: "sql/mart_rg_incentivi.sql"
   required_tables:
     - mart_rg_top_entrate
     - mart_rg_top_uscite
@@ -88,6 +90,8 @@ mart:
         min_rows: 20
       mart_rg_contributi_lavoratori:
         min_rows: 5
+      mart_rg_incentivi:
+        min_rows: 40
 
 validation:
   fail_on_error: true
