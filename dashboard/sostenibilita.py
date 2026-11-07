@@ -19,6 +19,23 @@ from dataclasses import dataclass
 
 import pandas as pd
 
+# Le pensioni italiane sono corrisposte in 13 mensilità (12 + tredicesima).
+# La fonte INPS espone l'importo medio mensile e il totale annuo: il loro
+# rapporto conferma ~13 mensilità (12,93-12,97 nelle annualità con entrate
+# e uscite parziali). Usare 12 sottostima la spesa annua di ~7,9%.
+MENSILITA_PENSIONE = 13
+
+
+def massa_annua(df: pd.DataFrame, colonna_n: str = "n_pensioni") -> float:
+    """Massa annua delle pensioni in euro.
+
+    ``importo_medio_mensile_eur × n_pensioni × 13`` — unica formula usata dal
+    modello per passare da pensioni mensili a spesa annua.
+    """
+    return float(
+        (df["importo_medio_mensile_eur"] * df[colonna_n] * MENSILITA_PENSIONE).sum()
+    )
+
 
 @dataclass(frozen=True)
 class Baseline:
@@ -26,7 +43,7 @@ class Baseline:
 
     anno: int
     n_pensionati: float  # pensioni INPS vigenti (M+F)
-    spesa_pensioni_eur: float  # spesa annua pensioni (importo_medio ×12 ×n)
+    spesa_pensioni_eur: float  # spesa annua pensioni (importo_medio × 13 × n)
     n_lavoratori: float  # lavoratori con posizione prevalente
     reddito_lavoro_eur: float  # massa redditi da lavoro (imponibile INPS)
     contributi_ce_eur: float  # aliquote contributive CE INPS
@@ -44,7 +61,7 @@ class Baseline:
 
     @property
     def pensione_media_mensile(self) -> float:
-        return self.pensione_media_annua / 12
+        return self.pensione_media_annua / MENSILITA_PENSIONE
 
     @property
     def tau_effettivo(self) -> float:
@@ -235,7 +252,7 @@ def estrai_baseline(
         & (df_pensioni["sesso"].isin(["Maschi", "Femmine"]))
     ]
     n_pens = float(p["n_pensioni"].sum())
-    spesa = float((p["importo_medio_mensile_eur"] * p["n_pensioni"] * 12).sum())
+    spesa = massa_annua(p)
 
     lav = df_lavoratori[df_lavoratori["anno"] == anno]
     n_lav = float(lav["n_lavoratori"].sum())
@@ -285,13 +302,13 @@ def leva_prelievo_solidale(
     d = df_importo[df_importo["chiave"].notna() & ~df_importo["chiave"].str.contains("Totale", na=False)]
     d = d[d["importo_medio_mensile_eur"] >= soglia_mensile]
     n = float(d["n_pensioni"].sum())
-    massa_annua = float((d["importo_medio_mensile_eur"] * d["n_pensioni"] * 12).sum())
+    massa = massa_annua(d)
     return {
         "soglia_mensile": soglia_mensile,
         "aliquota": aliquota,
         "n_pensionati": n,
-        "massa_annua_eur": massa_annua,
-        "risparmio_eur": massa_annua * aliquota,
+        "massa_annua_eur": massa,
+        "risparmio_eur": massa * aliquota,
     }
 
 
@@ -310,13 +327,13 @@ def leva_decurtazione_eta(
     d["eta_min"] = d["chiave"].str.extract(r"(\d+)").astype(float)
     d = d[d["eta_min"] >= eta_minima]
     n = float(d["n_pensioni"].sum())
-    massa_annua = float((d["importo_medio_mensile_eur"] * d["n_pensioni"] * 12).sum())
+    massa = massa_annua(d)
     return {
         "eta_minima": eta_minima,
         "aliquota": aliquota,
         "n_pensionati": n,
-        "massa_annua_eur": massa_annua,
-        "risparmio_eur": massa_annua * aliquota,
+        "massa_annua_eur": massa,
+        "risparmio_eur": massa * aliquota,
     }
 
 
@@ -328,8 +345,8 @@ def leva_floor(
     d = df_importo[df_importo["chiave"].notna() & ~df_importo["chiave"].str.contains("Totale", na=False)]
     sotto = d[d["importo_medio_mensile_eur"] < floor_mensile]
     n = float(sotto["n_pensioni"].sum())
-    massa_attuale = float((sotto["importo_medio_mensile_eur"] * sotto["n_pensioni"] * 12).sum())
-    massa_target = floor_mensile * 12 * n
+    massa_attuale = massa_annua(sotto)
+    massa_target = floor_mensile * MENSILITA_PENSIONE * n
     return {
         "floor_mensile": floor_mensile,
         "n_pensionati": n,

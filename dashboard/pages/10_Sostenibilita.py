@@ -12,6 +12,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 from sostenibilita import (
+    MENSILITA_PENSIONE,
     calcola_bisogno,
     carica_proiezioni_istat,
     estrai_baseline,
@@ -229,9 +230,9 @@ st.caption(
 )
 df_e = (
     eta_a[eta_a["chiave"].notna() & ~eta_a["chiave"].str.contains("Totale", na=False)]
-    .copy()
+    .assign(spesa_annua=lambda d: d["importo_medio_mensile_eur"] * d["n_pensioni"] * MENSILITA_PENSIONE)
     .groupby("chiave", as_index=False)
-    .agg(n_pensioni=("n_pensioni", "sum"), spesa=("importo_medio_mensile_eur", lambda s: float((s * eta_a.loc[s.index, "n_pensioni"] * 12).sum())))
+    .agg(n_pensioni=("n_pensioni", "sum"), spesa=("spesa_annua", "sum"))
 )
 df_e["media_annua"] = df_e["spesa"] / df_e["n_pensioni"]
 df_e["spesa_mld"] = df_e["spesa"] / 1e9
