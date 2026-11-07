@@ -9,3 +9,5 @@ __pycache__/
 # Snapshot demografici ISTAT per la dashboard (rigenerabili da dataset-incubator)
 !dashboard/data/*.csv
 .pytest_cache/
+batch.txt
+.batch-*.txt
