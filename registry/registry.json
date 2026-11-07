@@ -306,7 +306,8 @@
       "mart_refs": [
         "inps_bilancio_gestionale__mart_rg_top_entrate",
         "inps_bilancio_gestionale__mart_rg_top_uscite",
-        "inps_bilancio_gestionale__mart_rg_contributi_lavoratori"
+        "inps_bilancio_gestionale__mart_rg_contributi_lavoratori",
+        "inps_bilancio_gestionale__mart_rg_incentivi"
       ]
     },
     {
@@ -1935,6 +1936,16 @@
       }
     },
     {
+      "slug": "inps_bilancio_gestionale__mart_rg_incentivi",
+      "dataset": "inps_bilancio_gestionale",
+      "table": "mart_rg_incentivi",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_incentivi.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_bilancio_gestionale__mart_rg_top_entrate",
       "dataset": "inps_bilancio_gestionale",
       "table": "mart_rg_top_entrate",
@@ -2556,7 +2567,7 @@
       "detail": "anno 2026 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261101T171227Z_23fe26c5",
+        "run_id": "20261107T174619Z_99f4d99b",
         "year": 2026,
         "status": "SUCCESS",
         "quality_score": {
@@ -2567,16 +2578,16 @@
         "output_rows": {
           "raw": 485,
           "clean": 1897,
-          "mart": 1520
+          "mart": 1622
         },
         "output_bytes": {
           "raw": 509580,
-          "clean": 117022,
-          "mart": 86709
+          "clean": 116730,
+          "mart": 96655
         },
-        "started_at": "2026-11-01T17:12:27.725296+00:00",
-        "finished_at": "2026-11-01T17:12:34.655496+00:00",
-        "duration_seconds": 6.93
+        "started_at": "2026-11-07T17:46:19.749833+00:00",
+        "finished_at": "2026-11-07T17:46:29.209509+00:00",
+        "duration_seconds": 9.46
       }
     },
     {
