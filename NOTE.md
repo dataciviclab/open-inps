@@ -103,7 +103,7 @@ File: `catalog.json` — 194 osservatori totali, 29 relativi alle pensioni.
 | 389 | Per regime di liquidazione | 2022-2026 | — |
 | 380 | Integrate al trattamento minimo | 2022-2026 | — |
 | 504 | Maggiorazioni sociali | 2022-2026 | — |
-| 381-384 | Invalidi civili | 2022-2026 | — |
+| 381-384 | Invalidi civili | 2022-2026 (381-383); 2002-2026 (384) | Anno, sesso, età, categoria/sottocategoria, tipo prestazione, 18 regioni |
 | 410-416 | Beneficiari e prestazioni totali | 2022-2026 | — |
 
 ## Script di estrazione

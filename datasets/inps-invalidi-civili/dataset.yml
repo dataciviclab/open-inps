@@ -1,0 +1,96 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "inps_invalidi_civili"
+  source_id: "inps"
+  tags: [welfare, inps, invalidi-civili, assistenza, disabilita]
+  category: welfare
+  description: "Prestazioni agli invalidi civili (obs 381/383/384): ciechi, sordomuti, invalidi totali e parziali. Numero e importo medio per anno, sesso, età, categoria e regione; serie storica 2002-2026."
+  years: [2026]
+  time_coverage:
+    start_year: 2002
+    end_year: 2026
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "inps_invalidi_civili"
+      type: "script"
+      args:
+        command: "python3 extract.py raw.csv"
+        output: "raw.csv"
+      client:
+        timeout: 300
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read:
+    source: auto
+    mode: all
+    header: true
+    encoding: "utf-8"
+    # Tutte VARCHAR: "_FREQ_SUM" è in formato italiano ("1.885.235") e con lo
+    # sniffing di DuckDB diventerebbe DOUBLE, rompendo remove_dot_thousands
+    # (stesso caso di inps-dis-coll). Gli importi hanno la virgola decimale.
+    columns:
+      anno: "VARCHAR"
+      Sesso: "VARCHAR"
+      Categoria: "VARCHAR"
+      Sottocategoria: "VARCHAR"
+      _FREQ_SUM: "VARCHAR"
+      "Importo medio mensile": "VARCHAR"
+      dimensione: "VARCHAR"
+      obs: "VARCHAR"
+      "Classe di età": "VARCHAR"
+      "Regione di residenza": "VARCHAR"
+      "Tipo prestazione": "VARCHAR"
+  required_columns: [anno, dimensione, n_prestazioni]
+  validate:
+    not_null: [anno, n_prestazioni]
+    min_rows: 400
+    ranges:
+      n_prestazioni: {min: 0}
+      importo_medio_mensile_eur: {min: 0, max: 5000}
+
+mart:
+  tables:
+    - name: "mart_invalidi_categoria"
+      sql: "sql/mart_categoria.sql"
+    - name: "mart_invalidi_eta"
+      sql: "sql/mart_eta.sql"
+    - name: "mart_invalidi_regione"
+      sql: "sql/mart_regione.sql"
+    - name: "mart_invalidi_serie"
+      sql: "sql/mart_serie.sql"
+  required_tables:
+    [mart_invalidi_categoria, mart_invalidi_eta, mart_invalidi_regione, mart_invalidi_serie]
+  validate:
+    table_rules:
+      mart_invalidi_categoria:
+        min_rows: 80
+        ranges:
+          n_prestazioni: {min: 1}
+          importo_medio_mensile_eur: {min: 50, max: 2000}
+      mart_invalidi_eta:
+        min_rows: 60
+        ranges:
+          n_prestazioni: {min: 1}
+          importo_medio_mensile_eur: {min: 50, max: 2000}
+      mart_invalidi_regione:
+        min_rows: 150
+        ranges:
+          n_prestazioni: {min: 1}
+          importo_medio_mensile_eur: {min: 50, max: 2000}
+      mart_invalidi_serie:
+        min_rows: 90
+        ranges:
+          n_prestazioni: {min: 1}
+          importo_medio_mensile_eur: {min: 50, max: 2000}
+
+validation:
+  fail_on_error: true
+
+output:
+  artifacts: "standard"

@@ -30,7 +30,7 @@ make clean          # pulisci output
 4. Esegui `TOOLKIT_ALLOW_SCRIPT_SOURCE=1 toolkit run --config datasets/<slug>/dataset.yml`
 5. Verifica con `make check` e `make test`
 6. Se il dataset entra nel compose: aggiungilo in `compose/inps-analisi/dataset.yml` (support + clean.sql)
-7. Aggiorna `registry/registry.json` (`make registry-write`) e il README
+7. Aggiorna il README (conteggi e limiti). **Non** aggiornare `registry/registry.json` a mano: lo rigenera la pipeline post-merge (`make registry-write` resta disponibile per un rebuild locale completo)
 
 ## Regole
 
