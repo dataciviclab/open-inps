@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "open-inps",
   "source_repo": "dataciviclab/open-inps",
-  "updated_at": "2026-11-01",
+  "updated_at": "2026-11-07",
   "datasets": [
     {
       "slug": "inps_analisi",
@@ -720,6 +720,101 @@
       "mart_refs": [
         "inps_flussi_settore__mart_flussi_settore",
         "inps_flussi_settore__mart_flussi_settore_regione"
+      ]
+    },
+    {
+      "slug": "inps_invalidi_civili",
+      "name": "Inps Invalidi Civili",
+      "description": "Prestazioni agli invalidi civili (obs 381/383/384): ciechi, sordomuti, invalidi totali e parziali. Numero e importo medio per anno, sesso, età, categoria e regione; serie storica 2002-2026.",
+      "source": "",
+      "source_id": "inps",
+      "period": {
+        "start": 2002,
+        "end": 2026
+      },
+      "tags": [
+        "welfare",
+        "inps",
+        "invalidi-civili",
+        "assistenza",
+        "disabilita"
+      ],
+      "category": "welfare",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "dimensione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sesso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "categoria",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "sottocategoria",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "classe_eta",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "tipo_prestazione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "n_prestazioni",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "importo_medio_mensile_eur",
+          "type": "DOUBLE",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open-inps/inps_invalidi_civili/2026/inps_invalidi_civili_2026_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "inps_invalidi_civili__mart_invalidi_categoria",
+        "inps_invalidi_civili__mart_invalidi_eta",
+        "inps_invalidi_civili__mart_invalidi_regione",
+        "inps_invalidi_civili__mart_invalidi_serie"
       ]
     },
     {
@@ -1970,6 +2065,46 @@
       }
     },
     {
+      "slug": "inps_invalidi_civili__mart_invalidi_categoria",
+      "dataset": "inps_invalidi_civili",
+      "table": "mart_invalidi_categoria",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_categoria.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_invalidi_civili__mart_invalidi_eta",
+      "dataset": "inps_invalidi_civili",
+      "table": "mart_invalidi_eta",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_eta.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_invalidi_civili__mart_invalidi_regione",
+      "dataset": "inps_invalidi_civili",
+      "table": "mart_invalidi_regione",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_regione.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "inps_invalidi_civili__mart_invalidi_serie",
+      "dataset": "inps_invalidi_civili",
+      "table": "mart_invalidi_serie",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_serie.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "inps_lavoratori_pubblici__mart_lavoratori_pa_eta",
       "dataset": "inps_lavoratori_pubblici",
       "table": "mart_lavoratori_pa_eta",
@@ -2600,6 +2735,37 @@
       }
     },
     {
+      "id": "inps_invalidi_civili",
+      "source_id": "inps",
+      "status": "ok",
+      "label": "inps_invalidi_civili",
+      "detail": "anno 2026 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261107T142051Z_b3c2e0c2",
+        "year": 2026,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 460,
+          "clean": 460,
+          "mart": 460
+        },
+        "output_bytes": {
+          "raw": 35537,
+          "clean": 6259,
+          "mart": 8674
+        },
+        "started_at": "2026-11-07T14:20:51.344899+00:00",
+        "finished_at": "2026-11-07T14:21:12.383373+00:00",
+        "duration_seconds": 21.038
+      }
+    },
+    {
       "id": "inps_lavoratori_pubblici",
       "source_id": "inps",
       "status": "ok",
@@ -3021,6 +3187,12 @@
             "semantic_type": "region_code"
           },
           {
+            "slug": "inps_invalidi_civili",
+            "name": "Inps Invalidi Civili",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "inps_lavoratori_pubblici",
             "name": "Inps Lavoratori Pubblici",
             "column": "regione",
@@ -3088,7 +3260,7 @@
           }
         ],
         "types": {
-          "region_code": 16
+          "region_code": 17
         }
       },
       "Tempo": {
@@ -3156,6 +3328,12 @@
             "semantic_type": "year"
           },
           {
+            "slug": "inps_invalidi_civili",
+            "name": "Inps Invalidi Civili",
+            "column": "anno",
+            "semantic_type": "year"
+          },
+          {
             "slug": "inps_lavoratori_pubblici",
             "name": "Inps Lavoratori Pubblici",
             "column": "anno",
@@ -3223,7 +3401,7 @@
           }
         ],
         "types": {
-          "year": 20,
+          "year": 21,
           "month": 1
         }
       }
