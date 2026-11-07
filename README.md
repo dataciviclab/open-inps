@@ -1,14 +1,15 @@
 # Open INPS 🇮🇹 — pensioni, lavoro e welfare, aperti e interrogabili
 
-**20 dataset INPS su mercato del lavoro, welfare e bilancio istituzionale — da assunzioni e cessazioni a NASpI, RdC/PdC, DIS-COLL, spesa per missioni COFOG e rendiconto gestionale — pronti per SQL, dashboard e analisi civiche.**
+**21 dataset INPS su mercato del lavoro, welfare, assistenza e bilancio istituzionale — da assunzioni e cessazioni a NASpI, RdC/PdC, DIS-COLL, spesa per missioni COFOG e rendiconto gestionale — pronti per SQL, dashboard e analisi civiche.**
 
-I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osservatori Statistici contengono serie aggiornate al 2026; il bilancio istituzionale arriva dal CKAN open data: qui raccogliamo entrambe le fonti, normalizziamo in parquet e componiamo in metriche nazionali e territoriali.
+I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osservatori Statistici contengono serie aggiornate al 2026; il bilancio istituzionale arriva dagli open data INPS: qui raccogliamo entrambe le fonti, normalizziamo in parquet e componiamo in metriche nazionali e territoriali.
 
 ## Perché questi dati
 
 - **Mercato del lavoro**: assunzioni vs cessazioni per provincia, sesso e settore NACE (nazionale e regionale) — non solo il lato “ingresso”.
 - **Pensioni**: stock recente **e** serie storica 1997–2026, più flussi trimestrali di pensionamento.
 - **Welfare**: NASpI, DIS-COLL, Reddito/Pensione di Cittadinanza, Assegno Unico, CIG.
+- **Assistenza**: prestazioni agli invalidi civili (accompagnamento, pensioni di inabilità, ciechi e sordomuti), 2002–2026.
 - **Ponte lavoro→redditi**: lavoratori, reddito cumulato e settimane per posizione prevalente e cittadinanza.
 - **PA**: lavoratori pubblici per comparto, età e retribuzioni (non solo contare gli enti).
 - **Bilancio**: conto economico, spesa per Missioni/ProgramMI COFOG e rendiconto gestionale per capitolo.
@@ -17,8 +18,8 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 
 | | |
 |---|---|
-| **Dataset** | **19** toolkit + 1 compose multi-dataset (20 in registry) |
-| **Mart analitici** | **58** |
+| **Dataset** | **20** toolkit + 1 compose multi-dataset (21 in registry) |
+| **Mart analitici** | **62** |
 | **Periodo** | 1997 — 2026 (a seconda della serie); bilancio: missioni/CE 2022–2024 (2022 = comparative nei file multi-anno), gestionale 2023–2024 |
 | **Granularità** | Nazionale, regionale, provinciale, settore NACE, missioni COFOG, capitoli contabili |
 | **Formato** | Parquet (clean/mart) + registry JSON |
@@ -33,6 +34,7 @@ I cataloghi open data INPS sulle pensioni sono fermi al 2012–2014. Gli Osserva
 | 🏦 Pensioni | Vigenti, liquidate, serie storica, pensionamento trimestrale |
 | 🛡️ Disoccupazione | NASpI, DIS-COLL (co.co.co) |
 | 🏠 Welfare | RdC/PdC, Assegno Unico, CIG |
+| ♿ Assistenza | Invalidi civili: accompagnamento, inabilità, ciechi e sordomuti |
 | 💰 Redditi | Posizione prevalente, settimane, cittadinanza |
 | 🧾 Bilancio | Conto economico (generale/GIAS), missioni COFOG, rendiconto gestionale |
 
@@ -45,6 +47,7 @@ Dettaglio per osservatorio: [NOTE.md](NOTE.md) · Catalogo fonte: [catalog.json]
 3. Chi beneficia di **DIS-COLL** rispetto alla NASpI, e com’è il gap di genere su assunzioni e cessazioni?
 4. Quanti sono i **lavoratori pubblici** per comparto, e quanto pagano di retribuzione media?
 5. Come si distribuiscono i **nuclei RdC/PdC** per regione e composizione del nucleo?
+6. Quante **indennità di accompagnamento** agli invalidi civili ci sono, e come si distribuiscono per regione?
 
 ## Come accedere
 
@@ -74,7 +77,7 @@ GROUP BY 1 ORDER BY 1;
 ### 3. Pipeline toolkit (rigenerare tutto)
 
 ```bash
-make run       # 19 dataset
+make run       # 20 dataset
 make compose   # inps-analisi (14 metriche)
 make test
 ```
@@ -88,6 +91,9 @@ Registry machine-readable: [`registry/registry.json`](registry/registry.json).
 - **Retribuzioni private (obs 347/492)**: `retribuzione_totale` è la retribuzione annua in euro (`RRSUM`); `settimane_retribuite` e `settimane_utili` sono settimane, non unità lavorative. Le vecchie colonne `somma_retribuzioni`/`unita_lavorative` erano mislabel e sono state rimosse nel 2026-10 (vedi `datasets/inps-retribuzioni/README.md`).
 - **DIS-COLL**: grana nazionale per sesso; nel 2022 la serie 397 è irregolare nella fonte; `importo_fonte` non validato come euro assoluti.
 - **Obs 435 (PA)**: campo SESSO rotto sull’API — nessuna dimensione genere.
+- **Invalidi civili (obs 381/383/384)**: i quattro mart (`categoria`, `eta`, `regione`, `serie`) sono viste diverse dello stesso stock — **non sommarli**; il totale 2024 è 3.297.954 prestazioni. Sono **prestazioni**, non persone: una persona può ricevere pensione e indennità.
+- **Invalidi civili — regioni**: la fonte espone **18 regioni**: Valle d’Aosta e Trentino-Alto Adige non sono separati (accorpati a Piemonte e Veneto; la somma delle 18 coincide col totale nazionale). Non usare questi dati per analisi pro-capite su quei territori.
+- **Invalidi civili — spesa**: il dataset espone numero e importo medio, non la spesa annua. Le mensilità variano per prestazione (12 per le indennità, 13 per le pensioni): non derivare la spesa senza un’assunzione esplicita.
 - **Anni parziali**: 2025–2026 spesso incompleti sulle serie più lente (welfare, redditi).
 
 ## Approfondimenti
@@ -99,7 +105,7 @@ Registry machine-readable: [`registry/registry.json`](registry/registry.json).
 
 - **Discussion**: proponi domande di analisi o segnala serie mancanti
 - **Issue**: bug di estrazione, mapping territoriale, nuovi osservatori del catalogo
-- **PR**: nuovi dataset dal catalogo `catalog.json` (194 osservatori, ne abbiamo coperti 19+)
+- **PR**: nuovi dataset dal catalogo `catalog.json` (194 osservatori, ne abbiamo coperti 20+)
 
 Contributi e standard del Lab: [CONTRIBUTING.md](CONTRIBUTING.md).
 
