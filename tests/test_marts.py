@@ -73,10 +73,12 @@ EXPECTED = {
     "inps_cig": ["mart_cig_regione", "mart_cig_ramo", "mart_cig_mensile"],
     "inps_assegno_unico": ["mart_au_regione", "mart_au_isee"],
     "inps_dipendenti_pubblici": ["mart_dp_regione", "mart_dp_forma_giuridica"],
-    # inps_invalidi_civili: la voce va aggiunta quando la pipeline post-merge
-    # avrà rigenerato registry/registry.json. Il test è `EXPECTED ⊆ registry`,
-    # quindi l'assenza non rende la CI rossa: significa zero copertura registry
-    # finché non viene aggiunta (follow-up tracciato in issue).
+    "inps_invalidi_civili": [
+        "mart_invalidi_categoria",
+        "mart_invalidi_eta",
+        "mart_invalidi_regione",
+        "mart_invalidi_serie",
+    ],
     "inps_analisi": ["mart_nazionale", "mart_territoriale", "mart_lifecycle", "mart_benchmark"],
 }
 
