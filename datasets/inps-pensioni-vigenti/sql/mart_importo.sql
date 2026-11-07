@@ -6,6 +6,7 @@ SELECT
     sesso,
     classe_importo AS chiave,
     n_pensioni,
+    importo_totale_eur,
     importo_medio_mensile_eur
 FROM clean_input
 WHERE dimensione = 'anno_sesso_importo'
