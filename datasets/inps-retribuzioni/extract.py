@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Estrae retribuzioni lavoro privato — obs INPS #347 (2014-2018) + #492 (2019-2023).
+"""Estrae retribuzioni lavoro privato — obs INPS #347 (2014-2018), #492 (2019-2023), #525 (2024).
 
 Il backend SAS non gestisce la dimensione 'Tipologia contrattuale' come colonna.
 L'estrazione usa rows (anno, sesso, regione), (anno, sesso, eta) e (anno, settore)
@@ -243,6 +243,30 @@ if __name__ == "__main__":
     for row in flat:
         row["dimensione"] = "anno_sesso_eta"
         row["fonte"] = "492"
+    all_rows.extend(flat)
+
+    # #525: 2024 — stesso schema di #492 (verificato su getStrutturaOsservatorio)
+    print("  525 regione (2024)...")
+    flat = run_split_query(525, ANNO_SESSO_REGIONE, range(2024, 2025), "525")
+    for row in flat:
+        row["dimensione"] = "anno_sesso_regione"
+        row["fonte"] = "525"
+    all_rows.extend(flat)
+
+    print("  525 settore (2024)...")
+    flat = run_split_query(525, ANNO_SETTORE, range(2024, 2025), "525")
+    for row in flat:
+        if is_total_sector(row):
+            continue
+        row["dimensione"] = "anno_settore"
+        row["fonte"] = "525"
+        all_rows.append(row)
+
+    print("  525 eta (2024)...")
+    flat = run_split_query(525, ANNO_SESSO_ETA, range(2024, 2025), "525")
+    for row in flat:
+        row["dimensione"] = "anno_sesso_eta"
+        row["fonte"] = "525"
     all_rows.extend(flat)
 
     if all_rows:

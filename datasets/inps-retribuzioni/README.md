@@ -3,8 +3,8 @@
 Lavoratori dipendenti del settore privato non agricolo: retribuzioni, settimane
 retribuite e giornate, per regione, classe di età e sezione ATECO 2007.
 
-- **Fonte**: INPS Osservatori Statistici, obs **347** (2014-2018) + **492** (2019-2023)
-- **Copertura**: 2014-2023, Italia
+- **Fonte**: INPS Osservatori Statistici, obs **347** (2014-2018) + **492** (2019-2023) + **525** (2024)
+- **Copertura**: 2014-2024, Italia
 - **Grana**: anno × sesso × regione; anno × sesso × età; anno × sezione ATECO
 - **Unità territoriale**: regione (incluso “Estero”)
 
@@ -48,8 +48,8 @@ retribuzioni.
   non gli FTE. Per confronti di produttività usare `retribuzione_media_settimana`
   o normalizzare per settimane.
 - **Rottura 2019**: obs 347 (2014-2018) e obs 492 (2019-2023) sono due tavole
-  distinte; la serie 2014-2023 è utilizzabile con nota, ma non è un'unica
-  rilevazione.
+  distinte; la serie 2014-2024 è utilizzabile con nota, ma non è un'unica
+  rilevazione. obs 525 (2024) ha lo stesso schema di 492.
 - **Settore**: la sezione ATECO è quella dichiarata all'INPS; non coincide
   necessariamente con la classificazione delle imprese in altri registri.
-- **2024+**: non incluso in questa versione (obs 525 non è ancora estratto).
+- **2025+**: non ancora disponibile sulla fonte (l'osservatorio 2024 è stato pubblicato a novembre 2025).
