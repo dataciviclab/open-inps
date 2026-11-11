@@ -2,7 +2,7 @@
 -- Macro toolkit: cast_int, remove_dot_thousands, normalize_string
 -- Legge solo da raw_input.
 --
--- Misure API (obs 347/492), verificate su getStrutturaOsservatorio:
+-- Misure API (obs 347/492/525), verificate su getStrutturaOsservatorio:
 --   lav_annoSUM = numero lavoratori nell'anno
 --   RRSUM      = retribuzione nell'anno (euro)
 --   s_retrSUM  = numero settimane retribuite nell'anno

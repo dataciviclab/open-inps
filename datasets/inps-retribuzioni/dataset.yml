@@ -10,7 +10,7 @@ dataset:
   years: [2026]
   time_coverage:
     start_year: 2014
-    end_year: 2023
+    end_year: 2024
 
 raw:
   output_policy: overwrite
