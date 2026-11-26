@@ -14,4 +14,5 @@ WHERE dimensione = 'anno_trimestre_sesso_gestione'
   AND sesso IN ('Maschi', 'Femmine')
   AND gestione IS NOT NULL
   AND gestione <> ''
+  AND NOT is_totale
   AND n_pensioni IS NOT NULL

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Estrae retribuzioni lavoro privato — obs INPS #347 (2014-2018), #492 (2019-2023), #525 (2024).
+"""Estrae retribuzioni lavoro privato — obs INPS #347 (2014-2018), #492 (2019-2024), #525 (2025).
 
 Il backend SAS non gestisce la dimensione 'Tipologia contrattuale' come colonna.
 L'estrazione usa rows (anno, sesso, regione), (anno, sesso, eta) e (anno, settore)
@@ -175,8 +175,16 @@ def is_total_sector(row: dict) -> bool:
 
     Non sono osservazioni: vanno scartate prima di scrivere raw.csv, altrimenti
     cast_int(anno) produce NULL e la validazione clean fallisce.
+
+    Il nome della colonna cambia con la classificazione: ``Sezione ATECO 2007``
+    fino al 2024, ``Sezione ATECO 2025`` dal 2025.
     """
-    label = str(row.get("Sezione ATECO 2007", "")).strip()
+    labels = [
+        str(value).strip()
+        for key, value in row.items()
+        if str(key).startswith("Sezione ATECO")
+    ]
+    label = next((item for item in labels if item), "")
     return not label or label.lower() == "totale"
 
 
@@ -219,17 +227,17 @@ if __name__ == "__main__":
         row["fonte"] = "347"
         all_rows.append(row)
 
-    # #492: 2019-2023 — regione
-    print("  492 regione (2019-2023)...")
-    flat = run_split_query(492, ANNO_SESSO_REGIONE, range(2019, 2024), "492")
+    # #492: 2019-2024 — regione
+    print("  492 regione (2019-2024)...")
+    flat = run_split_query(492, ANNO_SESSO_REGIONE, range(2019, 2025), "492")
     for row in flat:
         row["dimensione"] = "anno_sesso_regione"
         row["fonte"] = "492"
     all_rows.extend(flat)
 
-    # #492: 2019-2023 — settore
-    print("  492 settore (2019-2023)...")
-    flat = run_split_query(492, ANNO_SETTORE, range(2019, 2024), "492")
+    # #492: 2019-2024 — settore
+    print("  492 settore (2019-2024)...")
+    flat = run_split_query(492, ANNO_SETTORE, range(2019, 2025), "492")
     for row in flat:
         if is_total_sector(row):
             continue
@@ -237,24 +245,24 @@ if __name__ == "__main__":
         row["fonte"] = "492"
         all_rows.append(row)
 
-    # #492: 2019-2023 — eta
-    print("  492 eta (2019-2023)...")
-    flat = run_split_query(492, ANNO_SESSO_ETA, range(2019, 2024), "492")
+    # #492: 2019-2024 — eta
+    print("  492 eta (2019-2024)...")
+    flat = run_split_query(492, ANNO_SESSO_ETA, range(2019, 2025), "492")
     for row in flat:
         row["dimensione"] = "anno_sesso_eta"
         row["fonte"] = "492"
     all_rows.extend(flat)
 
-    # #525: 2024 — stesso schema di #492 (verificato su getStrutturaOsservatorio)
-    print("  525 regione (2024)...")
-    flat = run_split_query(525, ANNO_SESSO_REGIONE, range(2024, 2025), "525")
+    # #525: 2025 — stesso schema di #492 (verificato su getStrutturaOsservatorio)
+    print("  525 regione (2025)...")
+    flat = run_split_query(525, ANNO_SESSO_REGIONE, range(2025, 2026), "525")
     for row in flat:
         row["dimensione"] = "anno_sesso_regione"
         row["fonte"] = "525"
     all_rows.extend(flat)
 
-    print("  525 settore (2024)...")
-    flat = run_split_query(525, ANNO_SETTORE, range(2024, 2025), "525")
+    print("  525 settore (2025)...")
+    flat = run_split_query(525, ANNO_SETTORE, range(2025, 2026), "525")
     for row in flat:
         if is_total_sector(row):
             continue
@@ -262,8 +270,8 @@ if __name__ == "__main__":
         row["fonte"] = "525"
         all_rows.append(row)
 
-    print("  525 eta (2024)...")
-    flat = run_split_query(525, ANNO_SESSO_ETA, range(2024, 2025), "525")
+    print("  525 eta (2025)...")
+    flat = run_split_query(525, ANNO_SESSO_ETA, range(2025, 2026), "525")
     for row in flat:
         row["dimensione"] = "anno_sesso_eta"
         row["fonte"] = "525"

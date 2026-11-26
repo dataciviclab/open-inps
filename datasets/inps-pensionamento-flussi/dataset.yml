@@ -31,9 +31,11 @@ clean:
     mode: all
     header: true
     encoding: "utf-8"
-  required_columns: [anno, trimestre, n_pensioni]
+    all_varchar: true
+  required_columns: [anno, trimestre, n_pensioni, eta_media_decorrenza, is_totale]
   validate:
     min_rows: 500
+    not_null: [eta_media_decorrenza]
 
 mart:
   tables:

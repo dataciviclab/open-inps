@@ -6,11 +6,11 @@ dataset:
   source_id: "inps"
   tags: [lavoro, inps, retribuzioni, redditi, privato]
   category: lavoro
-  description: "Retribuzioni, settimane e giornate del lavoro privato per regione, età e sezione ATECO 2007 (obs 347+492)."
+  description: "Retribuzioni, settimane e giornate del lavoro privato per regione, età e sezione ATECO (2007 fino al 2024, ATECO 2025 dal 2025; obs 347+492+525)."
   years: [2026]
   time_coverage:
     start_year: 2014
-    end_year: 2024
+    end_year: 2025
 
 raw:
   output_policy: overwrite
