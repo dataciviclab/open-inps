@@ -13,9 +13,19 @@ SELECT
     normalize_string(Regione) AS regione,
     normalize_string(Gestione) AS gestione,
     normalize_string(Categoria) AS categoria,
-    -- decimal=',': DuckDB parsà "65,2"→65.2 ma lascia VARCHAR
-    -- "1.564,70" e "8.511" (punti migliaia + virgola decimale misti).
+    -- decimal=',': con all_varchar i valori arrivano come stringhe italiane
+    -- ("1.564,70", "64,9"): le macro li normalizzano.
     remove_dot_thousands("_FREQ_SUM") AS n_pensioni,
-    TRY_CAST("Età media alla decorrenza" AS DOUBLE) AS eta_media_decorrenza,
-    normalize_italian_number("Importo medio alla decorrenza (in euro)") AS importo_medio_decorrenza_eur
+    normalize_italian_number("Età media alla decorrenza") AS eta_media_decorrenza,
+    normalize_italian_number("Importo medio alla decorrenza (in euro)") AS importo_medio_decorrenza_eur,
+    -- La fonte include una gerarchia di totali (trimestre, dimensione, sesso).
+    -- I mart pubblicano solo il dettaglio: il flag rende esplicito il filtro.
+    COALESCE(
+        normalize_string(Trimestre) = 'Totale'
+        OR normalize_string(Regione) = 'Totale'
+        OR normalize_string(Gestione) = 'Totale'
+        OR normalize_string(Categoria) = 'Totale'
+        OR normalize_string(Sesso) LIKE '%:Totale',
+        FALSE
+    ) AS is_totale
 FROM raw_input
