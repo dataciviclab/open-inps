@@ -31,6 +31,7 @@ clean:
     mode: all
     header: true
     encoding: "utf-8"
+    all_varchar: true
   required_columns: [anno, trimestre, n_pensioni]
   validate:
     min_rows: 500

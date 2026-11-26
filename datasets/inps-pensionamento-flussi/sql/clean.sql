@@ -1,8 +1,9 @@
 -- INPS Pensionamento Flussi — CLEAN
--- Il raw_profile rileva decimal=',' → DuckDB ha già parsato i numeri
--- italiani. Contratto toolkit: usare CAST AS DOUBLE, NON
--- normalize_italian_number (altrimenti "65,2" → 652).
--- _FREQ_SUM resta con punti migliaia: remove_dot_thousands.
+-- read.all_varchar: true → le colonne restano stringhe e le macro lavorano sul
+-- formato originale. Serve perché lo sniffing tipizza DOUBLE i numeri già in
+-- formato italiano (guardia toolkit: il valore avrebbe già perso il formato).
+-- _FREQ_SUM ha punti migliaia: remove_dot_thousands.
+-- Importi con virgola decimale: normalize_italian_number.
 
 SELECT
     cast_int(anno) AS anno,
