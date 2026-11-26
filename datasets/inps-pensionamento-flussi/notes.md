@@ -19,9 +19,15 @@ dettaglio:
   generali, accoppiati ai totali di trimestre/dimensione).
 
 Il clean espone la colonna **`is_totale`**: i mart pubblicano solo
-`is_totale = false`. Sommare `n_pensioni` senza questo filtro triplica il dato
-(il totale di dettaglio 2021-2026 è 5.343.223 per dimensione; la somma di tutte
-le righe clean, totali inclusi, è 16.029.669).
+`is_totale = false`. Numeri di controllo (2021-2026):
+
+- dettaglio per dimensione: **5.343.223**
+- stessa dimensione con i suoi totali: **21.372.892** (4×)
+- tutte le 2.088 righe del clean: **64.118.676** (12×)
+- somma dei tre mart (solo dettaglio): **16.029.669**
+
+Sommare `n_pensioni` senza il filtro `is_totale` gonfia il dato; i mart sono
+allineati al dettaglio.
 
 ## Formato numerico
 
