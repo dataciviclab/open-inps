@@ -114,6 +114,9 @@ def test_settore_mapping_is_complete() -> None:
                       AND settore_codice IS NULL
                       AND settore_label IS NOT NULL
                       AND settore_label NOT ILIKE '%totale%'
+                      -- ATECO 2025: la fonte espone aziende in riclassificazione
+                      -- senza sezione; non sono mappabili per definizione.
+                      AND settore_label NOT ILIKE '%non ripartibili%'
                 ) AS unmapped
             FROM read_parquet('{CLEAN}')
             """

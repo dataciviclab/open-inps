@@ -22,7 +22,7 @@ WITH raw AS (
         normalize_string(Sesso) AS sesso,
         normalize_string(Regione) AS regione,
         normalize_string("Classe di età") AS classe_eta,
-        normalize_string("Sezione ATECO 2007") AS settore_label,
+        normalize_string(COALESCE("Sezione ATECO 2007", "Sezione ATECO 2025")) AS settore_label,
         remove_dot_thousands(lav_annoSUM) AS n_lavoratori,
         remove_dot_thousands(RRSUM) AS retribuzione_totale,
         remove_dot_thousands(s_retrSUM) AS settimane_retribuite,
@@ -30,27 +30,34 @@ WITH raw AS (
         remove_dot_thousands(GGSUM) AS giornate_retribuite
     FROM raw_input
 ),
-mapping(pattern, codice, nome) AS (
+mapping(pattern, codice, nome, priorita) AS (
     SELECT * FROM (VALUES
-        ('%estrazione di minerali%', 'B', 'Estrazione di minerali'),
-        ('%manifatturier%', 'C', 'Manifattura'),
-        ('%fornitura di energia%', 'D', 'Energia'),
-        ('%fornitura di acqua%', 'E', 'Acqua e rifiuti'),
-        ('%costruzioni%', 'F', 'Costruzioni'),
-        ('%commercio all%ingrosso%', 'G', 'Commercio e riparazioni'),
-        ('%trasporto e magazzinaggio%', 'H', 'Trasporti e magazzinaggio'),
-        ('%alloggio%', 'I', 'Alloggio e ristorazione'),
-        ('%informazione e comunicazione%', 'J', 'Informazione e comunicazione'),
-        ('%finanziarie e assicurative%', 'K', 'Finanza e assicurazioni'),
-        ('%immobiliari%', 'L', 'Attivita immobiliari'),
-        ('%professionali%', 'M', 'Attivita professionali e scientifiche'),
-        ('%noleggio%', 'N', 'Noleggio e servizi di supporto'),
-        ('%istruzione%', 'P', 'Istruzione'),
-        ('%sanita%', 'Q', 'Sanita e assistenza sociale'),
-        ('%artistiche%', 'R', 'Arte e spettacolo'),
-        ('%altre attivita%', 'S', 'Altri servizi'),
-        ('%famiglie e convivenze%', 'T', 'Famiglie e convivenze')
-    ) AS t(pattern, codice, nome)
+        ('%estrazione di minerali%', 'B', 'Estrazione di minerali', 1),
+        ('%manifatturier%', 'C', 'Manifattura', 1),
+        ('%fornitura di energia%', 'D', 'Energia', 1),
+        ('%fornitura di acqua%', 'E', 'Acqua e rifiuti', 1),
+        ('%costruzioni%', 'F', 'Costruzioni', 1),
+        ('%commercio all%ingrosso%', 'G', 'Commercio e riparazioni', 1),
+        ('%trasporto e magazzinaggio%', 'H', 'Trasporti e magazzinaggio', 1),
+        ('%alloggio%', 'I', 'Alloggio e ristorazione', 1),
+        ('%informazione e comunicazione%', 'J', 'Informazione e comunicazione', 1),
+        ('%finanziarie e assicurative%', 'K', 'Finanza e assicurazioni', 1),
+        ('%immobiliari%', 'L', 'Attivita immobiliari', 1),
+        ('%professionali%', 'M', 'Attivita professionali e scientifiche', 1),
+        ('%noleggio%', 'N', 'Noleggio e servizi di supporto', 1),
+        ('%istruzione%', 'P', 'Istruzione', 1),
+        ('%salute umana%', 'Q', 'Sanita e assistenza sociale', 1),
+        ('%sanita%', 'Q', 'Sanita e assistenza sociale', 1),
+        ('%artistiche%', 'R', 'Arte e spettacolo', 1),
+        ('%famiglie e convivenze%', 'T', 'Famiglie e convivenze', 1),
+        -- etichette ATECO 2025 (sezioni riorganizzate)
+        ('%estrattive%', 'B', 'Estrazione di minerali', 1),
+        ('%amministrative e di servizi di supporto%', 'N', 'Noleggio e servizi di supporto', 1),
+        ('%editoriali%', 'J', 'Informazione e comunicazione', 1),
+        ('%telecomunicazioni%', 'J', 'Informazione e comunicazione', 1),
+        -- catch-all, ultima priorità: non deve oscurare le etichette specifiche
+        ('%altre attivit%', 'S', 'Altri servizi', 99)
+    ) AS t(pattern, codice, nome, priorita)
 )
 SELECT
     r.anno,
@@ -68,4 +75,10 @@ SELECT
     r.settimane_utili,
     r.giornate_retribuite
 FROM raw r
-LEFT JOIN mapping m ON r.settore_label ILIKE m.pattern
+LEFT JOIN LATERAL (
+    SELECT codice, nome
+    FROM mapping
+    WHERE r.settore_label ILIKE pattern
+    ORDER BY priorita
+    LIMIT 1
+) m ON TRUE
