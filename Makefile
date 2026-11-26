@@ -33,7 +33,13 @@ run-all: run compose
 .PHONY: run-batch
 run-batch:
 	@if [ -s batch.txt ]; then \
-		$(TOOLKIT) run --batch batch.txt; \
+		grep -vE '^compose/' batch.txt > .batch-datasets.txt || true; \
+		grep -E '^compose/' batch.txt > .batch-compose.txt || true; \
+		status=0; \
+		if [ -s .batch-datasets.txt ]; then $(TOOLKIT) run --batch .batch-datasets.txt || status=1; fi; \
+		if [ $$status -eq 0 ] && [ -s .batch-compose.txt ]; then $(TOOLKIT) run --batch .batch-compose.txt || status=1; fi; \
+		rm -f .batch-datasets.txt .batch-compose.txt; \
+		exit $$status; \
 	else \
 		echo "Nessun dataset da processare"; \
 	fi
