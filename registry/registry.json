@@ -1,19 +1,18 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "repo": "open-inps",
   "source_repo": "dataciviclab/open-inps",
-  "updated_at": "2026-11-11",
+  "updated_at": "2026-11-26",
+  "gcs": {
+    "clean": "year",
+    "prefix": "open-inps/"
+  },
   "datasets": [
     {
       "slug": "inps_analisi",
       "name": "Inps Analisi",
       "description": "Compose INPS: incrocio multi-dataset per analisi di genere, territorio e lifecycle.",
-      "source": "",
       "source_id": "dataciviclab_composite",
-      "period": {
-        "start": 2026,
-        "end": 2026
-      },
       "tags": [
         "inps",
         "compose",
@@ -23,63 +22,59 @@
         "analisi"
       ],
       "category": "welfare",
+      "period": {
+        "start": 1998,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 4433
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "metrica",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "valore",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_analisi/2026/inps_analisi_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_analisi__mart_nazionale",
         "inps_analisi__mart_territoriale",
         "inps_analisi__mart_lifecycle",
         "inps_analisi__mart_benchmark"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:47:03.532702+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_assegno_unico",
       "name": "Inps Assegno Unico",
       "description": "Assegno Unico Universale: figli e nuclei beneficiari per regione, ISEE, disabilità (2022-2024).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2024
-      },
       "tags": [
         "welfare",
         "inps",
@@ -87,73 +82,67 @@
         "famiglia"
       ],
       "category": "welfare",
+      "period": {
+        "start": 2022,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 220
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "fascia_isee",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_figli",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_figlio",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_nucleo",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_assegno_unico/2026/inps_assegno_unico_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_assegno_unico__mart_au_regione",
         "inps_assegno_unico__mart_au_isee"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:03:20.859202+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_bilancio_ce",
       "name": "Inps Bilancio Ce",
       "description": "Conto Economico INPS (generale + GIAS, CKAN 2023-2024 con comparative 2022): voci di conto e importi in euro.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2024
-      },
       "tags": [
         "bilancio",
         "inps",
@@ -163,55 +152,52 @@
         "gias"
       ],
       "category": "bilancio",
+      "period": {
+        "start": 2022,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 615
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "fonte",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "voce",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "importo_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_bilancio_ce/2026/inps_bilancio_ce_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_bilancio_ce__mart_ce_voci",
         "inps_bilancio_ce__mart_ce_aggregati",
         "inps_bilancio_ce__mart_ce_confronto_fonti"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:07:29.173461+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_bilancio_gestionale",
       "name": "Inps Bilancio Gestionale",
       "description": "Rendiconto gestionale INPS (entrate e uscite per capitolo) da CKAN open data 2023-2024: accertato/impegnato, previsioni e residui.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2023,
-        "end": 2024
-      },
       "tags": [
         "bilancio",
         "inps",
@@ -222,104 +208,93 @@
         "spese"
       ],
       "category": "bilancio",
+      "period": {
+        "start": 2023,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 1897
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "tipo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "codice",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "denominazione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "previsioni_iniziali_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "previsioni_definitive_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_esercizio_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "residui_iniziali_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "residui_totali_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "previsioni_cassa_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "incassi_pagamenti_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "residui_finali_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_bilancio_gestionale/2026/inps_bilancio_gestionale_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_bilancio_gestionale__mart_rg_top_entrate",
         "inps_bilancio_gestionale__mart_rg_top_uscite",
         "inps_bilancio_gestionale__mart_rg_contributi_lavoratori",
         "inps_bilancio_gestionale__mart_rg_incentivi"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:11:32.358168+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_bilancio_missioni",
       "name": "Inps Bilancio Missioni",
       "description": "Bilancio INPS per Missioni/Programmi/COFOG (CKAN 2023-2024, con comparative 2022): spesa per competenza e cassa.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2024
-      },
       "tags": [
         "bilancio",
         "inps",
@@ -329,75 +304,69 @@
         "welfare"
       ],
       "category": "bilancio",
+      "period": {
+        "start": 2022,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 132
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "missione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "programma_code"
         },
         {
           "name": "programma",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "programma_code"
         },
         {
           "name": "gruppo_cofog",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "prestazione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "competenza_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "cassa_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_bilancio_missioni/2026/inps_bilancio_missioni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_bilancio_missioni__mart_bilancio_missioni",
         "inps_bilancio_missioni__mart_bilancio_prestazioni",
         "inps_bilancio_missioni__mart_bilancio_confronto"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:15:36.928778+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_cig",
       "name": "Inps Cig",
       "description": "CIG ore autorizzate per gestione, ramo, settore, regione (2023-2026).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2023,
-        "end": 2026
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -406,75 +375,69 @@
         "ammortizzatori"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2023,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 389
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "gestione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "ramo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "mese",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "month"
         },
         {
           "name": "oretot",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_cig/2026/inps_cig_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_cig__mart_cig_regione",
         "inps_cig__mart_cig_ramo",
         "inps_cig__mart_cig_mensile"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:17:52.673126+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_dipendenti_pubblici",
       "name": "Inps Dipendenti Pubblici",
       "description": "Dipendenti pubblici: enti, retribuzioni e giornate lavorate per regione e forma giuridica (2022-2026).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2026
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -482,79 +445,72 @@
         "dipendenti-pubblici"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2022,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 450
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "tipo_ente",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "forma_giuridica",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_enti",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "giorni_totali",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "retribuzione_totale",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_dipendenti_pubblici/2026/inps_dipendenti_pubblici_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_dipendenti_pubblici__mart_dp_regione",
         "inps_dipendenti_pubblici__mart_dp_forma_giuridica"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:19:22.942453+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_dis_coll",
       "name": "Inps Dis Coll",
       "description": "DIS-COLL nazionale per sesso: beneficiari (397) e trattamenti (398), 2020-2024. Complemento NASpI per co.co.co. Solo grana nazionale (tagli territoriali API non additivi).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2020,
-        "end": 2024
-      },
       "tags": [
         "welfare",
         "inps",
@@ -563,77 +519,70 @@
         "parasubordinati"
       ],
       "category": "welfare",
+      "period": {
+        "start": 2020,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 22
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tipo_dato",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_trattamenti",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "giorni_teorici",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "giorni_pagati",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_fonte",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_dis_coll/2026/inps_dis_coll_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_dis_coll__mart_dis_coll_nazionale"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:19:52.535262+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_flussi_settore",
       "name": "Inps Flussi Settore",
       "description": "Assunzioni e cessazioni per settore NACE Rev.2/2.1, nazionale (obs 407/406/528/530, 2014-2026).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2014,
-        "end": 2026
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -642,97 +591,87 @@
         "mercato-lavoro"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2014,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 9241
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "flusso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "nace_class",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "settore_codice",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "settore_nace",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "settore_label_api",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "tipo_flusso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_rapporti",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_flussi_settore/2026/inps_flussi_settore_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_flussi_settore__mart_flussi_settore",
         "inps_flussi_settore__mart_flussi_settore_regione"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:21:03.464526+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_invalidi_civili",
       "name": "Inps Invalidi Civili",
       "description": "Prestazioni agli invalidi civili (obs 381/383/384): ciechi, sordomuti, invalidi totali e parziali. Numero e importo medio per anno, sesso, età, categoria e regione; serie storica 2002-2026.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2002,
-        "end": 2026
-      },
       "tags": [
         "welfare",
         "inps",
@@ -741,93 +680,84 @@
         "disabilita"
       ],
       "category": "welfare",
+      "period": {
+        "start": 2002,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 460
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "categoria",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sottocategoria",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "tipo_prestazione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_prestazioni",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_mensile_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_invalidi_civili/2026/inps_invalidi_civili_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_invalidi_civili__mart_invalidi_categoria",
         "inps_invalidi_civili__mart_invalidi_eta",
         "inps_invalidi_civili__mart_invalidi_regione",
         "inps_invalidi_civili__mart_invalidi_serie"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:24:56.969326+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_lavoratori_pubblici",
       "name": "Inps Lavoratori Pubblici",
       "description": "Lavoratori pubblici: retribuzioni, giornate e unità per gruppo contrattuale, età, tipo contratto e regione (obs 435, 2014-2024). Nessuna dimensione genere (campo SESSO rotto sull'API).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2014,
-        "end": 2024
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -836,105 +766,94 @@
         "pa"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2014,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 2810
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "gruppo_contrattuale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tipo_contratto",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tempo_parziale",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "n_lavoratori",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "retribuzioni_totali",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "giornate_lavorate",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "settimane_retribuite",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "unita_lavorative",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_lavoratori_pubblici/2026/inps_lavoratori_pubblici_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_lavoratori_pubblici__mart_lavoratori_pa_gruppo",
         "inps_lavoratori_pubblici__mart_lavoratori_pa_eta",
         "inps_lavoratori_pubblici__mart_lavoratori_pa_tipo_contratto",
         "inps_lavoratori_pubblici__mart_lavoratori_pa_regione"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:25:34.189584+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_lavoratori_redditi",
       "name": "Inps Lavoratori Redditi",
       "description": "Lavoratori, redditi da lavoro e settimane lavorate per posizione prevalente, regione, età e cittadinanza (obs 465, 2014-2024).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2014,
-        "end": 2024
-      },
       "tags": [
         "lavoro",
         "redditi",
@@ -943,99 +862,89 @@
         "mercato-lavoro"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2014,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 1105
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "posizione_prevalente",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "cittadinanza",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "stato_pensionato",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_lavoratori",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "reddito_cumulato",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "settimane_lavorate",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_lavoratori_redditi/2026/inps_lavoratori_redditi_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_lavoratori_redditi__mart_lavoratori_redditi_posizione",
         "inps_lavoratori_redditi__mart_lavoratori_redditi_regione",
         "inps_lavoratori_redditi__mart_lavoratori_redditi_eta",
         "inps_lavoratori_redditi__mart_lavoratori_redditi_cittadinanza"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:26:44.597609+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_naspi",
       "name": "Inps Naspi",
       "description": "NASpI: beneficiari e trattamenti per sesso, eta, durata, regione (obs 395+396).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2020,
-        "end": 2024
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -1044,80 +953,73 @@
         "politiche-passive"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2020,
+        "end": 2024
+      },
+      "partitions": {
+        "2026": 550
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "fonte",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "durata_mesi",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_beneficiari",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_naspi/2026/inps_naspi_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_naspi__mart_naspi_regione",
         "inps_naspi__mart_naspi_eta",
         "inps_naspi__mart_naspi_durata"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:27:33.084524+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_pensionamento_flussi",
       "name": "Inps Pensionamento Flussi",
       "description": "Flussi trimestrali di pensionamento per anno decorrenza 2021-2026: regione, gestione e categoria (obs 475).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2021,
-        "end": 2026
-      },
       "tags": [
         "pensioni",
         "inps",
@@ -1126,92 +1028,89 @@
         "trimestrale"
       ],
       "category": "pensioni",
+      "period": {
+        "start": 2021,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 2088
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "trimestre",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": ""
+          "semantic_type": "quarter"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "gestione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "categoria",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_pensioni",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "eta_media_decorrenza",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_decorrenza_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
+        },
+        {
+          "name": "is_totale",
+          "type": "BOOLEAN",
+          "role": "dimension"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_pensionamento_flussi/2026/inps_pensionamento_flussi_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_pensionamento_flussi__mart_pensionamento_regione",
         "inps_pensionamento_flussi__mart_pensionamento_gestione",
         "inps_pensionamento_flussi__mart_pensionamento_categoria"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:28:17.099718+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_pensioni_liquidate",
       "name": "Inps Pensioni Liquidate",
       "description": "Nuove pensioni INPS liquidate, per sesso, classe importo e regione.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2021,
-        "end": 2025
-      },
       "tags": [
         "pensioni",
         "inps",
@@ -1219,73 +1118,67 @@
         "welfare"
       ],
       "category": "pensioni",
+      "period": {
+        "start": 2021,
+        "end": 2025
+      },
+      "partitions": {
+        "2026": 470
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "classe_importo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "n_pensioni",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_mensile_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_pensioni_liquidate/2026/inps_pensioni_liquidate_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_pensioni_liquidate__mart_liquidate_importo",
         "inps_pensioni_liquidate__mart_liquidate_regione"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:30:28.069426+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_pensioni_serie",
       "name": "Inps Pensioni Serie",
       "description": "Serie storica pensioni INPS: vigenti 1998-2026 e liquidate 1997-2025, per sesso, categoria, gestione e regione (obs 390+376).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 1997,
-        "end": 2026
-      },
       "tags": [
         "pensioni",
         "inps",
@@ -1293,92 +1186,83 @@
         "serie-storica"
       ],
       "category": "pensioni",
+      "period": {
+        "start": 1997,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 3602
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tipo_pensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "categoria",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tipo_gestione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "n_pensioni",
           "type": "INTEGER",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_mensile_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "eta_media",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_pensioni_serie/2026/inps_pensioni_serie_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_pensioni_serie__mart_pensioni_serie_categoria",
         "inps_pensioni_serie__mart_pensioni_serie_tipogest",
         "inps_pensioni_serie__mart_pensioni_serie_regione"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:30:40.988951+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_pensioni_vigenti",
       "name": "Inps Pensioni Vigenti",
       "description": "Stock di pensioni INPS in pagamento, per sesso, classe importo, eta e regione.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2022,
-        "end": 2026
-      },
       "tags": [
         "pensioni",
         "inps",
@@ -1386,86 +1270,78 @@
         "welfare"
       ],
       "category": "pensioni",
+      "period": {
+        "start": 2022,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 620
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "classe_importo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "n_pensioni",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
-          "name": "importo_totale_migliaia_eur",
+          "name": "importo_totale_eur",
           "type": "BIGINT",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_mensile_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_pensioni_vigenti/2026/inps_pensioni_vigenti_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_pensioni_vigenti__mart_vigenti_importo",
         "inps_pensioni_vigenti__mart_vigenti_eta",
         "inps_pensioni_vigenti__mart_vigenti_regione"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:31:34.070178+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_rapporti_cessazioni",
       "name": "Inps Rapporti Cessazioni",
       "description": "Cessazioni di rapporti di lavoro per provincia: tipologia e motivo, per sesso e eta (obs 490, 2014-2026).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2014,
-        "end": 2026
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -1473,81 +1349,74 @@
         "mercato-lavoro"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2014,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 27300
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tipo_cessazione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "motivo_cessazione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "n_cessazioni",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_rapporti_cessazioni/2026/inps_rapporti_cessazioni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_rapporti_cessazioni__mart_cessazioni_regione",
         "inps_rapporti_cessazioni__mart_cessazioni_provincia",
         "inps_rapporti_cessazioni__mart_cessazioni_motivo"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:32:15.970344+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_rapporti_lavoro",
       "name": "Inps Rapporti Lavoro",
       "description": "Nuovi rapporti di lavoro per provincia: assunzioni, cessazioni, per sesso, eta, settore, tipo contratto.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2014,
-        "end": 2026
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -1555,81 +1424,74 @@
         "mercato-lavoro"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2014,
+        "end": 2026
+      },
+      "partitions": {
+        "2026": 6734
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "tipo_rapporto",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "provincia",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "province_code"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_rapporti",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_rapporti_lavoro/2026/inps_rapporti_lavoro_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_rapporti_lavoro__mart_rapporti_regione",
         "inps_rapporti_lavoro__mart_rapporti_provincia",
         "inps_rapporti_lavoro__mart_rapporti_eta"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:35:43.302834+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_rdc_pdc",
       "name": "Inps Rdc Pdc",
       "description": "Nuclei beneficiari RdC/PdC con almeno una mensilità (obs 452, 2019-2023): misura, regione, componenti, disabili e minori.",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2019,
-        "end": 2023
-      },
       "tags": [
         "welfare",
         "inps",
@@ -1638,93 +1500,84 @@
         "reddito-cittadinanza"
       ],
       "category": "welfare",
+      "period": {
+        "start": 2019,
+        "end": 2023
+      },
+      "partitions": {
+        "2026": 311
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "misura",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "componenti_nucleo",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "con_disabili",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "con_minori",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_nuclei",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "n_componenti",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "importo_medio_mensile_eur",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_rdc_pdc/2026/inps_rdc_pdc_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_rdc_pdc__mart_rdc_pdc_nazionale",
         "inps_rdc_pdc__mart_rdc_pdc_regione",
         "inps_rdc_pdc__mart_rdc_pdc_componenti",
         "inps_rdc_pdc__mart_rdc_pdc_fragili"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:36:23.707300+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     },
     {
       "slug": "inps_retribuzioni",
       "name": "Inps Retribuzioni",
       "description": "Retribuzioni e lavoratori del settore privato per provincia, sesso, qualifica, contratto (obs 347+492).",
-      "source": "",
       "source_id": "inps",
-      "period": {
-        "start": 2014,
-        "end": 2024
-      },
       "tags": [
         "lavoro",
         "inps",
@@ -1733,105 +1586,97 @@
         "privato"
       ],
       "category": "lavoro",
+      "period": {
+        "start": 2014,
+        "end": 2025
+      },
+      "partitions": {
+        "2026": 890
+      },
       "columns": [
         {
           "name": "anno",
           "type": "INTEGER",
           "role": "dimension",
-          "description": "",
           "semantic_type": "year"
         },
         {
           "name": "fonte",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "dimensione",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "sesso",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "regione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": "",
           "semantic_type": "region_code"
         },
         {
           "name": "classe_eta",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "settore_label",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "settore_codice",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "settore_nace",
           "type": "VARCHAR",
-          "role": "dimension",
-          "description": ""
+          "role": "dimension"
         },
         {
           "name": "n_lavoratori",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "retribuzione_totale",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "settimane_retribuite",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "settimane_utili",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         },
         {
           "name": "giornate_retribuite",
           "type": "DOUBLE",
-          "role": "metric",
-          "description": ""
+          "role": "metric"
         }
       ],
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-inps/inps_retribuzioni/2026/inps_retribuzioni_2026_clean.parquet",
-        "multi_file": false
-      },
-      "stage": "incubating",
       "mart_refs": [
         "inps_retribuzioni__mart_retribuzioni_regione",
         "inps_retribuzioni__mart_retribuzioni_eta",
         "inps_retribuzioni__mart_retribuzioni_settore"
-      ]
+      ],
+      "last_run": {
+        "at": "2026-11-26T22:36:43.906218+00:00",
+        "year": 2026,
+        "status": "SUCCESS"
+      }
     }
   ],
   "marts": [
@@ -1839,1598 +1684,444 @@
       "slug": "inps_analisi__mart_benchmark",
       "dataset": "inps_analisi",
       "table": "mart_benchmark",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_benchmark.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_analisi__mart_lifecycle",
       "dataset": "inps_analisi",
       "table": "mart_lifecycle",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_lifecycle.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_analisi__mart_nazionale",
       "dataset": "inps_analisi",
       "table": "mart_nazionale",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_nazionale.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_analisi__mart_territoriale",
       "dataset": "inps_analisi",
       "table": "mart_territoriale",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_analisi/2026/mart_territoriale.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_assegno_unico__mart_au_isee",
       "dataset": "inps_assegno_unico",
       "table": "mart_au_isee",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_assegno_unico/2026/mart_au_isee.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_assegno_unico__mart_au_regione",
       "dataset": "inps_assegno_unico",
       "table": "mart_au_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_assegno_unico/2026/mart_au_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_ce__mart_ce_aggregati",
       "dataset": "inps_bilancio_ce",
       "table": "mart_ce_aggregati",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_ce/2026/mart_ce_aggregati.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_ce__mart_ce_confronto_fonti",
       "dataset": "inps_bilancio_ce",
       "table": "mart_ce_confronto_fonti",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_ce/2026/mart_ce_confronto_fonti.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_ce__mart_ce_voci",
       "dataset": "inps_bilancio_ce",
       "table": "mart_ce_voci",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_ce/2026/mart_ce_voci.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_gestionale__mart_rg_contributi_lavoratori",
       "dataset": "inps_bilancio_gestionale",
       "table": "mart_rg_contributi_lavoratori",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_contributi_lavoratori.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_gestionale__mart_rg_incentivi",
       "dataset": "inps_bilancio_gestionale",
       "table": "mart_rg_incentivi",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_incentivi.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_gestionale__mart_rg_top_entrate",
       "dataset": "inps_bilancio_gestionale",
       "table": "mart_rg_top_entrate",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_top_entrate.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_gestionale__mart_rg_top_uscite",
       "dataset": "inps_bilancio_gestionale",
       "table": "mart_rg_top_uscite",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_gestionale/2026/mart_rg_top_uscite.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_missioni__mart_bilancio_confronto",
       "dataset": "inps_bilancio_missioni",
       "table": "mart_bilancio_confronto",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_missioni/2026/mart_bilancio_confronto.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_missioni__mart_bilancio_missioni",
       "dataset": "inps_bilancio_missioni",
       "table": "mart_bilancio_missioni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_missioni/2026/mart_bilancio_missioni.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_bilancio_missioni__mart_bilancio_prestazioni",
       "dataset": "inps_bilancio_missioni",
       "table": "mart_bilancio_prestazioni",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_bilancio_missioni/2026/mart_bilancio_prestazioni.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_cig__mart_cig_mensile",
       "dataset": "inps_cig",
       "table": "mart_cig_mensile",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_cig/2026/mart_cig_mensile.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_cig__mart_cig_ramo",
       "dataset": "inps_cig",
       "table": "mart_cig_ramo",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_cig/2026/mart_cig_ramo.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_cig__mart_cig_regione",
       "dataset": "inps_cig",
       "table": "mart_cig_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_cig/2026/mart_cig_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_dipendenti_pubblici__mart_dp_forma_giuridica",
       "dataset": "inps_dipendenti_pubblici",
       "table": "mart_dp_forma_giuridica",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_dipendenti_pubblici/2026/mart_dp_forma_giuridica.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_dipendenti_pubblici__mart_dp_regione",
       "dataset": "inps_dipendenti_pubblici",
       "table": "mart_dp_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_dipendenti_pubblici/2026/mart_dp_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_dis_coll__mart_dis_coll_nazionale",
       "dataset": "inps_dis_coll",
       "table": "mart_dis_coll_nazionale",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_dis_coll/2026/mart_dis_coll_nazionale.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_flussi_settore__mart_flussi_settore",
       "dataset": "inps_flussi_settore",
       "table": "mart_flussi_settore",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_flussi_settore/2026/mart_flussi_settore.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_flussi_settore__mart_flussi_settore_regione",
       "dataset": "inps_flussi_settore",
       "table": "mart_flussi_settore_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_flussi_settore/2026/mart_flussi_settore_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_invalidi_civili__mart_invalidi_categoria",
       "dataset": "inps_invalidi_civili",
       "table": "mart_invalidi_categoria",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_categoria.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_invalidi_civili__mart_invalidi_eta",
       "dataset": "inps_invalidi_civili",
       "table": "mart_invalidi_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_invalidi_civili__mart_invalidi_regione",
       "dataset": "inps_invalidi_civili",
       "table": "mart_invalidi_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_invalidi_civili__mart_invalidi_serie",
       "dataset": "inps_invalidi_civili",
       "table": "mart_invalidi_serie",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_invalidi_civili/2026/mart_invalidi_serie.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_pubblici__mart_lavoratori_pa_eta",
       "dataset": "inps_lavoratori_pubblici",
       "table": "mart_lavoratori_pa_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_pubblici__mart_lavoratori_pa_gruppo",
       "dataset": "inps_lavoratori_pubblici",
       "table": "mart_lavoratori_pa_gruppo",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_gruppo.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_pubblici__mart_lavoratori_pa_regione",
       "dataset": "inps_lavoratori_pubblici",
       "table": "mart_lavoratori_pa_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_pubblici__mart_lavoratori_pa_tipo_contratto",
       "dataset": "inps_lavoratori_pubblici",
       "table": "mart_lavoratori_pa_tipo_contratto",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_pubblici/2026/mart_lavoratori_pa_tipo_contratto.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_cittadinanza",
       "dataset": "inps_lavoratori_redditi",
       "table": "mart_lavoratori_redditi_cittadinanza",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_cittadinanza.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_eta",
       "dataset": "inps_lavoratori_redditi",
       "table": "mart_lavoratori_redditi_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_posizione",
       "dataset": "inps_lavoratori_redditi",
       "table": "mart_lavoratori_redditi_posizione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_posizione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_lavoratori_redditi__mart_lavoratori_redditi_regione",
       "dataset": "inps_lavoratori_redditi",
       "table": "mart_lavoratori_redditi_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_lavoratori_redditi/2026/mart_lavoratori_redditi_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_naspi__mart_naspi_durata",
       "dataset": "inps_naspi",
       "table": "mart_naspi_durata",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_naspi/2026/mart_naspi_durata.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_naspi__mart_naspi_eta",
       "dataset": "inps_naspi",
       "table": "mart_naspi_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_naspi/2026/mart_naspi_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_naspi__mart_naspi_regione",
       "dataset": "inps_naspi",
       "table": "mart_naspi_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_naspi/2026/mart_naspi_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensionamento_flussi__mart_pensionamento_categoria",
       "dataset": "inps_pensionamento_flussi",
       "table": "mart_pensionamento_categoria",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensionamento_flussi/2026/mart_pensionamento_categoria.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensionamento_flussi__mart_pensionamento_gestione",
       "dataset": "inps_pensionamento_flussi",
       "table": "mart_pensionamento_gestione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensionamento_flussi/2026/mart_pensionamento_gestione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensionamento_flussi__mart_pensionamento_regione",
       "dataset": "inps_pensionamento_flussi",
       "table": "mart_pensionamento_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensionamento_flussi/2026/mart_pensionamento_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_liquidate__mart_liquidate_importo",
       "dataset": "inps_pensioni_liquidate",
       "table": "mart_liquidate_importo",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_liquidate/2026/mart_liquidate_importo.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_liquidate__mart_liquidate_regione",
       "dataset": "inps_pensioni_liquidate",
       "table": "mart_liquidate_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_liquidate/2026/mart_liquidate_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_serie__mart_pensioni_serie_categoria",
       "dataset": "inps_pensioni_serie",
       "table": "mart_pensioni_serie_categoria",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_serie/2026/mart_pensioni_serie_categoria.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_serie__mart_pensioni_serie_regione",
       "dataset": "inps_pensioni_serie",
       "table": "mart_pensioni_serie_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_serie/2026/mart_pensioni_serie_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_serie__mart_pensioni_serie_tipogest",
       "dataset": "inps_pensioni_serie",
       "table": "mart_pensioni_serie_tipogest",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_serie/2026/mart_pensioni_serie_tipogest.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_vigenti__mart_vigenti_eta",
       "dataset": "inps_pensioni_vigenti",
       "table": "mart_vigenti_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_vigenti/2026/mart_vigenti_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_vigenti__mart_vigenti_importo",
       "dataset": "inps_pensioni_vigenti",
       "table": "mart_vigenti_importo",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_vigenti/2026/mart_vigenti_importo.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_pensioni_vigenti__mart_vigenti_regione",
       "dataset": "inps_pensioni_vigenti",
       "table": "mart_vigenti_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_pensioni_vigenti/2026/mart_vigenti_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rapporti_cessazioni__mart_cessazioni_motivo",
       "dataset": "inps_rapporti_cessazioni",
       "table": "mart_cessazioni_motivo",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_cessazioni/2026/mart_cessazioni_motivo.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rapporti_cessazioni__mart_cessazioni_provincia",
       "dataset": "inps_rapporti_cessazioni",
       "table": "mart_cessazioni_provincia",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_cessazioni/2026/mart_cessazioni_provincia.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rapporti_cessazioni__mart_cessazioni_regione",
       "dataset": "inps_rapporti_cessazioni",
       "table": "mart_cessazioni_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_cessazioni/2026/mart_cessazioni_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rapporti_lavoro__mart_rapporti_eta",
       "dataset": "inps_rapporti_lavoro",
       "table": "mart_rapporti_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_lavoro/2026/mart_rapporti_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rapporti_lavoro__mart_rapporti_provincia",
       "dataset": "inps_rapporti_lavoro",
       "table": "mart_rapporti_provincia",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_lavoro/2026/mart_rapporti_provincia.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rapporti_lavoro__mart_rapporti_regione",
       "dataset": "inps_rapporti_lavoro",
       "table": "mart_rapporti_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rapporti_lavoro/2026/mart_rapporti_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rdc_pdc__mart_rdc_pdc_componenti",
       "dataset": "inps_rdc_pdc",
       "table": "mart_rdc_pdc_componenti",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_componenti.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rdc_pdc__mart_rdc_pdc_fragili",
       "dataset": "inps_rdc_pdc",
       "table": "mart_rdc_pdc_fragili",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_fragili.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rdc_pdc__mart_rdc_pdc_nazionale",
       "dataset": "inps_rdc_pdc",
       "table": "mart_rdc_pdc_nazionale",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_nazionale.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_rdc_pdc__mart_rdc_pdc_regione",
       "dataset": "inps_rdc_pdc",
       "table": "mart_rdc_pdc_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_rdc_pdc/2026/mart_rdc_pdc_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_retribuzioni__mart_retribuzioni_eta",
       "dataset": "inps_retribuzioni",
       "table": "mart_retribuzioni_eta",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_eta.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_retribuzioni__mart_retribuzioni_regione",
       "dataset": "inps_retribuzioni",
       "table": "mart_retribuzioni_regione",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_regione.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     },
     {
       "slug": "inps_retribuzioni__mart_retribuzioni_settore",
       "dataset": "inps_retribuzioni",
       "table": "mart_retribuzioni_settore",
-      "location": {
-        "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-inps/inps_retribuzioni/2026/mart_retribuzioni_settore.parquet",
-        "multi_file": false
-      }
+      "layout": "year",
+      "year": 2026
     }
   ],
-  "signals": [
-    {
-      "id": "compose:inps_analisi",
-      "source_id": "dataciviclab_composite",
-      "status": "ok",
-      "label": "inps_analisi",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T173154Z_cd7db84e",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "clean": 4377,
-          "mart": 4514
-        },
-        "output_bytes": {
-          "raw": 7364,
-          "clean": 18722,
-          "mart": 48995
-        },
-        "started_at": "2026-11-01T17:31:54.865311+00:00",
-        "finished_at": "2026-11-01T17:31:55.197201+00:00",
-        "duration_seconds": 0.332
-      }
-    },
-    {
-      "id": "inps_assegno_unico",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_assegno_unico",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171145Z_42ac3d65",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 220,
-          "clean": 220,
-          "mart": 115
-        },
-        "output_bytes": {
-          "raw": 11599,
-          "clean": 3152,
-          "mart": 2705
-        },
-        "started_at": "2026-11-01T17:11:45.971635+00:00",
-        "finished_at": "2026-11-01T17:11:59.047582+00:00",
-        "duration_seconds": 13.076
-      }
-    },
-    {
-      "id": "inps_bilancio_ce",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_bilancio_ce",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171211Z_3cd9b0b4",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 198,
-          "clean": 615,
-          "mart": 1000
-        },
-        "output_bytes": {
-          "raw": 75698,
-          "clean": 7495,
-          "mart": 18932
-        },
-        "started_at": "2026-11-01T17:12:11.194812+00:00",
-        "finished_at": "2026-11-01T17:12:15.975260+00:00",
-        "duration_seconds": 4.78
-      }
-    },
-    {
-      "id": "inps_bilancio_gestionale",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_bilancio_gestionale",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261107T174619Z_99f4d99b",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 485,
-          "clean": 1897,
-          "mart": 1622
-        },
-        "output_bytes": {
-          "raw": 509580,
-          "clean": 116730,
-          "mart": 96655
-        },
-        "started_at": "2026-11-07T17:46:19.749833+00:00",
-        "finished_at": "2026-11-07T17:46:29.209509+00:00",
-        "duration_seconds": 9.46
-      }
-    },
-    {
-      "id": "inps_bilancio_missioni",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_bilancio_missioni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171239Z_7554a2cf",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 88,
-          "clean": 132,
-          "mart": 160
-        },
-        "output_bytes": {
-          "raw": 23956,
-          "clean": 5185,
-          "mart": 9267
-        },
-        "started_at": "2026-11-01T17:12:39.426407+00:00",
-        "finished_at": "2026-11-01T17:12:42.803794+00:00",
-        "duration_seconds": 3.377
-      }
-    },
-    {
-      "id": "inps_cig",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_cig",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171243Z_8bf516c4",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 389,
-          "clean": 389,
-          "mart": 385
-        },
-        "output_bytes": {
-          "raw": 21598,
-          "clean": 3668,
-          "mart": 4100
-        },
-        "started_at": "2026-11-01T17:12:43.248159+00:00",
-        "finished_at": "2026-11-01T17:12:57.122956+00:00",
-        "duration_seconds": 13.875
-      }
-    },
-    {
-      "id": "inps_dipendenti_pubblici",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_dipendenti_pubblici",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171257Z_9e8f45bc",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 450,
-          "clean": 450,
-          "mart": 450
-        },
-        "output_bytes": {
-          "raw": 32069,
-          "clean": 6586,
-          "mart": 6929
-        },
-        "started_at": "2026-11-01T17:12:57.571740+00:00",
-        "finished_at": "2026-11-01T17:13:06.915100+00:00",
-        "duration_seconds": 9.343
-      }
-    },
-    {
-      "id": "inps_dis_coll",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_dis_coll",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171307Z_16602c30",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 22,
-          "clean": 22,
-          "mart": 20
-        },
-        "output_bytes": {
-          "raw": 1775,
-          "clean": 1874,
-          "mart": 1599
-        },
-        "started_at": "2026-11-01T17:13:07.339309+00:00",
-        "finished_at": "2026-11-01T17:13:15.321898+00:00",
-        "duration_seconds": 7.983
-      }
-    },
-    {
-      "id": "inps_flussi_settore",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_flussi_settore",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171315Z_a4a4f58b",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 9241,
-          "clean": 9241,
-          "mart": 8089
-        },
-        "output_bytes": {
-          "raw": 1343436,
-          "clean": 31600,
-          "mart": 29058
-        },
-        "started_at": "2026-11-01T17:13:15.734211+00:00",
-        "finished_at": "2026-11-01T17:14:25.325992+00:00",
-        "duration_seconds": 69.592
-      }
-    },
-    {
-      "id": "inps_invalidi_civili",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_invalidi_civili",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261107T142051Z_b3c2e0c2",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 460,
-          "clean": 460,
-          "mart": 460
-        },
-        "output_bytes": {
-          "raw": 35537,
-          "clean": 6259,
-          "mart": 8674
-        },
-        "started_at": "2026-11-07T14:20:51.344899+00:00",
-        "finished_at": "2026-11-07T14:21:12.383373+00:00",
-        "duration_seconds": 21.038
-      }
-    },
-    {
-      "id": "inps_lavoratori_pubblici",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_lavoratori_pubblici",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171425Z_619bf1ec",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 2810,
-          "clean": 2810,
-          "mart": 2651
-        },
-        "output_bytes": {
-          "raw": 342702,
-          "clean": 56151,
-          "mart": 38109
-        },
-        "started_at": "2026-11-01T17:14:25.753439+00:00",
-        "finished_at": "2026-11-01T17:15:16.986610+00:00",
-        "duration_seconds": 51.233
-      }
-    },
-    {
-      "id": "inps_lavoratori_redditi",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_lavoratori_redditi",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171517Z_80187c45",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 1105,
-          "clean": 1105,
-          "mart": 1034
-        },
-        "output_bytes": {
-          "raw": 97269,
-          "clean": 17540,
-          "mart": 19198
-        },
-        "started_at": "2026-11-01T17:15:17.429028+00:00",
-        "finished_at": "2026-11-01T17:16:07.276413+00:00",
-        "duration_seconds": 49.847
-      }
-    },
-    {
-      "id": "inps_naspi",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_naspi",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171607Z_7da24bb4",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 550,
-          "clean": 550,
-          "mart": 530
-        },
-        "output_bytes": {
-          "raw": 38545,
-          "clean": 4389,
-          "mart": 5086
-        },
-        "started_at": "2026-11-01T17:16:07.716643+00:00",
-        "finished_at": "2026-11-01T17:16:20.550721+00:00",
-        "duration_seconds": 12.834
-      }
-    },
-    {
-      "id": "inps_pensionamento_flussi",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_pensionamento_flussi",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171620Z_26289dd8",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 2088,
-          "clean": 2088,
-          "mart": 1518
-        },
-        "output_bytes": {
-          "raw": 204796,
-          "clean": 18145,
-          "mart": 17058
-        },
-        "started_at": "2026-11-01T17:16:20.982216+00:00",
-        "finished_at": "2026-11-01T17:17:34.878901+00:00",
-        "duration_seconds": 73.897
-      }
-    },
-    {
-      "id": "inps_pensioni_liquidate",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_pensioni_liquidate",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171735Z_1b2a18ad",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 470,
-          "clean": 470,
-          "mart": 360
-        },
-        "output_bytes": {
-          "raw": 26905,
-          "clean": 5154,
-          "mart": 5004
-        },
-        "started_at": "2026-11-01T17:17:35.305886+00:00",
-        "finished_at": "2026-11-01T17:17:47.761869+00:00",
-        "duration_seconds": 12.456
-      }
-    },
-    {
-      "id": "inps_pensioni_serie",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_pensioni_serie",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171748Z_b785ce59",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 3602,
-          "clean": 3602,
-          "mart": 3458
-        },
-        "output_bytes": {
-          "raw": 311494,
-          "clean": 30299,
-          "mart": 28478
-        },
-        "started_at": "2026-11-01T17:17:48.187122+00:00",
-        "finished_at": "2026-11-01T17:18:28.654782+00:00",
-        "duration_seconds": 40.468
-      }
-    },
-    {
-      "id": "inps_pensioni_vigenti",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_pensioni_vigenti",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171829Z_02adb002",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 620,
-          "clean": 620,
-          "mart": 500
-        },
-        "output_bytes": {
-          "raw": 38140,
-          "clean": 7364,
-          "mart": 7338
-        },
-        "started_at": "2026-11-01T17:18:29.088262+00:00",
-        "finished_at": "2026-11-01T17:19:05.040487+00:00",
-        "duration_seconds": 35.952
-      }
-    },
-    {
-      "id": "inps_rapporti_cessazioni",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_rapporti_cessazioni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T171905Z_790f8a0f",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 27300,
-          "clean": 27300,
-          "mart": 23400
-        },
-        "output_bytes": {
-          "raw": 2228997,
-          "clean": 80557,
-          "mart": 67810
-        },
-        "started_at": "2026-11-01T17:19:05.468573+00:00",
-        "finished_at": "2026-11-01T17:22:49.871804+00:00",
-        "duration_seconds": 224.403
-      }
-    },
-    {
-      "id": "inps_rapporti_lavoro",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_rapporti_lavoro",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T172250Z_fa204607",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 6734,
-          "clean": 6734,
-          "mart": 6162
-        },
-        "output_bytes": {
-          "raw": 467665,
-          "clean": 23263,
-          "mart": 21406
-        },
-        "started_at": "2026-11-01T17:22:50.305653+00:00",
-        "finished_at": "2026-11-01T17:23:27.139992+00:00",
-        "duration_seconds": 36.834
-      }
-    },
-    {
-      "id": "inps_rdc_pdc",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_rdc_pdc",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261101T172327Z_84d10963",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 95,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 311,
-          "clean": 311,
-          "mart": 306
-        },
-        "output_bytes": {
-          "raw": 28132,
-          "clean": 6081,
-          "mart": 9205
-        },
-        "started_at": "2026-11-01T17:23:27.572748+00:00",
-        "finished_at": "2026-11-01T17:23:47.564272+00:00",
-        "duration_seconds": 19.992
-      }
-    },
-    {
-      "id": "inps_retribuzioni",
-      "source_id": "inps",
-      "status": "ok",
-      "label": "inps_retribuzioni",
-      "detail": "anno 2026 — mart: si",
-      "action": "",
-      "run": {
-        "run_id": "20261111T135620Z_a0c5d033",
-        "year": 2026,
-        "status": "SUCCESS",
-        "quality_score": {
-          "raw": 100,
-          "clean": 100,
-          "mart": 100
-        },
-        "output_rows": {
-          "raw": 804,
-          "clean": 804,
-          "mart": 792
-        },
-        "output_bytes": {
-          "raw": 86913,
-          "clean": 21259,
-          "mart": 36959
-        },
-        "started_at": "2026-11-11T13:56:20.124184+00:00",
-        "finished_at": "2026-11-11T14:05:15.154748+00:00",
-        "duration_seconds": 535.031
-      }
-    }
-  ],
-  "codelists": [],
-  "entities": {
-    "entities": {
-      "Programma": {
-        "entity": "Programma",
-        "label": "Programma",
-        "datasets": [
-          {
-            "slug": "inps_bilancio_missioni",
-            "name": "Inps Bilancio Missioni",
-            "column": "missione",
-            "semantic_type": "programma_code"
-          },
-          {
-            "slug": "inps_bilancio_missioni",
-            "name": "Inps Bilancio Missioni",
-            "column": "programma",
-            "semantic_type": "programma_code"
-          }
-        ],
-        "types": {
-          "programma_code": 2
-        }
-      },
-      "Provincia": {
-        "entity": "Provincia",
-        "label": "Provincia",
-        "datasets": [
-          {
-            "slug": "inps_rapporti_cessazioni",
-            "name": "Inps Rapporti Cessazioni",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          },
-          {
-            "slug": "inps_rapporti_lavoro",
-            "name": "Inps Rapporti Lavoro",
-            "column": "provincia",
-            "semantic_type": "province_code"
-          }
-        ],
-        "types": {
-          "province_code": 2
-        }
-      },
-      "Regione": {
-        "entity": "Regione",
-        "label": "Regione",
-        "datasets": [
-          {
-            "slug": "inps_analisi",
-            "name": "Inps Analisi",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_assegno_unico",
-            "name": "Inps Assegno Unico",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_cig",
-            "name": "Inps Cig",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_dipendenti_pubblici",
-            "name": "Inps Dipendenti Pubblici",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_flussi_settore",
-            "name": "Inps Flussi Settore",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_invalidi_civili",
-            "name": "Inps Invalidi Civili",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_lavoratori_pubblici",
-            "name": "Inps Lavoratori Pubblici",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_lavoratori_redditi",
-            "name": "Inps Lavoratori Redditi",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_naspi",
-            "name": "Inps Naspi",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_pensionamento_flussi",
-            "name": "Inps Pensionamento Flussi",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_pensioni_liquidate",
-            "name": "Inps Pensioni Liquidate",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_pensioni_serie",
-            "name": "Inps Pensioni Serie",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_pensioni_vigenti",
-            "name": "Inps Pensioni Vigenti",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_rapporti_cessazioni",
-            "name": "Inps Rapporti Cessazioni",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_rapporti_lavoro",
-            "name": "Inps Rapporti Lavoro",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_rdc_pdc",
-            "name": "Inps Rdc Pdc",
-            "column": "regione",
-            "semantic_type": "region_code"
-          },
-          {
-            "slug": "inps_retribuzioni",
-            "name": "Inps Retribuzioni",
-            "column": "regione",
-            "semantic_type": "region_code"
-          }
-        ],
-        "types": {
-          "region_code": 17
-        }
-      },
-      "Tempo": {
-        "entity": "Tempo",
-        "label": "Tempo / data",
-        "datasets": [
-          {
-            "slug": "inps_analisi",
-            "name": "Inps Analisi",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_assegno_unico",
-            "name": "Inps Assegno Unico",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_bilancio_ce",
-            "name": "Inps Bilancio Ce",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_bilancio_gestionale",
-            "name": "Inps Bilancio Gestionale",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_bilancio_missioni",
-            "name": "Inps Bilancio Missioni",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_cig",
-            "name": "Inps Cig",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_cig",
-            "name": "Inps Cig",
-            "column": "mese",
-            "semantic_type": "month"
-          },
-          {
-            "slug": "inps_dipendenti_pubblici",
-            "name": "Inps Dipendenti Pubblici",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_dis_coll",
-            "name": "Inps Dis Coll",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_flussi_settore",
-            "name": "Inps Flussi Settore",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_invalidi_civili",
-            "name": "Inps Invalidi Civili",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_lavoratori_pubblici",
-            "name": "Inps Lavoratori Pubblici",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_lavoratori_redditi",
-            "name": "Inps Lavoratori Redditi",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_naspi",
-            "name": "Inps Naspi",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_pensionamento_flussi",
-            "name": "Inps Pensionamento Flussi",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_pensioni_liquidate",
-            "name": "Inps Pensioni Liquidate",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_pensioni_serie",
-            "name": "Inps Pensioni Serie",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_pensioni_vigenti",
-            "name": "Inps Pensioni Vigenti",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_rapporti_cessazioni",
-            "name": "Inps Rapporti Cessazioni",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_rapporti_lavoro",
-            "name": "Inps Rapporti Lavoro",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_rdc_pdc",
-            "name": "Inps Rdc Pdc",
-            "column": "anno",
-            "semantic_type": "year"
-          },
-          {
-            "slug": "inps_retribuzioni",
-            "name": "Inps Retribuzioni",
-            "column": "anno",
-            "semantic_type": "year"
-          }
-        ],
-        "types": {
-          "year": 21,
-          "month": 1
-        }
-      }
-    },
-    "bridges": [
-      {
-        "from": {
-          "entity": "Programma",
-          "dataset": "inps_bilancio_missioni",
-          "via": "programma_code"
-        },
-        "to": {
-          "entity": "Progetto",
-          "bridge": "opencoesione_progetti_esteso",
-          "on": "CUP",
-          "semantic_type": "cup_code"
-        }
-      }
-    ]
-  }
+  "checks": [],
+  "codelists": []
 }
